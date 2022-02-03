@@ -1,10 +1,28 @@
 ## Background
 
+"2D Tennis, a tennis game" is a simple top-down tennis video game that follows the same scoring as tennis. [Refer to the USTA for more information on scoring rules.](https://www.usta.com/en/home/improve/tips-and-instruction/national/tennis-scoring-rules.html) In "2D Tennis", players only need to win 1 set of singles to win the match. 
+
 ## Functionality & MVPs
+
+In "2D Tennis, a tennis game", users will be able to:
+
+- Move around the court using WASD
+- Swing at the ball using F
+- Aim the swing left, center, or right by holding W, holding no direction, or holding D during the swing.
+
+In addition, this project will include:
+
+- A sound effects toggle button
+- Post-game stats showing player's 'winners' and 'unforced errors'.
+- A README
 
 ## Wireframes
 
 ![wireframe](./wireframe.png)
+
+- Once loaded, canvas will display the start menu that includes controls
+- Sfx toggle allows user to toggle sound effects
+- Buttons that are Links the the project github repo and my linkedin are to the right.
 
 ## Technologies, Libraries, APIs
 
