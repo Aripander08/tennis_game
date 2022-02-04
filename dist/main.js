@@ -15,7 +15,7 @@
   \*********************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nclass Ball extends MovingObject {\n    constructor(pos, vel, radius) {\n        super(pos, vel);\n        this.radius = radius;\n    }\n\n\n    draw(ctx) {\n        // the shadow\n        ctx.beginPath();\n        ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);\n        ctx.fillStyle = \"#000\";\n        ctx.fill();\n\n        // the ball\n        ctx.beginPath();\n        ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);\n        ctx.fillStyle = \"#ccff00\";\n        ctx.fill();\n\n    }\n}\n\nmodule.exports = Ball;\n\n//# sourceURL=webpack://tennis_game/./src/ball.js?");
+eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nclass Ball extends MovingObject {\n    constructor(pos, vel, radius) {\n        super(pos, vel);\n        this.radius = radius;\n        this.player = null;\n        this.bounceCount = 0;\n    }\n\n\n    draw(ctx) {\n        // the shadow\n        ctx.fillStyle = \"#000\";\n        ctx.beginPath();\n        ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);\n        ctx.fill();\n\n        // the ball\n        ctx.fillStyle = \"#ccff00\";\n        ctx.beginPath();\n        ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);\n        ctx.fill();\n\n    }\n\n\n    collisionDetection(otherObject) {\n        const collisionDist = this.radius + 10;\n        const ballPos = this.pos;\n        const otherPos = otherObject.pos;\n        const currentDist = Math.hypot(ballPos[0] - otherPos[0], ballPos[2] - otherPos[1]);\n        // debugger\n        if (currentDist < collisionDist) {\n            if (otherObject instanceof MovingObject) { // if other object is a Human or Computer Player\n                this.player = otherObject;\n                this.vel[0] *= -1; \n                this.vel[1] *= -1; \n                this.vel[2] *= -1; \n            } else {} //this is for if the otherObj is the net or court\n        }\n    }\n}\n\nmodule.exports = Ball;\n\n//# sourceURL=webpack://tennis_game/./src/ball.js?");
 
 /***/ }),
 
@@ -25,7 +25,17 @@ eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src
   \*********************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const Ball = __webpack_require__(/*! ./ball.js */ \"./src/ball.js\");\n\nclass Game {\n\n    constructor(ctx) {\n        // debugger\n        this.ctx = ctx;\n        this.ball = new Ball([500, 500], [-1, -4], 5);\n    };\n\n    start() {\n        // debugger\n        this.animate();\n    } \n    \n    \n    animate() {\n        // debugger\n        requestAnimationFrame(this.animate.bind(this));\n        this.ctx.clearRect(0, 0, 800, 600);\n        this.draw(this.ctx);\n        this.ball.move();\n    }\n\n    draw(ctx) {\n        // tentative court\n        ctx.fillStyle = \"green\"\n        ctx.fillRect(0, 0, 800, 600);\n        // debugger\n        this.ball.draw(ctx);\n    }\n}\n\nmodule.exports = Game;\n\n//# sourceURL=webpack://tennis_game/./src/game.js?");
+eval("const Ball = __webpack_require__(/*! ./ball.js */ \"./src/ball.js\");\nconst HumanPlayer = __webpack_require__(/*! ./human_player.js */ \"./src/human_player.js\");\n\nclass Game {\n\n    constructor(ctx) {\n        // debugger\n        this.ctx = ctx;\n        this.ball = new Ball([500, 130, 110], [0, -3, -3], 5); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL\n        this.player1 = new HumanPlayer([500, 500], [0,0], \"red\");\n        this.player2 = new HumanPlayer([500, 80], [0, 0], \"blue\");\n    };\n\n    start() {\n        // debugger\n        this.animate();\n    } \n    \n    \n    animate() {\n        // debugger\n        requestAnimationFrame(this.animate.bind(this));\n        this.ctx.clearRect(0, 0, 800, 600);\n        this.draw(this.ctx);\n        this.ball.move();\n        this.ball.collisionDetection(this.player1);\n        this.ball.collisionDetection(this.player2);\n    }\n\n    draw(ctx) {\n        // tentative court\n        ctx.fillStyle = \"green\"\n        ctx.fillRect(0, 0, 800, 600);\n        // debugger\n        this.player1.draw(ctx);\n        this.player2.draw(ctx);\n        this.ball.draw(ctx);\n    }\n}\n\nmodule.exports = Game;\n\n//# sourceURL=webpack://tennis_game/./src/game.js?");
+
+/***/ }),
+
+/***/ "./src/human_player.js":
+/*!*****************************!*\
+  !*** ./src/human_player.js ***!
+  \*****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nclass HumanPlayer extends MovingObject {\n    constructor(pos, vel, color) {\n        super(pos, vel);\n        this.color = color;\n    }\n\n    draw(ctx) {\n        // the shadow\n        ctx.fillStyle = this.color;\n        ctx.beginPath();\n        // ctx.ellipse(this.pos[0], this.pos[1], )\n        ctx.fillRect(this.pos[0] - 10, this.pos[1] - 20, 20, 40);\n    }\n}\n\nmodule.exports = HumanPlayer;\n\n//# sourceURL=webpack://tennis_game/./src/human_player.js?");
 
 /***/ }),
 
@@ -45,7 +55,7 @@ eval("const Game = __webpack_require__(/*! ./game.js */ \"./src/game.js\");\n\nd
   \******************************/
 /***/ ((module) => {
 
-eval("class MovingObject {\n    constructor(pos, vel) {\n        this.pos = pos;\n        this.vel = vel;\n    };\n\n    move() {\n        this.pos[0] += this.vel[0];\n        this.pos[1] += this.vel[1];\n    };\n}\n\nmodule.exports = MovingObject;\n\n//# sourceURL=webpack://tennis_game/./src/moving_object.js?");
+eval("class MovingObject {\n    constructor(pos, vel) {\n        this.pos = pos;\n        this.vel = vel;\n    };\n\n    move() {\n        this.pos[0] += this.vel[0];\n        this.pos[1] += this.vel[1];\n        this.pos[2] += this.vel[2];\n    };\n}\n\nmodule.exports = MovingObject;\n\n//# sourceURL=webpack://tennis_game/./src/moving_object.js?");
 
 /***/ })
 
