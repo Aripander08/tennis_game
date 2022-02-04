@@ -27,24 +27,12 @@ In addition, this project will include:
 ## Technologies, Libraries, APIs
 
 - The Canvas API is used for drawing the tennis court, the net, the ball, and the players
-- The Gamepad API is used to handle user input
+- POSSIBILITY The Gamepad API is used to handle user input
 
 ## Implementation Timeline
 
 - Friday Afternoon:  
     - Project setup:
-        - Classes
-            - MovingObject
-            - Ball (inherits from MovingObject)
-            - HumanPlayer (inherits from MovingObject)
-            - ComputerPlayer (inherits from HumanPlayer)
-            - Court
-            - Net
-            - Game
-            - Index (entry)
-        - HTML
-            - Index
-        - Webpack
     - Create MovingObject (excluding height)
     - Create Ball
     - Create HumanPlayer (any collision with the ball will count as a swing for now)
@@ -66,14 +54,14 @@ In addition, this project will include:
     - Update Player from being a rectangle to a drawing with animations for moving and swinging
     - Add start menu, instructions, sound toggle to Game
 - Thursday Morning
-    - Deplay to GitHub
+    - Depl0y to GitHub
 
 
 ## Known bugs
 
 - HumanPlayer controls also control ComputerPlayer!!! 
 - Keydown on movement is initially slow, takes too much time to get going
-- Unable to move diagonally
+- Only able to move diagonally if two keys are pressed down at same time, but not if a 2nd key is pressed down after teh first
 - Need to smooth out the player movement animation
 - ComputerPlayer never stops chasing the ball, crossing the 'net'
 - ComputerPlayer only ever moves forward, never back

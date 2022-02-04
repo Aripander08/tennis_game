@@ -4,7 +4,8 @@ export default class HumanPlayer extends MovingObject {
     constructor(pos, vel, color) {
         super(pos, vel);
         this.color = color;
-        this.bindControls();
+
+
     }
 
     draw(ctx) {
@@ -20,25 +21,21 @@ export default class HumanPlayer extends MovingObject {
         
     }
 
-    bindControls() {
-        const that = this;
-        // debugger
-        window.addEventListener("keydown", function(e) {
-            if (e.code === "KeyW") { // up
-                that.vel = [0, -8];
-                that.move();
-            } else if (e.code === "KeyS") { //down
-                that.vel = [0, 8];
-                that.move();
-            } else if (e.code === "KeyA") { // left
-                that.vel = [-10, 0];
-                that.move();
-            } else if (e.code === "KeyD") { // right
-                that.vel = [10, 0];
-                that.move();
-            } else if (e.code === "KeyF") {
-                // swing
-            }
-        })
-    }
+        // if (e.code === "KeyW") { // up
+        //     debugger
+        //     that.vel = [0, -8];
+        //     that.move();
+        // } else if (e.code === "KeyS") { //down
+        //     that.vel = [0, 8];
+        //     that.move();
+        // } else if (e.code === "KeyA") { // left
+        //     that.vel = [-10, 0];
+        //     that.move();
+        // } else if (e.code === "KeyD") { // right
+        //     that.vel = [10, 0];
+        //     that.move();
+        // } else if (e.code === "KeyF") {
+        //     // swing
+        // }
+
 }

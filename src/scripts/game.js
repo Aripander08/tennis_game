@@ -11,12 +11,38 @@ export default class Game {
         this.player1 = new HumanPlayer([500, 500], [0,0], "red");
         // debugger
         this.player2 = new ComputerPlayer([100, 80], [0, 0], "blue", this.ball);
+        // debugger
+        this.keydownHandler = this.keydownHandler.bind(this.player1);
+        this.bindControls();
     };
 
     start() {
         this.animate();
     } 
     
+    bindControls() {
+        // debugger
+        document.addEventListener("keydown", this.keydownHandler, false)
+    }
+
+    keydownHandler(e) {
+        // debugger
+        if (e.code === "KeyW") { // up
+            this.vel = [0, -8];
+            this.move();
+            // debugger
+        } else if (e.code === "KeyS") { //down
+            this.vel = [0, 8];
+            this.move();
+        } else if (e.code === "KeyA") { // left
+            this.vel = [-10, 0];
+            this.move();
+            // debugger
+        } else if (e.code === "KeyD") { // right
+            this.vel = [10, 0];
+            this.move();
+        }
+}
     
     animate() {
         // debugger

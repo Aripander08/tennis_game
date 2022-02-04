@@ -4,7 +4,7 @@ export default class Ball extends MovingObject {
     constructor(pos, vel, radius) {
         super(pos, vel);
         this.radius = radius;
-        this.player = undefined; // only starts at undefined but does not stay this way
+        this.player = ""; // only starts at undefined but does not stay this way
         this.bounceCount = 0;
         // debugger
     }
