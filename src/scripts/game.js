@@ -46,11 +46,9 @@ export default class Game {
     }
 
     clickHandler(e) { // need to add a cooldown to this so user can't spam click
-        // let ball = this.ball;
         if (this.ball.collisionDetector(this.player1) === this.player1) {
             this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
         }
-        
     }
     
     animate() {
