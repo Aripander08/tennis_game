@@ -29,10 +29,9 @@ export default class ComputerPlayer extends HumanPlayer {
 
         // path to reset position should prevent computer from endlessly moving forward
         const returnAngle = Math.atan2(80 - this.pos[1], 400 - this.pos[0]);
-        const returnVel = [Math.cos(returnAngle), Math.sin(returnAngle)];
+        const returnVel = [Math.cos(returnAngle) * 2, Math.sin(returnAngle) * 2];
 
         if (ball.player.constructor.name === 'HumanPlayer') {
-
             this.vel = newVel;
             this.move();
 
