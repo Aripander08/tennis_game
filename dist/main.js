@@ -19,13 +19,23 @@ eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src
 
 /***/ }),
 
+/***/ "./src/computer_player.js":
+/*!********************************!*\
+  !*** ./src/computer_player.js ***!
+  \********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nclass ComputerPlayer extends MovingObject {\n    constructor(pos, vel, color) {\n        super(pos, vel);\n        this.color = color;\n    }\n\n    draw(ctx) {\n        // the player\n        ctx.fillStyle = this.color;\n        ctx.beginPath();\n        ctx.fillRect(this.pos[0] - 10, this.pos[1] - 20, 20, 40);\n        \n        //their shadow\n        ctx.fillStyle = \"#000\";\n        ctx.beginPath();\n        ctx.fillRect(this.pos[0] - 10, this.pos[1] + 20, 20, 20);\n        \n    }\n}\n\nmodule.exports = ComputerPlayer;\n\n//# sourceURL=webpack://tennis_game/./src/computer_player.js?");
+
+/***/ }),
+
 /***/ "./src/game.js":
 /*!*********************!*\
   !*** ./src/game.js ***!
   \*********************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const Ball = __webpack_require__(/*! ./ball.js */ \"./src/ball.js\");\nconst HumanPlayer = __webpack_require__(/*! ./human_player.js */ \"./src/human_player.js\");\n\nclass Game {\n\n    constructor(ctx) {\n        // debugger\n        this.ctx = ctx;\n        this.ball = new Ball([500, 130, 110], [0, -3, -3], 5); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL\n        this.player1 = new HumanPlayer([500, 500], [0,0], \"red\");\n        this.player2 = new HumanPlayer([500, 80], [0, 0], \"blue\");\n    };\n\n    start() {\n        // debugger\n        this.animate();\n    } \n    \n    \n    animate() {\n        // debugger\n        requestAnimationFrame(this.animate.bind(this));\n        this.ctx.clearRect(0, 0, 800, 600);\n        this.draw(this.ctx);\n        this.ball.move();\n        this.ball.collisionDetection(this.player1);\n        this.ball.collisionDetection(this.player2);\n    }\n\n    draw(ctx) {\n        // tentative court\n        ctx.fillStyle = \"green\"\n        ctx.fillRect(0, 0, 800, 600);\n        // debugger\n        this.player1.draw(ctx);\n        this.player2.draw(ctx);\n        this.ball.draw(ctx);\n    }\n}\n\nmodule.exports = Game;\n\n//# sourceURL=webpack://tennis_game/./src/game.js?");
+eval("const Ball = __webpack_require__(/*! ./ball.js */ \"./src/ball.js\");\nconst HumanPlayer = __webpack_require__(/*! ./human_player.js */ \"./src/human_player.js\");\nconst ComputerPlayer = __webpack_require__(/*! ./computer_player.js */ \"./src/computer_player.js\");\n\nclass Game {\n\n    constructor(ctx) {\n        // debugger\n        this.ctx = ctx;\n        this.ball = new Ball([500, 130, 110], [0, 3, 3], 5); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL\n        this.player1 = new HumanPlayer([500, 500], [0,0], \"red\");\n        this.player2 = new ComputerPlayer([100, 80], [0, 0], \"blue\");\n    };\n\n    start() {\n        // debugger\n        this.animate();\n    } \n    \n    \n    animate() {\n        // debugger\n        requestAnimationFrame(this.animate.bind(this));\n        this.ctx.clearRect(0, 0, 800, 600);\n        this.draw(this.ctx);\n        this.ball.move();\n        this.ball.collisionDetection(this.player1);\n        this.ball.collisionDetection(this.player2);\n    }\n\n    draw(ctx) {\n        // tentative court\n        ctx.fillStyle = \"green\"\n        ctx.fillRect(0, 0, 800, 600);\n        // debugger\n        this.player1.draw(ctx);\n        this.player2.draw(ctx);\n        this.ball.draw(ctx);\n    }\n}\n\nmodule.exports = Game;\n\n//# sourceURL=webpack://tennis_game/./src/game.js?");
 
 /***/ }),
 
