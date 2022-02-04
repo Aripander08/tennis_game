@@ -26,7 +26,8 @@ In addition, this project will include:
 
 ## Technologies, Libraries, APIs
 
-The Canvas API is used for drawing the tennis court, the net, the ball, and the players
+- The Canvas API is used for drawing the tennis court, the net, the ball, and the players
+- The Gamepad API is used to handle user input
 
 ## Implementation Timeline
 
