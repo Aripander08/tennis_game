@@ -21,4 +21,14 @@ export default class HumanPlayer extends MovingObject {
         
     }
 
+    swing(e, canvas, ball) {
+        // let canvas = this.ctx.canvas.getBoundingClientRect()
+        const mouseX = e.clientX - canvas.x;
+        const mouseY = e.clientY - canvas.y;
+        const angle = Math.atan2(mouseY - ball.pos[1], mouseX - ball.pos[0]);
+        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, Math.sin(angle) * 3];
+        // ball.collisionDetector(this.player1);
+        ball.vel = newVel;
+        ball.player = this;
+    }
 }
