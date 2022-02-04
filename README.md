@@ -73,6 +73,6 @@ In addition, this project will include:
 
 - Movement controls both Player1 and Player2
 - Certain vertical movements cause Ball to get stuck
-- Ceratain vertical movements cause Ball to pass through player
+- Certain vertical movements cause Ball to pass through player
 - Keydown on movement is initially slow, takes too much time to get going
 - Unable to move diagonally
