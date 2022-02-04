@@ -38,7 +38,7 @@ In addition, this project will include:
     - Create HumanPlayer (any collision with the ball will count as a swing for now)
     - Make sure the velocities of the Ball and HumanPlayer are 'playable'
 - Weekend
-    - Create ComputerPlayer that will determine the shortest bath to intercept with the moving Ball's path and move accordingly
+    - Create ComputerPlayer that will determine the shortest path to intercept with the moving Ball's path and move accordingly
     - Implement height to Ball and Player
     - Create Court that detects collision with Ball if Ball height is 0. Based on location in court where Ball height is 0, Court will determine if Ball is in or out
     - Create Net that detects collision with Ball if Ball height is less than Net height when crossing over the Net's position
@@ -59,7 +59,6 @@ In addition, this project will include:
 
 ## Known bugs
 
-- HumanPlayer controls also control ComputerPlayer!!! 
 - Keydown on movement is initially slow, takes too much time to get going
 - Only able to move diagonally if two keys are pressed down at same time, but not if a 2nd key is pressed down after teh first
 - Need to smooth out the player movement animation
