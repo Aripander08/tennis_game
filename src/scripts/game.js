@@ -13,7 +13,7 @@ export default class Game {
         this.player2 = new ComputerPlayer([500, 80], [0, 0], "blue", this.ball);
         // debugger
         this.keydownHandler = this.keydownHandler.bind(this.player1);
-        this.clickHandler = this.clickHandler.bind(this.ball);
+        this.clickHandler = this.clickHandler.bind(this);
         this.bindControls();
     };
 
@@ -47,11 +47,15 @@ export default class Game {
     }
 
     clickHandler(e) {
-        const angle = Math.atan2(e.y - this.pos[1], e.x - this.pos[0]);
-        const newVel = [Math.cos(angle), Math.sin(angle), Math.sin(angle)];
+        let canvas = this.ctx.canvas.getBoundingClientRect()
+        const mouseX = e.clientX - canvas.x;
+        const mouseY = e.clientY - canvas.y;
+        const angle = Math.atan2(mouseY - this.ball.pos[1], mouseX - this.ball.pos[0]);
 
-        this.vel = newVel;
-        // debugger
+        // const angle = Math.atan2(e.y - this.pos[1], e.x - this.pos[0]);
+        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, Math.sin(angle) * 3];
+
+        this.ball.vel = newVel;
     }
     
     animate() {
