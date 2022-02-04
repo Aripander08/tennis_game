@@ -23,8 +23,8 @@ export default class Game {
     
     bindControls() {
         // debugger
-        document.addEventListener("keydown", this.keydownHandler, false)
-        document.addEventListener("click", this.clickHandler, false)
+        document.addEventListener("keydown", this.keydownHandler)
+        document.addEventListener("click", this.clickHandler)
     }
 
     keydownHandler(e) {
@@ -46,16 +46,20 @@ export default class Game {
         }
     }
 
-    clickHandler(e) {
-        let canvas = this.ctx.canvas.getBoundingClientRect()
-        const mouseX = e.clientX - canvas.x;
-        const mouseY = e.clientY - canvas.y;
-        const angle = Math.atan2(mouseY - this.ball.pos[1], mouseX - this.ball.pos[0]);
-
-        // const angle = Math.atan2(e.y - this.pos[1], e.x - this.pos[0]);
-        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, Math.sin(angle) * 3];
-
-        this.ball.vel = newVel;
+    clickHandler(e) { // should only be abl.e to click if the ball player is computer
+        let ball = this.ball;
+        // debugger
+        if (ball.collisionDetector(this.player1) === this.player1) {
+            // debugger
+            let canvas = this.ctx.canvas.getBoundingClientRect()
+            const mouseX = e.clientX - canvas.x;
+            const mouseY = e.clientY - canvas.y;
+            const angle = Math.atan2(mouseY - ball.pos[1], mouseX - ball.pos[0]);
+            const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, Math.sin(angle) * 3];
+            ball.collisionDetector(this.player1);
+            ball.vel = newVel;
+        }
+        
     }
     
     animate() {
@@ -63,7 +67,7 @@ export default class Game {
         requestAnimationFrame(this.animate.bind(this)); // this will let the animation pause when outside of tab
         this.ctx.clearRect(0, 0, 800, 600);
         this.draw(this.ctx);
-        this.ball.collisionDetection(this.player1);
+        // this.ball.collisionDetection(this.player1);
         this.ball.collisionDetection(this.player2);
         // this.ball.collisionDetection(this.net)
         // debugger

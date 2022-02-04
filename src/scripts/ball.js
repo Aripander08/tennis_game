@@ -26,6 +26,18 @@ export default class Ball extends MovingObject {
     }
 
 
+    collisionDetector(otherObject) {
+        const collisionDist = this.radius + 20;
+        const ballPos = this.pos;
+        const otherPos = otherObject.pos;
+        const currentDist = Math.hypot(ballPos[0] - otherPos[0], ballPos[2] - otherPos[1]);
+        if (currentDist < collisionDist) {
+            return otherObject;
+        } else {
+            return '';
+        }
+    }
+
     collisionDetection(otherObject) {
         const collisionDist = this.radius + 20;
         const ballPos = this.pos;
