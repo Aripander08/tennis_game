@@ -9,7 +9,7 @@ class Game {
         this.ctx = ctx;
         this.ball = new Ball([500, 130, 110], [0, 3, 3], 5); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL
         this.player1 = new HumanPlayer([500, 500], [0,0], "red");
-        this.player2 = new ComputerPlayer([100, 80], [0, 0], "blue");
+        this.player2 = new ComputerPlayer([500, 80], [0, 0], "blue", this.ball);
     };
 
     start() {

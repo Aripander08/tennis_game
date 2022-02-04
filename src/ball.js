@@ -26,17 +26,20 @@ class Ball extends MovingObject {
 
 
     collisionDetection(otherObject) {
-        const collisionDist = this.radius + 10;
+        const collisionDist = this.radius + 20;
         const ballPos = this.pos;
         const otherPos = otherObject.pos;
         const currentDist = Math.hypot(ballPos[0] - otherPos[0], ballPos[2] - otherPos[1]);
         // debugger
         if (currentDist < collisionDist) {
             if (otherObject instanceof MovingObject) { // if other object is a Human or Computer Player
-                this.player = otherObject;
-                this.vel[0] *= -1; 
-                this.vel[1] *= -1; 
-                this.vel[2] *= -1; 
+                if (this.player !== otherObject) {
+                    this.player = otherObject;
+                    this.vel[0] *= -1; 
+                    this.vel[1] *= -1; 
+                    this.vel[2] *= -1;
+                }
+                // debugger 
             } else {} //this is for if the otherObj is the net or court
         }
     }

@@ -71,8 +71,6 @@ In addition, this project will include:
 
 ## Known bugs
 
-- Certain vertical movements cause Ball to get stuck
-- Certain vertical movements cause Ball to pass through player
 - Keydown on movement is initially slow, takes too much time to get going
 - Unable to move diagonally
 - Need to smooth out the player movement animation
