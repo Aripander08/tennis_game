@@ -21,21 +21,4 @@ export default class HumanPlayer extends MovingObject {
         
     }
 
-        // if (e.code === "KeyW") { // up
-        //     debugger
-        //     that.vel = [0, -8];
-        //     that.move();
-        // } else if (e.code === "KeyS") { //down
-        //     that.vel = [0, 8];
-        //     that.move();
-        // } else if (e.code === "KeyA") { // left
-        //     that.vel = [-10, 0];
-        //     that.move();
-        // } else if (e.code === "KeyD") { // right
-        //     that.vel = [10, 0];
-        //     that.move();
-        // } else if (e.code === "KeyF") {
-        //     // swing
-        // }
-
 }

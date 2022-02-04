@@ -46,7 +46,7 @@ export default class Game {
     
     animate() {
         // debugger
-        requestAnimationFrame(this.animate.bind(this));
+        requestAnimationFrame(this.animate.bind(this)); // this will let the animation pause when outside of tab
         this.ctx.clearRect(0, 0, 800, 600);
         this.draw(this.ctx);
         this.ball.collisionDetection(this.player1);
