@@ -1,11 +1,9 @@
-const MovingObject = require("./moving_object.js");
+const HumanPlayer = require("./human_player.js");
 
-class ComputerPlayer extends MovingObject {
-    constructor(pos, vel, color, ball) {
+class ComputerPlayer extends HumanPlayer {
+    constructor(pos, vel, color) {
         super(pos, vel);
         this.color = color;
-        this.bindControls();
-        this.ball = ball; // there needs t obe a way for computer to access game or ball to figure out it's trajectory
     }   // will need to study how to get angles and lengths of right triangles
 
     draw(ctx) {
@@ -21,11 +19,40 @@ class ComputerPlayer extends MovingObject {
         
     }
 
-    bindControls() {
-        const that = this;
+
+    findPath(ball, ctx) {
+
+        let ballX = ball.pos[0];
+        let ballY = ball.pos[1];
+
+        // visualize ball path for my dev purposes
+        while ((ballX > 0 && ballX < 600) && (ballY > 0 && ballY < 800)) {
+            ballX += ball.vel[0];
+            ballY += ball.vel[1];
+        }
+
         // debugger
-        
+
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(ball.pos[0], ball.pos[1]);
+        ctx.lineTo(ballX, ballY);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+
+        const angle = Math.atan2(ball.pos[1] - this.pos[1], ball.pos[0] - this.pos[0]);
+        const newVel = [Math.cos(angle) * 6, Math.sin(angle)];
+
+        if (ball.player.constructor.name === 'HumanPlayer') {
+            // debugger
+            this.vel = newVel; // we need to determin this vel
+            this.move();
+            // debugger
+        } else {
+            this.vel = [0, 0];
+        }
     }
+
 }
 
 module.exports = ComputerPlayer;

@@ -4,8 +4,9 @@ class Ball extends MovingObject {
     constructor(pos, vel, radius) {
         super(pos, vel);
         this.radius = radius;
-        this.player = null;
+        this.player = undefined; // only starts at undefined but does not stay this way
         this.bounceCount = 0;
+        // debugger
     }
 
 
@@ -34,13 +35,30 @@ class Ball extends MovingObject {
         if (currentDist < collisionDist) {
             if (otherObject instanceof MovingObject) { // if other object is a Human or Computer Player
                 if (this.player !== otherObject) {
+                // in current version, collission simply redirects the ball back where it came
+                // later down in dev, we must set simple collision to cause ball to "die"
+                // there will be an additional conditional for if player is swinging during collision
+                // and if they are, the ball will redirect with forces from player's swing
                     this.player = otherObject;
-                    this.vel[0] *= -1; 
+                    this.vel[0] *= -1;
                     this.vel[1] *= -1; 
                     this.vel[2] *= -1;
                 }
                 // debugger 
-            } else {} //this is for if the otherObj is the net or court
+            } else {} //this is for if the otherObj is the net
+        }
+    }
+
+    bounceDetection() {
+        if (this.pos[1] === this.pos[2]) {
+            if (this.bounceCount < 1) {
+                // if this is the first bounce ,we are concerned with where in the court the ball bounced
+                // if in bounds, we will increment bounce count and keep progressing
+                // if out of bounds, we will end the point there, disabling further swings, and let the ball keep bouncing
+            } else {
+                // if this is the 2nd bounce, that means ball.player hit a winner 
+            }
+            // we will always allow ball to bounce, returning with 50% height to bounce, until it reaches out of the canvas
         }
     }
 }

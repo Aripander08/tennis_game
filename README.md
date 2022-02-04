@@ -71,6 +71,9 @@ In addition, this project will include:
 
 ## Known bugs
 
+- HumanPlayer controls also control ComputerPlayer!!! 
 - Keydown on movement is initially slow, takes too much time to get going
 - Unable to move diagonally
 - Need to smooth out the player movement animation
+- ComputerPlayer never stops chasing the ball, crossing the 'net'
+- ComputerPlayer only ever moves forward, never back
