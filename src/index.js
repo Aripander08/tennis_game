@@ -1,4 +1,4 @@
-const Game = require("./game.js");
+import  Game from "./scripts/game.js";
 
 document.addEventListener("DOMContentLoaded", function() {
     const canvas = document.getElementById('game-canvas');

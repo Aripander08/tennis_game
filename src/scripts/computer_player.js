@@ -1,6 +1,7 @@
-const HumanPlayer = require("./human_player.js");
+import HumanPlayer from "./human_player.js";
 
-class ComputerPlayer extends HumanPlayer {
+
+export default class ComputerPlayer extends HumanPlayer {
     constructor(pos, vel, color) {
         super(pos, vel);
         this.color = color;
@@ -54,5 +55,3 @@ class ComputerPlayer extends HumanPlayer {
     }
 
 }
-
-module.exports = ComputerPlayer;

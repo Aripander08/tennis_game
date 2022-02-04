@@ -1,8 +1,8 @@
-const Ball = require("./ball.js");
-const HumanPlayer = require("./human_player.js");
-const ComputerPlayer = require("./computer_player.js");
+import Ball from "./ball.js";
+import HumanPlayer from "./human_player.js";
+import ComputerPlayer from "./computer_player.js";
 
-class Game {
+export default class Game {
 
     constructor(ctx) {
         // debugger
@@ -41,5 +41,3 @@ class Game {
         this.player1.draw(ctx); // this order is important so that layering between back player, ball, and fore player is maintained
     }
 }
-
-module.exports = Game;

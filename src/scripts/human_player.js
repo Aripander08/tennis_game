@@ -1,6 +1,6 @@
-const MovingObject = require("./moving_object.js");
+import MovingObject from "./moving_object.js";
 
-class HumanPlayer extends MovingObject {
+export default class HumanPlayer extends MovingObject {
     constructor(pos, vel, color) {
         super(pos, vel);
         this.color = color;
@@ -42,5 +42,3 @@ class HumanPlayer extends MovingObject {
         })
     }
 }
-
-module.exports = HumanPlayer;

@@ -1,0 +1,24 @@
+body {
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    font-weight: 400;
+}
+
+h1 {
+    text-align: center;
+}
+
+section {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button {
+    margin-bottom: 10%;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+}
+
+

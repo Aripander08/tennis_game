@@ -1,6 +1,6 @@
-const MovingObject = require("./moving_object.js");
+import MovingObject from "./moving_object.js";
 
-class Ball extends MovingObject {
+export default class Ball extends MovingObject {
     constructor(pos, vel, radius) {
         super(pos, vel);
         this.radius = radius;
@@ -62,5 +62,3 @@ class Ball extends MovingObject {
         }
     }
 }
-
-module.exports = Ball;

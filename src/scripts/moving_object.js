@@ -1,4 +1,4 @@
-class MovingObject {
+export default class MovingObject {
     constructor(pos, vel) {
         this.pos = pos;
         this.vel = vel;
@@ -10,5 +10,3 @@ class MovingObject {
         this.pos[2] += this.vel[2];
     };
 }
-
-module.exports = MovingObject;
