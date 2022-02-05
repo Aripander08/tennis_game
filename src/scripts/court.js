@@ -2,6 +2,7 @@ const CONSTANTS = {
     WHITE: "#F5F5F5",
     BLUE: "#3C638E",
     GREEN: "#6C935C",
+    SHADOW: "#181818",
     FARLEFTX: 0.2625,
     NEARLEFTX: 0.2375,
     FARRIGHTX: 0.7375,
@@ -62,6 +63,9 @@ export default class Court {
         // outer court
         ctx.fillStyle = CONSTANTS.GREEN;
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        // outer court shadow
+        ctx.fillStyle = CONSTANTS.SHADOW;
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height / 20);
         // inner court & court lines
         ctx.fillStyle = CONSTANTS.BLUE;
         ctx.strokeStyle = CONSTANTS.WHITE;

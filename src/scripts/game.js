@@ -93,7 +93,7 @@ export default class Game {
         // tentative net
         ctx.fillStyle = "gray";
         ctx.fillRect(200, 260, 400, 30);
-        ctx.fillStyle = "#362815"
+        ctx.fillStyle = "#181818"
         // ctx.fillRect(200, 290, 400, 15);
         ctx.beginPath();
         ctx.moveTo(200, 290);

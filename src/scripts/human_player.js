@@ -1,5 +1,12 @@
 import MovingObject from "./moving_object.js";
 
+const CONSTANTS = {
+    SKIN: "#D2B48C",
+    HAIR: "#574022",
+    SHOES: "#D3D3D3",
+    SHADOW: "#181818"
+}
+
 export default class HumanPlayer extends MovingObject {
     constructor(pos, vel, color, height) {
         super(pos, vel);
@@ -9,23 +16,22 @@ export default class HumanPlayer extends MovingObject {
     }
 
     draw(ctx) {
-        // the player
         // player shirt
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height);
-        //player hair
-        ctx.fillStyle = "#D2B48C";
+        //player head
+        ctx.fillStyle = CONSTANTS.SKIN;
         ctx.beginPath()
         ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height * (3/7));
         //player hair
-        ctx.fillStyle = "#574022";
+        ctx.fillStyle = CONSTANTS.HAIR;
         ctx.beginPath()
         ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height / 8);
 
 
         //their shadow
-        ctx.fillStyle = "#362815";
+        ctx.fillStyle = CONSTANTS.SHADOW;
         // ctx.fillStyle = "#444444";
         ctx.beginPath();
         ctx.fillRect(this.pos[0] - (this.width / 2), this.pos[1] + (this.width), this.width, 20);
