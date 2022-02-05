@@ -2,26 +2,45 @@ import Court from "./court.js";
 import Ball from "./ball.js";
 import HumanPlayer from "./human_player.js";
 import ComputerPlayer from "./computer_player.js";
+import Net from "./net.js";
 
+const CONSTANTS = {
+    P1ADSTART: [470, 500],
+    P1COLOR: "red",
+    P2ADSTART: [350, 80],
+    P2COLOR: "orange",
+    PLAYERHT: 0.06,
+    BALLSTART: [480, 500, 490],
+    BALLTOSSVEL: [0, 0, -4]
+}
 
 export default class Game {
 
     constructor(ctx) {
-        // debugger
         this.ctx = ctx;
         this.court = new Court(this.ctx);
-        this.player1 = new HumanPlayer([470, 500], [0,0], "red", ctx.canvas.width * 0.05);
-        // debugger
-        // this.player1 = new ComputerPlayer([500, 500], [0, 0], "red", ctx.canvas.width * 0.05);
-        this.player2 = new ComputerPlayer([350, 80], [0, 0], "orange", ctx.canvas.width * 0.05);
+        this.net = new Net(this.ctx);
+        this.player1 = new HumanPlayer(
+            CONSTANTS.P1ADSTART, 
+            [0,0], 
+            CONSTANTS.P1COLOR, 
+            ctx.canvas.width * CONSTANTS.PLAYERHT
+        );
+        this.player2 = new ComputerPlayer(
+            CONSTANTS.P2ADSTART, 
+            [0, 0], 
+            CONSTANTS.P2COLOR, 
+            ctx.canvas.width * CONSTANTS.PLAYERHT);
 
         this.ball = new Ball(
-            [480, 500, 400], 
-            [0, 0,-2], 
+            // [480, 500, 400],
+            // [0, 0,-2], 
+            CONSTANTS.BALLSTART,
+            CONSTANTS.BALLTOSSVEL, 
             ctx.canvas.width * 0.00625, 
             this.player2, 
             ctx.canvas
-        ); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL
+        );
         
         // debugger
         this.keydownHandler = this.keydownHandler.bind(this);
@@ -78,6 +97,8 @@ export default class Game {
         requestAnimationFrame(this.animate.bind(this)); // this will let the animation pause when outside of tab
         this.ctx.clearRect(0, 0, 800, 600);
         this.ball.move();
+        this.net.stopBall(this.ball);
+
         this.player2.findPath(this.ball);
         this.player2.swing(this.ball);
         this.player1.reposition(this.keys);
@@ -89,12 +110,9 @@ export default class Game {
 
     draw(ctx) {
         this.court.draw(ctx);
-
-        // tentative net
-        ctx.fillStyle = "gray";
-        ctx.fillRect(200, 260, 400, 30);
-        ctx.fillStyle = "#181818"
-        // ctx.fillRect(200, 290, 400, 15);
+        this.net.draw(ctx);
+        // tentative netshadow
+        ctx.fillStyle = "rgba(23, 23, 23, 0.75)";
         ctx.beginPath();
         ctx.moveTo(200, 290);
         ctx.lineTo(600, 290);

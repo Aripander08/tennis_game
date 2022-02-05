@@ -59,8 +59,12 @@ In addition, this project will include:
 
 ## Known bugs
 
-- At random spots, a single bounce registers as 2 bounce, causing computer to not swing at it.
+- At random spots, a single bounce registers as 2 bounce, this will need to be fixed to either consistently bounce once or bounce twice 
 - Timing for click to swing is too hard. Need to allow user to swing just before collision with ball and have it register as a hit.
 - Maybe add a visual cue, like a bright green border on player when it is OK to hit
 - computer hits ball out way too often. need to adjust its paramters
 - When ball hits canvas border, sometimes bounces back sometimes just stops. 
+- Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
+- Should refactor court class to DRY it up 
+- A still ball on teh brown has its shadow drawn above it
+- Net successfull stops ball that is too low trying to pass it, but it also stops ball that is too low after it successfully clears the net.

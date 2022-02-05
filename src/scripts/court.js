@@ -2,7 +2,7 @@ const CONSTANTS = {
     WHITE: "#F5F5F5",
     BLUE: "#3C638E",
     GREEN: "#6C935C",
-    SHADOW: "#181818",
+    SHADOW: "rgba(23, 23, 23, 0.75)",
     FARLEFTX: 0.2625,
     NEARLEFTX: 0.2375,
     FARRIGHTX: 0.7375,

@@ -19,27 +19,55 @@ export default class Ball extends MovingObject {
 
     draw(ctx) {
         // the shadow
-        ctx.fillStyle = "#362815w";
+        ctx.fillStyle = "rgba(23, 23, 23, 0.75)";
         ctx.beginPath();
         ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
         ctx.fill();
         // the ball
-        ctx.fillStyle = "#ccff00";
-        ctx.beginPath();
-        ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
-        ctx.fill();
+        if (this.pos[1] < ctx.canvas.height / 20 && this.pos[2] < ctx.canvas.height / 20) {
+            // the ball with shadow over it 
+            ctx.fillStyle = "#83a300";
+            ctx.beginPath();
+            ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
+            ctx.fill();
+        } else {
+            ctx.fillStyle = "#ccff00";
+            ctx.beginPath();
+            ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
+            ctx.fill();
+        }
     }
 
     collisionDetector(otherObject) {
-        const collisionDist = this.radius + 20;
+        const collisionDistY = this.radius + otherObject.height;
+        // const collisionDistX = this.radius + otherObject.width;
         const currentDist = Math.hypot(
             this.pos[0] - otherObject.pos[0], 
             this.pos[1] - otherObject.pos[1]
         );
-        if (currentDist < collisionDist) {
+        // debugger
+        if (currentDist < collisionDistY) {
             return otherObject;
         } else {
             return '';
+        }
+    }
+
+    squareCollisionDetector(otherObject) {
+        if (
+            ((otherObject.pos[0]) <= (this.pos[0]) &&
+            (otherObject.pos[0] + otherObject.width) >= (this.pos[0])) &&
+            ((
+                otherObject.pos[1] >= this.pos[1] - this.radius && 
+                this.vel[1] < 0 &&
+                this.pos[1] - this.pos[2] < otherObject.height
+            ) 
+            // ||
+            // (otherObject.pos[1] <= this.pos[1] && this.vel[1] > 0)
+            )
+        ) { 
+            debugger
+            return otherObject;
         }
     }
 
@@ -76,14 +104,11 @@ export default class Ball extends MovingObject {
             (this.pos[0] + this.radius) >= this.canvas.width ||
             (this.pos[0] - this.radius <= 0) ||
             (this.pos[1] + this.radius) >= this.canvas.height ||
-            (this.pos[1] - this.radius <= 0)
+            (this.pos[1] - this.radius <= 0) 
+            // (this.pos[1] + this.radius) >= 290 
         ) {
-            // debugger
             this.vel[0] *= -(0.5);
             this.vel[1] *= -(0.5);
-            // this.vel[2] = 0
-            // this.vel[2] *= -(0.5);
-            // console.log('edge of canvas');
         }
 
 

@@ -4,7 +4,8 @@ const CONSTANTS = {
     SKIN: "#D2B48C",
     HAIR: "#574022",
     SHOES: "#D3D3D3",
-    SHADOW: "#181818"
+    SHADOW: "rgba(23, 23, 23, 0.75)",
+    MOVESPEED: 1.75
 }
 
 export default class HumanPlayer extends MovingObject {
@@ -12,7 +13,7 @@ export default class HumanPlayer extends MovingObject {
         super(pos, vel);
         this.color = color;
         this.height = height;
-        this.width = height / 2;
+        this.width = height / 3;
     }
 
     draw(ctx) {
@@ -23,26 +24,26 @@ export default class HumanPlayer extends MovingObject {
         //player head
         ctx.fillStyle = CONSTANTS.SKIN;
         ctx.beginPath()
-        ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height * (3/7));
+        ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height * (0.3));
         //player hair
         ctx.fillStyle = CONSTANTS.HAIR;
         ctx.beginPath()
-        ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height / 8);
+        ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height * (0.1));
 
 
         //their shadow
         ctx.fillStyle = CONSTANTS.SHADOW;
         // ctx.fillStyle = "#444444";
         ctx.beginPath();
-        ctx.fillRect(this.pos[0] - (this.width / 2), this.pos[1] + (this.width), this.width, 20);
+        ctx.fillRect(this.pos[0] - (this.width / 2), this.pos[1] + (this.height * 0.5), this.width, 20);
         
     }
 
     reposition(keys) {
-        if (keys.w || keys.W) this.pos[1] -= 1.5; 
-        if (keys.a || keys.A) this.pos[0] -= 1.5;
-        if (keys.s || keys.S) this.pos[1] += 1.5;
-        if (keys.d || keys.D) this.pos[0] += 1.5;
+        if (keys.w || keys.W) this.pos[1] -= CONSTANTS.MOVESPEED; 
+        if (keys.a || keys.A) this.pos[0] -= CONSTANTS.MOVESPEED;
+        if (keys.s || keys.S) this.pos[1] += CONSTANTS.MOVESPEED;
+        if (keys.d || keys.D) this.pos[0] += CONSTANTS.MOVESPEED;
         // debugger
     }
 
