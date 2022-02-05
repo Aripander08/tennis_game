@@ -42,8 +42,11 @@ export default class Net {
         // debugger
         if (ball.squareCollisionDetector(this) === this) {
             ball.inPlay = false;
-            console.log('net!');
-            debugger
+            ball.vel[0] *= (0.01);
+            // if (ball.pos[0] < )
+            ball.vel[1] *= -(0.01);
+            ball.vel[2] *= (0.5);
+
         }
     }
 }

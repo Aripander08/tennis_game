@@ -66,5 +66,5 @@ In addition, this project will include:
 - When ball hits canvas border, sometimes bounces back sometimes just stops. 
 - Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
 - Should refactor court class to DRY it up 
-- A still ball on teh brown has its shadow drawn above it
-- Net successfull stops ball that is too low trying to pass it, but it also stops ball that is too low after it successfully clears the net.
+- A still ball on the ground has its shadow drawn above it
+- Ball cannot pass the net, but players still can

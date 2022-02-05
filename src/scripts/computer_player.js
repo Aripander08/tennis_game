@@ -27,7 +27,7 @@ export default class ComputerPlayer extends HumanPlayer {
     }
 
     swing(ball) {
-        if (ball.collisionDetector(this) === this && ball.inPlay) {
+        if (ball.roundCollisionDetector(this) === this && ball.inPlay) {
             
             ball.vel[0] *= (0);
             // if (ball.pos[0] < )

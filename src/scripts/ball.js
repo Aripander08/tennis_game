@@ -1,3 +1,4 @@
+
 import MovingObject from "./moving_object.js";
 
 const CONSTANTS = {
@@ -24,7 +25,9 @@ export default class Ball extends MovingObject {
         ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
         ctx.fill();
         // the ball
-        if (this.pos[1] < ctx.canvas.height / 20 && this.pos[2] < ctx.canvas.height / 20) {
+        if ((this.pos[1] < ctx.canvas.height / 20 && this.pos[2] < ctx.canvas.height / 20) || 
+            (this.pos[1] < 290 && this.pos[1] > 270 && this.pos[1] - this.pos[2] < 20)
+        ) {
             // the ball with shadow over it 
             ctx.fillStyle = "#83a300";
             ctx.beginPath();
@@ -38,8 +41,8 @@ export default class Ball extends MovingObject {
         }
     }
 
-    collisionDetector(otherObject) {
-        const collisionDistY = this.radius + otherObject.height;
+    roundCollisionDetector(otherObject) {
+        const collisionDistY = this.radius + otherObject.height * (0.5);
         // const collisionDistX = this.radius + otherObject.width;
         const currentDist = Math.hypot(
             this.pos[0] - otherObject.pos[0], 
@@ -54,20 +57,24 @@ export default class Ball extends MovingObject {
     }
 
     squareCollisionDetector(otherObject) {
-        if (
-            ((otherObject.pos[0]) <= (this.pos[0]) &&
-            (otherObject.pos[0] + otherObject.width) >= (this.pos[0])) &&
-            ((
-                otherObject.pos[1] >= this.pos[1] - this.radius && 
-                this.vel[1] < 0 &&
-                this.pos[1] - this.pos[2] < otherObject.height
-            ) 
-            // ||
-            // (otherObject.pos[1] <= this.pos[1] && this.vel[1] > 0)
-            )
-        ) { 
-            debugger
-            return otherObject;
+        // if ball is on near half
+        if (this.pos[1] >= otherObject.pos[1]) {
+            // debugger
+            if (
+                otherObject.pos[0] <= this.pos[0] &&
+                otherObject.pos[0] + otherObject.width >= this.pos[0] &&
+                otherObject.pos[1] >= this.pos[1] - this.radius &&
+                this.pos[1] - this.pos[2] < otherObject.height) {
+                return otherObject;
+            }
+        } else {
+            if (
+                otherObject.pos[0] <= this.pos[0] &&
+                otherObject.pos[0] + otherObject.width >= this.pos[0] &&
+                otherObject.pos[1] <= this.pos[1] + this.radius &&
+                this.pos[1] - this.pos[2] < otherObject.height) {
+                return otherObject;
+            }
         }
     }
 

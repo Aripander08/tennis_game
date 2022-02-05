@@ -20,22 +20,22 @@ export default class HumanPlayer extends MovingObject {
         // player shirt
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height);
+        ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height);
         //player head
         ctx.fillStyle = CONSTANTS.SKIN;
         ctx.beginPath()
-        ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height * (0.3));
+        ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height * (0.3));
         //player hair
         ctx.fillStyle = CONSTANTS.HAIR;
         ctx.beginPath()
-        ctx.fillRect(this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height * (0.1));
+        ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height * (0.1));
 
 
         //their shadow
         ctx.fillStyle = CONSTANTS.SHADOW;
         // ctx.fillStyle = "#444444";
         ctx.beginPath();
-        ctx.fillRect(this.pos[0] - (this.width / 2), this.pos[1] + (this.height * 0.5), this.width, 20);
+        ctx.fillRect(this.pos[0], this.pos[1] + (this.height), this.width, 20);
         
     }
 
