@@ -59,8 +59,4 @@ In addition, this project will include:
 
 ## Known bugs
 
-- Keydown on movement is initially slow, takes too much time to get going
-- Only able to move diagonally if two keys are pressed down at same time, but not if a 2nd key is pressed down after teh first
-- Need to smooth out the player movement animation
-- ComputerPlayer never stops chasing the ball, crossing the 'net'
-- ComputerPlayer only ever moves forward, never back
+- At random spots, a single bounce registers as 2 bounce, causing computer to not swing at it.

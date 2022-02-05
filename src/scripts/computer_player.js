@@ -9,11 +9,11 @@ export default class ComputerPlayer extends HumanPlayer {
     findPath(ball) {
         // path to ball
         const angle = Math.atan2(ball.pos[1] - this.pos[1], ball.pos[0] - this.pos[0]);
-        const newVel = [Math.cos(angle) * 6, Math.sin(angle)];
+        const newVel = [Math.cos(angle) * 20, Math.sin(angle) * (4/10)];
 
         // path to reset position should prevent computer from endlessly moving forward
         const returnAngle = Math.atan2(40 - this.pos[1], 400 - this.pos[0]);
-        const returnVel = [Math.cos(returnAngle) * 2, Math.sin(returnAngle) * 2];
+        const returnVel = [Math.cos(returnAngle) * (1.2), Math.sin(returnAngle) * (0.3)];
 
         if (ball.player.constructor.name === 'HumanPlayer') {
             this.vel = newVel;
@@ -26,11 +26,12 @@ export default class ComputerPlayer extends HumanPlayer {
     }
 
     swing(ball) {
-        if (ball.collisionDetector(this) === this) {
+        if (ball.collisionDetector(this) === this && ball.inPlay) {
             ball.vel[0] *= -1;
             ball.vel[1] *= -1;
-            ball.vel[2] *= -3/4;
+            ball.vel[2] *= -1/10;
             ball.player = this;
+            ball.bounceCount = 0;
         }
     }
 

@@ -7,12 +7,21 @@ export default class Game {
     constructor(ctx) {
         // debugger
         this.ctx = ctx;
-        this.player1 = new HumanPlayer([470, 500], [0,0], "red", ctx.canvas.width * 0.05);
+        this.player1 = new HumanPlayer([470, 500], [0,0], "red", ctx.canvas.width * 0.075);
         // debugger
-        this.player2 = new ComputerPlayer([350, 80], [0, 0], "orange", ctx.canvas.width * 0.05);
-        this.ball = new Ball([480, 485, 400], [0, 0,-2], ctx.canvas.width * 0.00625, this.player2); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL
+        this.player2 = new ComputerPlayer([350, 80], [0, 0], "orange", ctx.canvas.width * 0.075);
+
+        this.ball = new Ball(
+            [480, 500, 400], 
+            [0, 0,-2], 
+            ctx.canvas.width * 0.00625, 
+            this.player2, 
+            ctx.canvas
+        ); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL
+        
         // debugger
-        this.keydownHandler = this.keydownHandler.bind(this.player1);
+        this.keydownHandler = this.keydownHandler.bind(this);
+        this.keyupHandler = this.keyupHandler.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
         this.bindControls();
     };
@@ -20,29 +29,34 @@ export default class Game {
     start() {
         this.animate();
     } 
+
+    reset() {
+        // setTimeout(this.animate.bind(this),2000);
+    }
     
     bindControls() {
         // debugger
         document.addEventListener("keydown", this.keydownHandler)
+        document.addEventListener("keyup", this.keyupHandler)
         document.addEventListener("click", this.clickHandler)
     }
 
+
+    keys = {
+        "w": false,
+        "s": false,
+        "a": false,
+        "d": false
+    }
+
     keydownHandler(e) {
+        this.keys[e.key] = true;
         // debugger
-        if (e.code === "KeyW") { // up
-            this.vel = [0, -8];
-            this.move();
-            // debugger
-        } else if (e.code === "KeyS") { //down
-            this.vel = [0, 8];
-            this.move();
-        } else if (e.code === "KeyA") { // left
-            this.vel = [-10, 0];
-            this.move();
-        } else if (e.code === "KeyD") { // right
-            this.vel = [10, 0];
-            this.move();
-        }
+    }
+
+    keyupHandler(e) {
+        // debugger
+        this.keys[e.key] = false;
     }
 
     clickHandler(e) { // need to add a cooldown to this so user can't spam click
@@ -55,10 +69,14 @@ export default class Game {
         // debugger
         requestAnimationFrame(this.animate.bind(this)); // this will let the animation pause when outside of tab
         this.ctx.clearRect(0, 0, 800, 600);
-        this.draw(this.ctx);
         this.ball.move();
         this.player2.findPath(this.ball);
         this.player2.swing(this.ball);
+        this.player1.reposition(this.keys);
+        this.draw(this.ctx);
+        if (!this.ball.inPlay) {
+
+        }
     }
 
     draw(ctx) {
@@ -71,11 +89,8 @@ export default class Game {
         // tentative net
         ctx.fillStyle = "gray";
         ctx.fillRect(200, 270, 400, 30);
-        ctx.fillStyle = "#444444"
+        ctx.fillStyle = "#362815"
         ctx.fillRect(200, 300, 400, 15);
-
-
-
 
         // debugger
         this.player2.draw(ctx);
