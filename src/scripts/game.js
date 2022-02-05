@@ -7,10 +7,10 @@ export default class Game {
     constructor(ctx) {
         // debugger
         this.ctx = ctx;
-        this.ball = new Ball([220, 130, 110], [1, 3, 3], ctx.canvas.width * 0.00625); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL
-        this.player1 = new HumanPlayer([350, 500], [0,0], "red", ctx.canvas.width * 0.05);
+        this.player1 = new HumanPlayer([470, 500], [0,0], "red", ctx.canvas.width * 0.05);
         // debugger
-        this.player2 = new ComputerPlayer([500, 80], [0, 0], "orange", ctx.canvas.width * 0.05);
+        this.player2 = new ComputerPlayer([350, 80], [0, 0], "orange", ctx.canvas.width * 0.05);
+        this.ball = new Ball([480, 485, 400], [0, 0,-2], ctx.canvas.width * 0.00625, this.player2); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL
         // debugger
         this.keydownHandler = this.keydownHandler.bind(this.player1);
         this.clickHandler = this.clickHandler.bind(this);

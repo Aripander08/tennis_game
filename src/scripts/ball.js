@@ -1,10 +1,16 @@
 import MovingObject from "./moving_object.js";
 
+const CONSTANTS = {
+    GRAVITY: 0.02,
+    FARBOUNCE: 4/3,
+    NEARBOUNCE: 3/4
+}
+
 export default class Ball extends MovingObject {
-    constructor(pos, vel, radius) {
+    constructor(pos, vel, radius, player) {
         super(pos, vel);
         this.radius = radius;
-        this.player = ""; // only starts at undefined but does not stay this way
+        this.player = player; // only starts at undefined but does not stay this way
         this.bounceCount = 0;
     }
 
@@ -34,16 +40,34 @@ export default class Ball extends MovingObject {
         }
     }
 
-    bounceDetection() {
-        if (this.pos[1] === this.pos[2]) {
-            if (this.bounceCount < 1) {
-                // if this is the first bounce ,we are concerned with where in the court the ball bounced
-                // if in bounds, we will increment bounce count and keep progressing
-                // if out of bounds, we will end the point there, disabling further swings, and let the ball keep bouncing
-            } else {
-                // if this is the 2nd bounce, that means ball.player hit a winner 
-            }
-            // we will always allow ball to bounce, returning with 50% height to bounce, until it reaches out of the canvas
+    bounce() {
+        if (this.bounceCount < 1) {
+            // if this is the first bounce ,we are concerned with where in the court the ball bounced
+            // if in bounds, we will increment bounce count and keep progressing
+            // if out of bounds, we will end the point there, disabling further swings, and let the ball keep bouncing
+        } else {
+            // if this is the 2nd bounce, that means ball.player hit a winner 
         }
+        // we will always allow ball to bounce, returning with 50% height to bounce, until it reaches out of the canvas
+    }
+
+    move() {
+        // debugger
+        if (this.pos[1] - this.pos[2] < 1.0 ) {
+            // this.bounce()
+            console.log('ground!');
+            // debugger
+            if (this.vel[2] > 0) {
+                this.vel[2] = this.vel[1] * CONSTANTS.NEARBOUNCE;
+            } else {
+                this.vel[2] = this.vel[1] * CONSTANTS.FARBOUNCE;
+            }
+        } else {
+            this.vel[2] += CONSTANTS.GRAVITY;
+        }
+        // debugger
+        this.pos[0] += this.vel[0];
+        this.pos[1] += this.vel[1];
+        this.pos[2] += this.vel[2];
     }
 }
