@@ -29,7 +29,7 @@ export default class ComputerPlayer extends HumanPlayer {
         if (ball.collisionDetector(this) === this && ball.inPlay) {
             ball.vel[0] *= -1;
             ball.vel[1] *= -1;
-            ball.vel[2] *= -1/10;
+            ball.vel[2] *= -1/4;
             ball.player = this;
             ball.bounceCount = 0;
         }

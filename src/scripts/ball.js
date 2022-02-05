@@ -3,7 +3,7 @@ import MovingObject from "./moving_object.js";
 const CONSTANTS = {
     GRAVITY: 0.04,
     FARBOUNCE: 1.5,
-    NEARBOUNCE: 1 / 3
+    NEARBOUNCE: 0.4
 }
 
 export default class Ball extends MovingObject {
@@ -51,10 +51,10 @@ export default class Ball extends MovingObject {
                 console.log('in!');
             } else {
                 console.log('out!');
-                this.inPlay = false;
+                // this.inPlay = false;
             }
         } else {
-                this.inPlay = false;
+                // this.inPlay = false;
             // if this is the 2nd bounce, that means ball.player hit a winner 
         }
         // we will always allow ball to bounce, returning with 50% height to bounce, until it reaches out of the canvas

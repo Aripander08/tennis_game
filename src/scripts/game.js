@@ -7,9 +7,9 @@ export default class Game {
     constructor(ctx) {
         // debugger
         this.ctx = ctx;
-        this.player1 = new HumanPlayer([470, 500], [0,0], "red", ctx.canvas.width * 0.075);
+        this.player1 = new HumanPlayer([470, 500], [0,0], "red", ctx.canvas.width * 0.05);
         // debugger
-        this.player2 = new ComputerPlayer([350, 80], [0, 0], "orange", ctx.canvas.width * 0.075);
+        this.player2 = new ComputerPlayer([350, 80], [0, 0], "orange", ctx.canvas.width * 0.05);
 
         this.ball = new Ball(
             [480, 500, 400], 
@@ -84,13 +84,26 @@ export default class Game {
         ctx.fillStyle = "#6C935C";
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.fillStyle = "#3C638E";
-        ctx.fillRect(ctx.canvas.width / 4, ctx.canvas.width / 8, ctx.canvas.width / 2, ctx.canvas.width / 2);
-        
+        // ctx.fillRect(ctx.canvas.width / 4, ctx.canvas.width / 8, ctx.canvas.width / 2, ctx.canvas.width / 2);
+        ctx.beginPath();
+        ctx.moveTo(ctx.canvas.width / 4 + 10, ctx.canvas.width / 8);
+        ctx.lineTo(ctx.canvas.width * (3/4) - 10, ctx.canvas.width / 8);
+        ctx.lineTo(ctx.canvas.width * (3/4) + 10, ctx.canvas.width * (5/8));
+        ctx.lineTo(ctx.canvas.width / 4 - 10, ctx.canvas.width * (5/8));
+        ctx.fill();
+
+
         // tentative net
         ctx.fillStyle = "gray";
-        ctx.fillRect(200, 270, 400, 30);
+        ctx.fillRect(200, 260, 400, 30);
         ctx.fillStyle = "#362815"
-        ctx.fillRect(200, 300, 400, 15);
+        // ctx.fillRect(200, 290, 400, 15);
+        ctx.beginPath();
+        ctx.moveTo(200, 290);
+        ctx.lineTo(600, 290);
+        ctx.lineTo(601, 305);
+        ctx.lineTo(199, 305);
+        ctx.fill();
 
         // debugger
         this.player2.draw(ctx);
