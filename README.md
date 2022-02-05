@@ -63,3 +63,4 @@ In addition, this project will include:
 - Timing for click to swing is too hard. Need to allow user to swing just before collision with ball and have it register as a hit.
 - Maybe add a visual cue, like a bright green border on player when it is OK to hit
 - computer hits ball out way too often. need to adjust its paramters
+- When ball hits canvas border, sometimes bounces back sometimes just stops. 

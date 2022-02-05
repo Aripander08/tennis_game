@@ -1,12 +1,15 @@
+import Court from "./court.js";
 import Ball from "./ball.js";
 import HumanPlayer from "./human_player.js";
 import ComputerPlayer from "./computer_player.js";
+
 
 export default class Game {
 
     constructor(ctx) {
         // debugger
         this.ctx = ctx;
+        this.court = new Court(this.ctx);
         this.player1 = new HumanPlayer([470, 500], [0,0], "red", ctx.canvas.width * 0.05);
         // debugger
         // this.player1 = new ComputerPlayer([500, 500], [0, 0], "red", ctx.canvas.width * 0.05);
@@ -47,7 +50,11 @@ export default class Game {
         "w": false,
         "s": false,
         "a": false,
-        "d": false
+        "d": false,
+        "W": false,
+        "S": false,
+        "A": false,
+        "D": false,
     }
 
     keydownHandler(e) {
@@ -72,7 +79,7 @@ export default class Game {
         this.ctx.clearRect(0, 0, 800, 600);
         this.ball.move();
         this.player2.findPath(this.ball);
-        // this.player2.swing(this.ball);
+        this.player2.swing(this.ball);
         this.player1.reposition(this.keys);
         this.draw(this.ctx);
         if (!this.ball.inPlay) {
@@ -81,18 +88,7 @@ export default class Game {
     }
 
     draw(ctx) {
-        // tentative court - to be refactored to court.js
-        ctx.fillStyle = "#6C935C";
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.fillStyle = "#3C638E";
-        // ctx.fillRect(ctx.canvas.width / 4, ctx.canvas.width / 8, ctx.canvas.width / 2, ctx.canvas.width / 2);
-        ctx.beginPath();
-        ctx.moveTo(ctx.canvas.width / 4 + 10, ctx.canvas.width / 8);
-        ctx.lineTo(ctx.canvas.width * (3/4) - 10, ctx.canvas.width / 8);
-        ctx.lineTo(ctx.canvas.width * (3/4) + 10, ctx.canvas.width * (5/8));
-        ctx.lineTo(ctx.canvas.width / 4 - 10, ctx.canvas.width * (5/8));
-        ctx.fill();
-
+        this.court.draw(ctx);
 
         // tentative net
         ctx.fillStyle = "gray";
