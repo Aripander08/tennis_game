@@ -33,10 +33,10 @@ export default class HumanPlayer extends MovingObject {
     }
 
     reposition(keys) {
-        if (keys.w) this.pos[1] -= 1; 
-        if (keys.a) this.pos[0] -= 1;
-        if (keys.s) this.pos[1] += 1;
-        if (keys.d) this.pos[0] += 1;
+        if (keys.w) this.pos[1] -= 1.2; 
+        if (keys.a) this.pos[0] -= 1.2;
+        if (keys.s) this.pos[1] += 1.2;
+        if (keys.d) this.pos[0] += 1.2;
         // debugger
     }
 

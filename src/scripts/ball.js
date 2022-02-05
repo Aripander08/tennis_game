@@ -71,6 +71,22 @@ export default class Ball extends MovingObject {
         } else {
             this.vel[2] += CONSTANTS.GRAVITY;
         }
+
+        if (
+            (this.pos[0] + this.radius) >= this.canvas.width ||
+            (this.pos[0] - this.radius <= 0) ||
+            (this.pos[1] + this.radius) >= this.canvas.height ||
+            (this.pos[1] - this.radius <= 0)
+        ) {
+            // debugger
+            this.vel[0] *= -(0.5);
+            this.vel[1] *= -(0.5);
+            // this.vel[2] = 0
+            // this.vel[2] *= -(0.5);
+            // console.log('edge of canvas');
+        }
+
+
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
         this.pos[2] += this.vel[2];

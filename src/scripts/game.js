@@ -9,6 +9,7 @@ export default class Game {
         this.ctx = ctx;
         this.player1 = new HumanPlayer([470, 500], [0,0], "red", ctx.canvas.width * 0.05);
         // debugger
+        // this.player1 = new ComputerPlayer([500, 500], [0, 0], "red", ctx.canvas.width * 0.05);
         this.player2 = new ComputerPlayer([350, 80], [0, 0], "orange", ctx.canvas.width * 0.05);
 
         this.ball = new Ball(
@@ -71,7 +72,7 @@ export default class Game {
         this.ctx.clearRect(0, 0, 800, 600);
         this.ball.move();
         this.player2.findPath(this.ball);
-        this.player2.swing(this.ball);
+        // this.player2.swing(this.ball);
         this.player1.reposition(this.keys);
         this.draw(this.ctx);
         if (!this.ball.inPlay) {
