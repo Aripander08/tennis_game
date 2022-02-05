@@ -7,10 +7,10 @@ export default class Game {
     constructor(ctx) {
         // debugger
         this.ctx = ctx;
-        this.ball = new Ball([220, 130, 110], [1, 3, 3], 5); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL
-        this.player1 = new HumanPlayer([350, 500], [0,0], "red");
+        this.ball = new Ball([220, 130, 110], [1, 3, 3], ctx.canvas.width * 0.00625); // NEED A WAY TO LET VEL[2] CHANGE DURING TRAVEL
+        this.player1 = new HumanPlayer([350, 500], [0,0], "red", ctx.canvas.width * 0.05);
         // debugger
-        this.player2 = new ComputerPlayer([500, 80], [0, 0], "orange", this.ball);
+        this.player2 = new ComputerPlayer([500, 80], [0, 0], "orange", ctx.canvas.width * 0.05);
         // debugger
         this.keydownHandler = this.keydownHandler.bind(this.player1);
         this.clickHandler = this.clickHandler.bind(this);
@@ -64,14 +64,14 @@ export default class Game {
     draw(ctx) {
         // tentative court - to be refactored to court.js
         ctx.fillStyle = "#6C935C";
-        ctx.fillRect(0, 0, 800, 600);
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.fillStyle = "#3C638E";
-        ctx.fillRect(200, 100, 400, 400);
+        ctx.fillRect(ctx.canvas.width / 4, ctx.canvas.width / 8, ctx.canvas.width / 2, ctx.canvas.width / 2);
         
         // tentative net
         ctx.fillStyle = "gray";
         ctx.fillRect(200, 270, 400, 30);
-        ctx.fillStyle = "black"
+        ctx.fillStyle = "#444444"
         ctx.fillRect(200, 300, 400, 15);
 
 

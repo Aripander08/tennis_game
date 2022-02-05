@@ -11,7 +11,7 @@ export default class Ball extends MovingObject {
 
     draw(ctx) {
         // the shadow
-        ctx.fillStyle = "#000";
+        ctx.fillStyle = "#444444";
         ctx.beginPath();
         ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
         ctx.fill();
@@ -21,7 +21,6 @@ export default class Ball extends MovingObject {
         ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
         ctx.fill();
     }
-
 
     collisionDetector(otherObject) {
         const collisionDist = this.radius + 20;

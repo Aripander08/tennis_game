@@ -2,24 +2,9 @@ import HumanPlayer from "./human_player.js";
 
 
 export default class ComputerPlayer extends HumanPlayer {
-    constructor(pos, vel, color) {
-        super(pos, vel);
-        this.color = color;
-    }   // will need to study how to get angles and lengths of right triangles
-
-    draw(ctx) {
-        // the player
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.fillRect(this.pos[0] - 10, this.pos[1] - 20, 20, 40);
-        
-        //their shadow
-        ctx.fillStyle = "#000";
-        ctx.beginPath();
-        ctx.fillRect(this.pos[0] - 10, this.pos[1] + 20, 20, 20);
-        
-    }
-
+    constructor(pos, vel, color, height) {
+        super(pos, vel, color, height);
+    } 
 
     findPath(ball) {
         // path to ball
