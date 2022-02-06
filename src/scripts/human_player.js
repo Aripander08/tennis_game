@@ -15,7 +15,7 @@ export default class HumanPlayer extends MovingObject {
         this.height = height;
         this.width = height / 3;
         this.net = net;
-    }
+    };
 
     draw(ctx) {
         // player shirt
@@ -36,8 +36,7 @@ export default class HumanPlayer extends MovingObject {
         // ctx.fillStyle = "#444444";
         ctx.beginPath();
         ctx.fillRect(this.pos[0], this.pos[1] + (this.height), this.width, 20);
-        
-    }
+    };
 
     reposition(keys) {
         if ((keys.w || keys.W) && 
@@ -48,20 +47,20 @@ export default class HumanPlayer extends MovingObject {
         if (keys.s || keys.S) this.pos[1] += CONSTANTS.MOVESPEED;
         if (keys.d || keys.D) this.pos[0] += CONSTANTS.MOVESPEED;
         // debugger
-    }
+    };
 
     swing(e, canvas, ball) {
         const mouseX = e.clientX - canvas.x;
         const mouseY = e.clientY - canvas.y;
         const angle = Math.atan2(mouseY - ball.pos[1], mouseX - ball.pos[0])
-        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, Math.sin(angle) * (3 * 1.79)];
+        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.2];
 
-        const ballHeight = Math.abs(ball.pos[2] - ball.pos[1]);
+        const ballHeight = ball.height;
         if (ball.inPlay && ballHeight <= this.height) {
             // debugger
             ball.vel = newVel;
             ball.player = this;
             ball.bounceCount = 0;
-        }
-    }
-}
+        };
+    };
+};

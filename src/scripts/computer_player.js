@@ -1,42 +1,52 @@
 import HumanPlayer from "./human_player.js";
 
+// const CONSTANTS = {
+//     MOVEVEL: [0.006, 0.00025],
+//     RETURNVEL: [0.0015, 0.001125]
+// };
 
 export default class ComputerPlayer extends HumanPlayer {
     constructor(pos, vel, color, height, net) {
         super(pos, vel, color, height, net);
-    } 
+    };
 
     findPath(ball) {
         // path to ball
-        const angle = Math.atan2(ball.pos[1] - this.pos[1], ball.pos[0] - this.pos[0]);
-        const newVel = [Math.cos(angle) * (4.8), Math.sin(angle) * (0.2)];
+        const angle = Math.atan2(
+            ball.pos[1] - this.pos[1], 
+            ball.pos[0] - this.pos[0]
+        );
+        const newVel = [
+            Math.cos(angle) * (4.8), 
+            Math.sin(angle) * (0.2)
+        ];
 
         // path to reset position should prevent computer from endlessly moving forward
-        const returnAngle = Math.atan2(40 - this.pos[1], 400 - this.pos[0]);
-        const returnVel = [Math.cos(returnAngle) * (1.2), Math.sin(returnAngle) * (0.9)];
+        const returnAngle = Math.atan2(
+            40 - this.pos[1], // FOR ATAN THIS IS THE Y
+            400 - this.pos[0] // THIS IS THE X
+        );
+        const returnVel = [
+            Math.cos(returnAngle) * (1.2), 
+            Math.sin(returnAngle) * (0.9)
+        ];
 
-        // if (ball.player.constructor.name === 'HumanPlayer') {
-            // debugger
-        if (ball.player === this || ball.player === '') {
-            // debugger
-            this.vel = returnVel; // we need to determin this vel
+        if (ball.player === this || ball.player === '' || !ball.inPlay) {
+            this.vel = returnVel;
             this.move();
         } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
-            // debugger
             this.vel = newVel;
             this.move();
         }
-    }
+    };
 
     swing(ball) {
         if (ball.roundCollisionDetector(this) === this && ball.inPlay) {
-            
-            ball.vel[0] *= (0);
+            ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             ball.vel[1] *= -(0.95);
-            ball.vel[2] *= -(0.20);
+            ball.vel[2] += 1.7;
             ball.player = this;
             ball.bounceCount = 0;
         }
-    }
-
-}
+    };
+};

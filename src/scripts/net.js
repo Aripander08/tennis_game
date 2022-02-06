@@ -91,8 +91,8 @@ export default class Net {
     stopBall(ball) {
         if (ball.squareCollisionDetector(this) === this) {
             ball.inPlay = false;
-            ball.vel[0] *= (0.01);
-            ball.vel[1] *= -(0.01);
+            ball.vel[0] = 0;
+            ball.vel[1] *=(0.01);
             ball.vel[2] *= (0.5);
         }
     }

@@ -10,8 +10,9 @@ const CONSTANTS = {
     P2ADSTART: [350, 80],
     P2COLOR: "gold",
     PLAYERHT: 0.06,
-    BALLSTART: [480, 500, 490],
-    BALLTOSSVEL: [0, 0, -4]
+    BALLSTART: [478, 540],
+    BALLTOSSHT: 0.0125,
+    BALLTOSSVEL: [0, 0, 4]
 }
 
 export default class Game {
@@ -34,17 +35,18 @@ export default class Game {
             ctx.canvas.width * CONSTANTS.PLAYERHT,
             this.net
         );
-
+        
         this.ball = new Ball(
             // [480, 500, 400],
             // [0, 0,-2], 
             CONSTANTS.BALLSTART,
             CONSTANTS.BALLTOSSVEL, 
-            ctx.canvas.width * 0.00625, 
+            ctx.canvas.width * 0.00625,
+            ctx.canvas.width * CONSTANTS.BALLTOSSHT,
             this.player2, 
             ctx.canvas
         );
-        
+        // debugger
         this.keydownHandler = this.keydownHandler.bind(this);
         this.keyupHandler = this.keyupHandler.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
@@ -93,12 +95,12 @@ export default class Game {
     animate() {
         requestAnimationFrame(this.animate.bind(this)); // this will let the animation pause when outside of tab
         this.ctx.clearRect(0, 0, 800, 600);
+        this.draw(this.ctx);
         this.ball.move();
         this.net.stopBall(this.ball);
         this.player2.findPath(this.ball);
         this.player2.swing(this.ball);
         this.player1.reposition(this.keys);
-        this.draw(this.ctx);
         if (!this.ball.inPlay) {
             console.log("point!");
         }
