@@ -49,6 +49,13 @@ export default class HumanPlayer extends MovingObject {
         // debugger
     };
 
+    toss(ball) {
+        ball.status = "tossing";
+        console.log("tossing");
+        ball.vel = [0, 0, 4];
+        // debugger
+    }
+
     swing(e, canvas, ball) {
         const mouseX = e.clientX - canvas.x;
         const mouseY = e.clientY - canvas.y;
@@ -56,8 +63,9 @@ export default class HumanPlayer extends MovingObject {
         const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.2];
 
         const ballHeight = ball.height;
-        if (ball.inPlay && ballHeight <= this.height) {
+        if (ball.status !== "out" && ballHeight <= this.height) {
             // debugger
+            ball.status = "live"
             ball.vel = newVel;
             ball.player = this;
             ball.bounceCount = 0;

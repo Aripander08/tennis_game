@@ -17,21 +17,21 @@ export default class ComputerPlayer extends HumanPlayer {
             ball.pos[0] - this.pos[0]
         );
         const newVel = [
-            Math.cos(angle) * (4.8), 
+            Math.cos(angle) * (5.1), 
             Math.sin(angle) * (0.2)
         ];
 
         // path to reset position should prevent computer from endlessly moving forward
         const returnAngle = Math.atan2(
             40 - this.pos[1], // FOR ATAN THIS IS THE Y
-            400 - this.pos[0] // THIS IS THE X
+            392 - this.pos[0] // THIS IS THE X
         );
         const returnVel = [
             Math.cos(returnAngle) * (1.2), 
             Math.sin(returnAngle) * (0.9)
         ];
 
-        if (ball.player === this || ball.player === '' || !ball.inPlay) {
+        if (ball.player === this || ball.status !== "live") {
             this.vel = returnVel;
             this.move();
         } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
@@ -41,7 +41,7 @@ export default class ComputerPlayer extends HumanPlayer {
     };
 
     swing(ball) {
-        if (ball.roundCollisionDetector(this) === this && ball.inPlay) {
+        if (ball.roundCollisionDetector(this) === this && ball.status !== "out") {
             ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             ball.vel[1] *= -(0.95);
             ball.vel[2] += 1.7;

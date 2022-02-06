@@ -12,13 +12,14 @@ const CONSTANTS = {
 }
 
 export default class Ball extends MovingObject {
-    constructor(pos, vel, radius, height, player, canvas, inPlay = true) {
+    constructor(pos, vel, radius, height, player, canvas) {
         super(pos, vel);
         this.radius = radius;
         this.player = player; // only starts at '' but does not stay this way
         this.height = height;
         this.canvas = canvas;
-        this.inPlay = inPlay;
+        // this.served = false;
+        this.status = "resetting";
         this.bounceCount = 0;
     };
 
@@ -91,18 +92,23 @@ export default class Ball extends MovingObject {
     bounce() {
         // console.log('bounce')
         // if (this.bounceCount < 1) {
-        if (this.bounceCount < 2) {
+        if (this.bounceCount < 1) {
             // debugger
             this.bounceCount += 1;
             if (this.pos[0] >= 200 && this.pos[0] <= 600 && this.pos[1] >= 100 && this.pos[1] <= 500) {
                 // console.log('in!');
             } else {
-                console.log('out!');
                 // debugger
-                // this.inPlay = false;
+                this.status = "out";
+                console.log(this.status);
             }
-        } else {
-            console.log('2nd bounce!')
+        } else if (this.bounceCount < 2) {
+            this.bounceCount += 1;
+            if (this.status === "live") {
+                // if the second bounce comes on a live ball, this is a winner
+                this.status = "point";
+                console.log(this.status);
+            }
             // if this is the 2nd bounce, that means ball.player hit a winner 
         }
 
@@ -115,7 +121,7 @@ export default class Ball extends MovingObject {
             this.vel[2] *= -(0.5);
         } else {
             // debugger
-            this.vel[2] *= -(0.5);
+            this.vel[2] *= -(0.7);
             // debugger
         }
     };
@@ -123,6 +129,9 @@ export default class Ball extends MovingObject {
     move() {
         if (this.height < 1) {
             this.bounce()
+        } else if (this.status === "serving") {
+            // let playerPos = this.player.pos;
+            // this.pos = playerPos;
         } else {
             this.vel[2] += CONSTANTS.GRAVITY;
         }
