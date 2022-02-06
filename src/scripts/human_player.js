@@ -9,11 +9,12 @@ const CONSTANTS = {
 }
 
 export default class HumanPlayer extends MovingObject {
-    constructor(pos, vel, color, height) {
+    constructor(pos, vel, color, height, net) {
         super(pos, vel);
         this.color = color;
         this.height = height;
         this.width = height / 3;
+        this.net = net;
     }
 
     draw(ctx) {

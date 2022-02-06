@@ -15,8 +15,14 @@ export default class Ball extends MovingObject {
         this.canvas = canvas;
         this.inPlay = inPlay;
         this.bounceCount = 0;
-    }
+    };
 
+    drawCircle(ctx, color, circle) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(circle.pos[0], circle.pos[2], this.radius, 0, 2 * Math.PI);
+        ctx.fill();
+    };
 
     draw(ctx) {
         // the shadow
@@ -26,27 +32,36 @@ export default class Ball extends MovingObject {
         ctx.fill();
         // the ball
         if ((this.pos[1] < ctx.canvas.height / 20 && this.pos[2] < ctx.canvas.height / 20) || 
-            (this.pos[1] < 290 && this.pos[1] > 270 && this.pos[1] - this.pos[2] < 20)
-        ) {
+            (this.pos[1] > 290 && this.pos[1] < 310 && this.pos[1] - this.pos[2] < 20)) {
             // the ball with shadow over it 
             ctx.fillStyle = "#83a300";
             ctx.beginPath();
             ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
             ctx.fill();
-        } else {
+        } else if (this.pos[1] < 290 && this.pos[1] > 270 && this.pos[1] - this.pos[2] < 20) {
             ctx.fillStyle = "#ccff00";
             ctx.beginPath();
             ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
             ctx.fill();
+            ctx.fillStyle = "rgba(133, 133, 133, 0.73)"
+            ctx.beginPath();
+            ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
+            ctx.fill();
+        } else {
+            this.drawCircle(ctx, "#ccff00", this);
+            // ctx.fillStyle = "#ccff00";
+            // ctx.beginPath();
+            // ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
+            // ctx.fill();
         }
-    }
+    };
 
     roundCollisionDetector(otherObject) {
         const collisionDistY = this.radius + otherObject.height * (0.5);
         // const collisionDistX = this.radius + otherObject.width;
         const currentDist = Math.hypot(
-            this.pos[0] - otherObject.pos[0], 
-            this.pos[1] - otherObject.pos[1]
+            this.pos[0] - (otherObject.pos[0] + otherObject.width / 2), 
+            this.pos[1] - (otherObject.pos[1] + otherObject.height / 2)
         );
         // debugger
         if (currentDist < collisionDistY) {
@@ -54,7 +69,7 @@ export default class Ball extends MovingObject {
         } else {
             return '';
         }
-    }
+    };
 
     squareCollisionDetector(otherObject) {
         // if ball is on near half
@@ -76,7 +91,7 @@ export default class Ball extends MovingObject {
                 return otherObject;
             }
         }
-    }
+    };
 
     bounce() {
         console.log('bounce')
@@ -98,7 +113,7 @@ export default class Ball extends MovingObject {
         } else {
             this.vel[2] = this.vel[1] * CONSTANTS.FARBOUNCE;
         }
-    }
+    };
 
     move() {
         if (this.pos[1] - this.pos[2] < 1.0 ) {
@@ -122,5 +137,5 @@ export default class Ball extends MovingObject {
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
         this.pos[2] += this.vel[2];
-    }
+    };
 }

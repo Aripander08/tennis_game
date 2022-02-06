@@ -2,8 +2,8 @@ import HumanPlayer from "./human_player.js";
 
 
 export default class ComputerPlayer extends HumanPlayer {
-    constructor(pos, vel, color, height) {
-        super(pos, vel, color, height);
+    constructor(pos, vel, color, height, net) {
+        super(pos, vel, color, height, net);
     } 
 
     findPath(ball) {
@@ -16,11 +16,13 @@ export default class ComputerPlayer extends HumanPlayer {
         const returnVel = [Math.cos(returnAngle) * (1.2), Math.sin(returnAngle) * (0.9)];
 
         // if (ball.player.constructor.name === 'HumanPlayer') {
+            // debugger
         if (ball.player === this || ball.player === '') {
             // debugger
             this.vel = returnVel; // we need to determin this vel
             this.move();
-        } else {
+        } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
+            // debugger
             this.vel = newVel;
             this.move();
         }
@@ -30,9 +32,8 @@ export default class ComputerPlayer extends HumanPlayer {
         if (ball.roundCollisionDetector(this) === this && ball.inPlay) {
             
             ball.vel[0] *= (0);
-            // if (ball.pos[0] < )
             ball.vel[1] *= -(0.95);
-            ball.vel[2] *= -(0.25);
+            ball.vel[2] *= -(0.20);
             ball.player = this;
             ball.bounceCount = 0;
         }

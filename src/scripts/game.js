@@ -24,13 +24,16 @@ export default class Game {
             CONSTANTS.P1ADSTART, 
             [0,0], 
             CONSTANTS.P1COLOR, 
-            ctx.canvas.width * CONSTANTS.PLAYERHT
+            ctx.canvas.width * CONSTANTS.PLAYERHT,
+            this.net
         );
         this.player2 = new ComputerPlayer(
             CONSTANTS.P2ADSTART, 
             [0, 0], 
             CONSTANTS.P2COLOR, 
-            ctx.canvas.width * CONSTANTS.PLAYERHT);
+            ctx.canvas.width * CONSTANTS.PLAYERHT,
+            this.net
+        );
 
         this.ball = new Ball(
             // [480, 500, 400],
@@ -110,7 +113,6 @@ export default class Game {
 
     draw(ctx) {
         this.court.draw(ctx);
-        this.net.draw(ctx);
         // tentative netshadow
         ctx.fillStyle = "rgba(23, 23, 23, 0.75)";
         ctx.beginPath();
@@ -119,9 +121,10 @@ export default class Game {
         ctx.lineTo(601, 305);
         ctx.lineTo(199, 305);
         ctx.fill();
-
+        
         // debugger
         this.player2.draw(ctx);
+        this.net.draw(ctx);
         this.ball.draw(ctx);
         this.player1.draw(ctx); // this order is important so that layering between back player, ball, and fore player is maintained
     }
