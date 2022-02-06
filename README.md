@@ -58,7 +58,7 @@ In addition, this project will include:
 
 
 ## Known bugs
-
+- double bounce still happens
 - Need the ball to reset once it is no longer "inPlay"
 - When ball hits canvas border, sometimes bounces back sometimes just stops. 
 - Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
