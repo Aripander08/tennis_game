@@ -31,7 +31,6 @@ export default class HumanPlayer extends MovingObject {
         ctx.beginPath()
         ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height * (0.1));
 
-
         //their shadow
         ctx.fillStyle = CONSTANTS.SHADOW;
         // ctx.fillStyle = "#444444";
@@ -41,7 +40,10 @@ export default class HumanPlayer extends MovingObject {
     }
 
     reposition(keys) {
-        if (keys.w || keys.W) this.pos[1] -= CONSTANTS.MOVESPEED; 
+        if ((keys.w || keys.W) && 
+            (this.pos[1] + this.height > this.net.pos[1])) {
+            this.pos[1] -= CONSTANTS.MOVESPEED; 
+        }  
         if (keys.a || keys.A) this.pos[0] -= CONSTANTS.MOVESPEED;
         if (keys.s || keys.S) this.pos[1] += CONSTANTS.MOVESPEED;
         if (keys.d || keys.D) this.pos[0] += CONSTANTS.MOVESPEED;
@@ -52,7 +54,7 @@ export default class HumanPlayer extends MovingObject {
         const mouseX = e.clientX - canvas.x;
         const mouseY = e.clientY - canvas.y;
         const angle = Math.atan2(mouseY - ball.pos[1], mouseX - ball.pos[0])
-        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, Math.sin(angle) * (3 * 1.78)];
+        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, Math.sin(angle) * (3 * 1.79)];
 
         const ballHeight = Math.abs(ball.pos[2] - ball.pos[1]);
         if (ball.inPlay && ballHeight <= this.height) {

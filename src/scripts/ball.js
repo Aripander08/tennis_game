@@ -15,7 +15,7 @@ export default class Ball extends MovingObject {
     constructor(pos, vel, radius, player, canvas, inPlay = true) {
         super(pos, vel);
         this.radius = radius;
-        this.player = player; // only starts at undefined but does not stay this way
+        this.player = player; // only starts at '' but does not stay this way
         this.canvas = canvas;
         this.inPlay = inPlay;
         this.bounceCount = 0;
@@ -52,12 +52,10 @@ export default class Ball extends MovingObject {
 
     roundCollisionDetector(otherObject) {
         const collisionDistY = this.radius + otherObject.height * (0.5);
-        // const collisionDistX = this.radius + otherObject.width;
         const currentDist = Math.hypot(
             this.pos[0] - (otherObject.pos[0] + otherObject.width / 2), 
             this.pos[1] - (otherObject.pos[1] + otherObject.height / 2)
         );
-        // debugger
         if (currentDist < collisionDistY) {
             return otherObject;
         } else {
@@ -80,7 +78,7 @@ export default class Ball extends MovingObject {
             if (
                 otherObject.pos[0] <= this.pos[0] &&
                 otherObject.pos[0] + otherObject.width >= this.pos[0] &&
-                otherObject.pos[1] <= this.pos[1] + this.radius &&
+                otherObject.pos[1] <= this.pos[1] + this.radius && 
                 this.pos[1] - this.pos[2] < otherObject.height) {
                 return otherObject;
             }
@@ -88,48 +86,61 @@ export default class Ball extends MovingObject {
     };
 
     bounce() {
-        console.log('bounce')
-        if (this.bounceCount < 1) {
+        // console.log('bounce')
+        // if (this.bounceCount < 1) {
+        if (this.bounceCount < 2) {
+            // debugger
             this.bounceCount += 1;
             if (this.pos[0] >= 200 && this.pos[0] <= 600 && this.pos[1] >= 100 && this.pos[1] <= 500) {
-                console.log('in!');
+                // console.log('in!');
             } else {
-                console.log('out!');
-                // this.inPlay = false;
+                // console.log('out!');
+                this.inPlay = false;
             }
         } else {
-                // this.inPlay = false;
+            debugger
+            console.log('2nd bounce!')
+            this.inPlay = false;
             // if this is the 2nd bounce, that means ball.player hit a winner 
         }
-        // we will always allow ball to bounce, returning with 50% height to bounce, until it reaches out of the canvas
-        if (this.vel[2] > 0) {
+
+        if (this.vel[1] > 0) {
             this.vel[2] = this.vel[1] * CONSTANTS.NEARBOUNCE;
-        } else {
+        } else if (this.vel[1] < 0) {
             this.vel[2] = this.vel[1] * CONSTANTS.FARBOUNCE;
+        } else {
+            this.vel[2] *= -(0.5);
         }
     };
 
     move() {
-        if (this.pos[1] - this.pos[2] < 1.0 ) {
+        if ((this.vel[2] < 0 && this.pos[1] - this.pos[2] < 1) ||
+            (this.vel[2] > 0 && this.pos[1] - this.pos[2] < 1)) {
             this.bounce()
         } else {
             this.vel[2] += CONSTANTS.GRAVITY;
         }
 
+        // bounce of canvas edges
         if (
             (this.pos[0] + this.radius) >= this.canvas.width ||
-            (this.pos[0] - this.radius <= 0) ||
+            (this.pos[0] - this.radius <= 0)) {
+                this.vel[0] *= -(0.5);
+                this.vel[1] *= (0.5);
+        } else if (
             (this.pos[1] + this.radius) >= this.canvas.height ||
-            (this.pos[1] - this.radius <= 0) 
-            // (this.pos[1] + this.radius) >= 290 
-        ) {
-            this.vel[0] *= -(0.5);
-            this.vel[1] *= -(0.5);
+            (this.pos[1] - this.radius <= 0)) {
+                this.vel[0] *= (0.5);
+                this.vel[1] *= -(0.5);
         }
 
-
+        // apply new vel to ball pos
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
-        this.pos[2] += this.vel[2];
+        if (this.pos[2] + this.vel[2] > this.pos[1]) {
+            this.pos[2] = this.pos[1]; 
+        } else {
+            this.pos[2] += this.vel[2];
+        };
     };
 }

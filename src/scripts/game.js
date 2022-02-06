@@ -6,9 +6,9 @@ import Net from "./net.js";
 
 const CONSTANTS = {
     P1ADSTART: [470, 500],
-    P1COLOR: "red",
+    P1COLOR: "pink",
     P2ADSTART: [350, 80],
-    P2COLOR: "orange",
+    P2COLOR: "gold",
     PLAYERHT: 0.06,
     BALLSTART: [480, 500, 490],
     BALLTOSSVEL: [0, 0, -4]
@@ -45,7 +45,6 @@ export default class Game {
             ctx.canvas
         );
         
-        // debugger
         this.keydownHandler = this.keydownHandler.bind(this);
         this.keyupHandler = this.keyupHandler.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
@@ -67,7 +66,6 @@ export default class Game {
         document.addEventListener("click", this.clickHandler)
     }
 
-
     keys = {
         "w": false,
         "s": false,
@@ -81,11 +79,8 @@ export default class Game {
 
     keydownHandler(e) {
         this.keys[e.key] = true;
-        // debugger
     }
-
     keyupHandler(e) {
-        // debugger
         this.keys[e.key] = false;
     }
 
@@ -96,37 +91,24 @@ export default class Game {
     }
     
     animate() {
-        // debugger
         requestAnimationFrame(this.animate.bind(this)); // this will let the animation pause when outside of tab
         this.ctx.clearRect(0, 0, 800, 600);
         this.ball.move();
         this.net.stopBall(this.ball);
-
         this.player2.findPath(this.ball);
         this.player2.swing(this.ball);
         this.player1.reposition(this.keys);
         this.draw(this.ctx);
         if (!this.ball.inPlay) {
-
+            console.log("point!");
         }
     }
 
     draw(ctx) {
         this.court.draw(ctx);
-        // tentative netshadow
-        ctx.fillStyle = "rgba(23, 23, 23, 0.75)";
-        ctx.beginPath();
-        ctx.moveTo(200, 290);
-        ctx.lineTo(600, 290);
-        ctx.lineTo(601, 305);
-        ctx.lineTo(199, 305);
-        ctx.fill();
-        
-        // debugger
         this.player2.draw(ctx);
         this.net.draw(ctx);
         this.ball.draw(ctx);
         this.player1.draw(ctx); // this order is important so that layering between back player, ball, and fore player is maintained
     }
-  
 }
