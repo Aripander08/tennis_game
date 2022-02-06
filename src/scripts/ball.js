@@ -4,7 +4,11 @@ import MovingObject from "./moving_object.js";
 const CONSTANTS = {
     GRAVITY: 0.04,
     FARBOUNCE: 1.5,
-    NEARBOUNCE: 0.4
+    NEARBOUNCE: 0.4,
+    BALLCOLOR: "#ccff00",
+    SHADEDBALLCOLOR: "#83a300",
+    SHADOWCOLOR: "rgba(23, 23, 23, 0.75)",
+    NETCOLOR: "rgba(133, 133, 133, 0.73)"
 }
 
 export default class Ball extends MovingObject {
@@ -26,7 +30,7 @@ export default class Ball extends MovingObject {
 
     draw(ctx) {
         // the shadow
-        ctx.fillStyle = "rgba(23, 23, 23, 0.75)";
+        ctx.fillStyle = CONSTANTS.SHADOWCOLOR;
         ctx.beginPath();
         ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
         ctx.fill();
@@ -34,25 +38,15 @@ export default class Ball extends MovingObject {
         if ((this.pos[1] < ctx.canvas.height / 20 && this.pos[2] < ctx.canvas.height / 20) || 
             (this.pos[1] > 290 && this.pos[1] < 310 && this.pos[1] - this.pos[2] < 20)) {
             // the ball with shadow over it 
-            ctx.fillStyle = "#83a300";
-            ctx.beginPath();
-            ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
-            ctx.fill();
+            this.drawCircle(ctx, CONSTANTS.SHADEDBALLCOLOR, this);
         } else if (this.pos[1] < 290 && this.pos[1] > 270 && this.pos[1] - this.pos[2] < 20) {
-            ctx.fillStyle = "#ccff00";
-            ctx.beginPath();
-            ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.fillStyle = "rgba(133, 133, 133, 0.73)"
-            ctx.beginPath();
-            ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
-            ctx.fill();
+            // the ball with net in front of it
+            this.drawCircle(ctx, CONSTANTS.BALLCOLOR, this);
+            this.drawCircle(ctx, CONSTANTS.NETCOLOR, this);            
         } else {
-            this.drawCircle(ctx, "#ccff00", this);
-            // ctx.fillStyle = "#ccff00";
-            // ctx.beginPath();
-            // ctx.arc(this.pos[0], this.pos[2], this.radius, 0, 2 * Math.PI);
-            // ctx.fill();
+            // regular ball
+            this.drawCircle(ctx, CONSTANTS.BALLCOLOR, this);
+
         }
     };
 
