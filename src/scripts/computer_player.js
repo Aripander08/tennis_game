@@ -1,9 +1,12 @@
 import HumanPlayer from "./human_player.js";
 
-// const CONSTANTS = {
-//     MOVEVEL: [0.006, 0.00025],
-//     RETURNVEL: [0.0015, 0.001125]
-// };
+const CONSTANTS = {
+    SKIN: "#D2B48C",
+    HAIR: "#574022",
+    SHOES: "#D3D3D3",
+    SHADOW: "rgba(23, 23, 23, 0.75)",
+    RACKET: "black",
+};
 
 export default class ComputerPlayer extends HumanPlayer {
     constructor(pos, vel, color, height, net, sfx) {
@@ -27,8 +30,8 @@ export default class ComputerPlayer extends HumanPlayer {
             392 - this.pos[0] // THIS IS THE X
         );
         const returnVel = [
-            Math.cos(returnAngle) * (1.2), 
-            Math.sin(returnAngle) * (0.9)
+            Math.cos(returnAngle) * (0.6), 
+            Math.sin(returnAngle) * (0.4)
         ];
 
         if (ball.player === this || ball.status !== "live") {
@@ -37,17 +40,67 @@ export default class ComputerPlayer extends HumanPlayer {
         } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
             this.vel = newVel;
             this.move();
-        }
+        };
     };
 
     swing(ball) {
-        if (ball.roundCollisionDetector(this) === this && ball.status !== "out") {
-            // this.sfx.play();
+        if (ball.roundCollisionDetector(this) === this && 
+            ball.status !== "out" && ball.player !== this) {
+            this.sfx.play();
             ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             ball.vel[1] *= -(0.95);
-            ball.vel[2] += 1.9;
+            // The vel that comp imparts on the ball should depend on the balls height and vel
+            if (ball.height < 20) {
+                ball.vel[2] += 1.5;
+            } else if (ball.height < 40) {
+                ball.vel[2] += 1.1;
+            } else {
+                ball.vel[2] += 0.8;
+            };
+
+            if (ball.vel[2] < 1) {
+                ball.vel[2] += 1.5;
+            } else if (ball.vel[2] < 3.0) {
+                ball.vel[2] += 1.0;
+            } else if (ball.vel[2] < 5) {
+                ball.vel[2] += 0.5;
+            } else {
+                ball.vel[2] *= 0.75;
+            };
             ball.player = this;
             ball.bounceCount = 0;
-        }
+        };
+    };
+
+    draw(ctx) {
+        this.drawBody(ctx);
+        this.drawHair(ctx);
+        this.drawHead(ctx);
+        this.drawShadow(ctx)
+        this.drawRacket(ctx);
+        // // player shirt
+        // ctx.fillStyle = this.color;
+        // ctx.beginPath();
+        // ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height);
+        // //player head
+        // ctx.fillStyle = CONSTANTS.SKIN;
+        // ctx.beginPath()
+        // ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height * (0.3));
+        // //player hair
+        // ctx.fillStyle = CONSTANTS.HAIR;
+        // ctx.beginPath()
+        // ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height * (0.1));
+
+        // //their shadow
+        // ctx.fillStyle = CONSTANTS.SHADOW;
+        // // ctx.fillStyle = "#444444";
+        // ctx.beginPath();
+        // ctx.fillRect(this.pos[0], this.pos[1] + (this.height), this.width, 20);
+
+        // // their racket
+        // ctx.fillStyle = "grey";
+        // ctx.beginPath();
+        // ctx.arc(this.pos[0] + 15, this.pos[1] + 20, 8, 0, 2 * Math.PI);
+        // ctx.fill();
     };
 };
