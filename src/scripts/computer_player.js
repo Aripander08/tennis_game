@@ -9,8 +9,8 @@ const CONSTANTS = {
 };
 
 export default class ComputerPlayer extends HumanPlayer {
-    constructor(pos, vel, color, height, net, sfx) {
-        super(pos, vel, color, height, net, sfx);
+    constructor(pos, vel, color, height, net, sfx, name) {
+        super(pos, vel, color, height, net, sfx, name);
     };
 
     findPath(ball) {
@@ -50,12 +50,13 @@ export default class ComputerPlayer extends HumanPlayer {
             ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             ball.vel[1] *= -(0.95);
             // The vel that comp imparts on the ball should depend on the balls height and vel
+            // ball.vel[2] = 1;
             if (ball.height < 20) {
-                ball.vel[2] += 1.5;
-            } else if (ball.height < 40) {
                 ball.vel[2] += 1.1;
+            } else if (ball.height < 40) {
+                ball.vel[2] += 0.9;
             } else {
-                ball.vel[2] += 0.8;
+                ball.vel[2] += 0.7;
             };
 
             if (ball.vel[2] < 1) {
@@ -78,29 +79,5 @@ export default class ComputerPlayer extends HumanPlayer {
         this.drawHead(ctx);
         this.drawShadow(ctx)
         this.drawRacket(ctx);
-        // // player shirt
-        // ctx.fillStyle = this.color;
-        // ctx.beginPath();
-        // ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height);
-        // //player head
-        // ctx.fillStyle = CONSTANTS.SKIN;
-        // ctx.beginPath()
-        // ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height * (0.3));
-        // //player hair
-        // ctx.fillStyle = CONSTANTS.HAIR;
-        // ctx.beginPath()
-        // ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height * (0.1));
-
-        // //their shadow
-        // ctx.fillStyle = CONSTANTS.SHADOW;
-        // // ctx.fillStyle = "#444444";
-        // ctx.beginPath();
-        // ctx.fillRect(this.pos[0], this.pos[1] + (this.height), this.width, 20);
-
-        // // their racket
-        // ctx.fillStyle = "grey";
-        // ctx.beginPath();
-        // ctx.arc(this.pos[0] + 15, this.pos[1] + 20, 8, 0, 2 * Math.PI);
-        // ctx.fill();
     };
 };

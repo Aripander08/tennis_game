@@ -7,8 +7,8 @@
 In "2D Tennis, a tennis game", users will be able to:
 
 - Move around the court using WASD
-- Swing at the ball using F
-- Aim the swing left, center, or right by holding W, holding no direction, or holding D during the swing.
+- Swing at the ball using Click
+- Aim the swing using your cursor positio.
 
 In addition, this project will include:
 
@@ -65,3 +65,10 @@ In addition, this project will include:
 - Should refactor court class to DRY it up 
 - Ball has weird slow roll down the net when it collides with it
 - For some reason, assigning the racket colors overrides the ball color, so racket color is turned off for now
+
+- Get a game that has most of its playability function, now it mostly needs scorekeeping and polish
+- The physics - (bounce was registering twice, sometimes ball went flying, soemtimes ball just died)
+- Get the canvas scoreboard in top left corner and a way to keep track of the score and some 'announcer' alerts after every point
+- Get that SFX button working
+- Give the swing function an animation that moves the racket
+- Are my classes too intertwined?

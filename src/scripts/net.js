@@ -89,12 +89,23 @@ export default class Net {
     }
 
     stopBall(ball) {
-        if (ball.squareCollisionDetector(this) === this) {
-        // if (ball.status === "net") {
-            // ball.status = "out";
+        if (ball.netCollisionDetector(this) === this) {
+            // if (ball.status !== "resetting") {
+            //     console.log(ball.status);
+            // }
             ball.vel[0] = 0;
-            ball.vel[1] *=(0.01);
+            ball.vel[1] = 0;
             ball.vel[2] *= (0.5);
+            
+        // if (ball.status === "net") {
+            // if (ball.status !== "out") {
+            //     ball.status = "out";
+            // } else if (ball.status === "out") {
+            //     ball.status = "resetting";
+            // }
+            // ball.vel[0] = 0;
+            // ball.vel[1] *=(0.01);
+            // ball.vel[2] *= (0.5);
         }
     }
 }

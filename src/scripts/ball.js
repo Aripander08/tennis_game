@@ -52,55 +52,87 @@ export default class Ball extends MovingObject {
             // regular ball
             this.drawCircle(ctx, CONSTANTS.BALLCOLOR, this);
         }
+
+        // visual aid for ball collision
+        // const collisionDist = this.radius + this.player.height * (0.7);
+        // this.fillStyle = "rgba(43, 218, 66, 0.12)";
+        // ctx.beginPath();
+        // ctx.arc(this.pos[0], this.pos[1], collisionDist, 0, 2 * Math.PI);
+        // ctx.fill();
     };
 
     roundCollisionDetector(otherObject) {
-        const collisionDistY = this.radius + otherObject.height * (0.5);
+        const collisionDist = this.radius + otherObject.height * (0.8);
         const currentDist = Math.hypot(
             this.pos[0] - (otherObject.pos[0] + otherObject.width / 2), 
-            this.pos[1] - (otherObject.pos[1] + otherObject.height / 2)
+            this.pos[1] - (otherObject.pos[1] + otherObject.height)
         );
-        if (currentDist < collisionDistY) {
+        if (currentDist < collisionDist) {
             return otherObject;
         } else {
             return '';
         }
     };
 
-    squareCollisionDetector(otherObject) {
-        // if ball is on near half
-        if (this.pos[1] >= otherObject.pos[1]) {
-            if (
-                otherObject.pos[0] <= this.pos[0] &&
-                otherObject.pos[0] + otherObject.width >= this.pos[0] &&
-                otherObject.pos[1] >= this.pos[1] - this.radius &&
-                this.height < otherObject.height) {
+    netCollisionDetector(otherObject) {
+        // if ball is moving from near half
+        
+        if (this.pos[0] > otherObject.pos[0] &&
+            this.pos[0] < (otherObject.pos[0] + otherObject.width)) {
+                if (this.vel[1] < 0 &&
+                    this.pos[1] >= otherObject.pos[1] &&
+                    (this.pos[1] - this.radius) <= otherObject.pos[1] &&
+                    this.height <= otherObject.height) {
+                    console.log('net');
+                    // debugger
                     return otherObject;
-                    // this.status = "net";
-            }
-        } else {
-            if (
-                otherObject.pos[0] <= this.pos[0] &&
-                otherObject.pos[0] + otherObject.width >= this.pos[0] &&
-                otherObject.pos[1] <= this.pos[1] - this.radius && 
-                this.height < otherObject.height) {
+                };
+                if (this.vel[1] > 0 &&
+                    this.pos[1] < otherObject.pos[1] &&
+                    (this.pos[1] + this.radius) > otherObject.pos[1] &&
+                    this.height <= otherObject.height) {
+                    console.log('net');
+                    // debugger
                     return otherObject;
-                    // this.status = "net";
-            }
-        }
+                };
+        };
+        
+
+         
+        // if ball is coming from far half
+        // if (this.pos[1] >= otherObject.pos[1]) {
+        //     if (
+        //         otherObject.pos[0] <= this.pos[0] &&
+        //         otherObject.pos[0] + otherObject.width >= this.pos[0] &&
+        //         otherObject.pos[1] >= this.pos[1] - this.radius &&
+        //         this.height < otherObject.height) {
+        //             return otherObject;
+        //     }
+        // } else if (this.pos[1] <= (otherObject.pos[1] - this.radius) &&
+        //             this.vel[1] > 0) {
+        //     // debugger
+        //     if (
+        //         otherObject.pos[0] <= this.pos[0] &&
+        //         otherObject.pos[0] + otherObject.width >= this.pos[0] &&
+        //         otherObject.pos[1] <= (this.pos[1] + this.radius) &&
+        //         this.height < otherObject.height) {
+        //             debugger
+        //             return otherObject;
+        //     }
+        // }
     };
 
     bounce() {
-        if (this.bounceCount < 1) {
-            // debugger
+        if (this.bounceCount < 1 && this.status !== "tossing") {
             this.bounceCount += 1;
             if (this.pos[0] >= 200 && this.pos[0] <= 600 && this.pos[1] >= 100 && this.pos[1] <= 500) {
-                // console.log('in!');
             } else {
-                // debugger
                 this.status = "out";
                 console.log(this.status);
             }
+        } else if (this.bounceCount < 1 && this.status === "tossing" ) {
+            this.status = "fault";
+            console.log(this.status);
         } else if (this.bounceCount < 2) {
             this.bounceCount += 1;
             if (this.status === "live") {
@@ -108,8 +140,7 @@ export default class Ball extends MovingObject {
                 this.status = "point";
                 console.log(this.status);
             }
-            // if this is the 2nd bounce, that means ball.player hit a winner 
-        }
+        } 
 
         if (this.vel[1] > 0) {
             // if ball path is moving down
@@ -118,18 +149,13 @@ export default class Ball extends MovingObject {
             // if ball is path is moving up
             this.vel[2] *= -(0.5);
         } else {
-            // debugger
             this.vel[2] *= -(0.7);
-            // debugger
         }
     };
 
     move() {
         if (this.height < 1) {
             this.bounce()
-        } else if (this.status === "serving") {
-            // let playerPos = this.player.pos;
-            // this.pos = playerPos;
         } else {
             this.vel[2] += CONSTANTS.GRAVITY;
         }

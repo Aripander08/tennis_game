@@ -4,6 +4,7 @@ import HumanPlayer from "./human_player.js";
 import ComputerPlayer from "./computer_player.js";
 import Net from "./net.js";
 import GameView from "./game_view.js";
+import Scorekeeper from "./scorekeeper.js";
 
 const CONSTANTS = {
     P1ADSTART: [392, 500],
@@ -28,6 +29,8 @@ export default class Game {
 
         this.ctx = ctx;
         this.objects = [];
+        this.scorekeeper = new Scorekeeper(this);
+        
         this.keydownHandler = this.keydownHandler.bind(this);
         this.keyupHandler = this.keyupHandler.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
@@ -47,17 +50,18 @@ export default class Game {
     resetPoint() {
         // debugger
         // this.soundOn = true;
+        // this.scorekeeper.
         this.rallyStarted = false;
         this.court = new Court(this.ctx);
         this.net = new Net(this.ctx);
-        
         this.player1 = new HumanPlayer(
             [392, 500], 
             [0,0], 
             CONSTANTS.P1COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
             this.net,
-            this.sounds[0]
+            this.sounds[0],
+            "P1"
         );
         this.player2 = new ComputerPlayer(
             [392, 40], 
@@ -65,7 +69,8 @@ export default class Game {
             CONSTANTS.P2COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
             this.net,
-            this.sounds[0]
+            this.sounds[0],
+            "P2"
         );
         this.ball = new Ball(
             // CONSTANTS.BALLSTART,
@@ -76,14 +81,16 @@ export default class Game {
             this.player1, 
             this.ctx.canvas
         );
-            // debugger
+
         this.objects.push(this.court);
         this.objects.push(this.net);
         this.objects.push(this.player2);
         this.objects.push(this.ball);
         this.objects.push(this.player1);
+        this.objects.push(this.scorekeeper);
         this.gameView.draw(this, this.ctx);
-        // debugger
+
+        this.scorekeeper.isBreakPoint();
     } 
     
     bindControls() {
@@ -130,10 +137,13 @@ export default class Game {
     }
 
     pointOver() {
-        if (this.ball.status === "point" || this.ball.status === "out") {
+        if (this.ball.status === "point" || this.ball.status === "out" || this.ball.status === "fault") {
+            this.scorekeeper.updatePointScore(this.ball);
+            this.scorekeeper.updateGameScore();
+            // debugger
             this.ball.status = "resetting";
             // debugger
-            setTimeout(this.resetPoint.bind(this), 1000);
+            setTimeout(this.resetPoint.bind(this), 2000);
             // debugger
         }
     }

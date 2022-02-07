@@ -11,13 +11,14 @@ const CONSTANTS = {
 };
 
 export default class HumanPlayer extends MovingObject {
-    constructor(pos, vel, color, height, net, sfx) {
+    constructor(pos, vel, color, height, net, sfx, name) {
         super(pos, vel);
         this.color = color;
         this.height = height;
         this.width = height / 3;
         this.net = net;
         this.sfx = sfx;
+        this.name = name;
     };
 
     toss(ball) {
@@ -32,7 +33,7 @@ export default class HumanPlayer extends MovingObject {
         const mouseY = e.clientY - canvas.y;
         const angle = Math.atan2(mouseY - ball.pos[1], mouseX - ball.pos[0])
         const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.4];
-
+        // const newVel = [0, -3, 1.5];
         const ballHeight = ball.height;
         if ((ball.status === "tossing" || ball.status === "live") && ballHeight <= this.height) {
             // debugger
