@@ -20,7 +20,7 @@ export default class ComputerPlayer extends HumanPlayer {
             ball.pos[0] - this.pos[0]
         );
         const newVel = [
-            Math.cos(angle) * (5.1), 
+            Math.cos(angle) * (5.4), 
             Math.sin(angle) * (0.2)
         ];
 
@@ -47,7 +47,17 @@ export default class ComputerPlayer extends HumanPlayer {
         if (ball.roundCollisionDetector(this) === this && 
             ball.status !== "out" && ball.player !== this) {
             this.sfx.play();
-            ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
+            // ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
+            if (this.pos[0] > 600) {
+                ball.vel[0] *= -1;
+            } else if (this.pos[0] > 400) {
+                ball.vel[0] *= 0;
+            } else if (this.pos[0] > 200) {
+                ball.vel[0] *= 0;
+            } else {
+                ball.vel[0] *= -1;
+            };
+
             ball.vel[1] *= -(0.95);
             // The vel that comp imparts on the ball should depend on the balls height and vel
             // ball.vel[2] = 1;
@@ -66,7 +76,7 @@ export default class ComputerPlayer extends HumanPlayer {
             } else if (ball.vel[2] < 5) {
                 ball.vel[2] += 0.5;
             } else {
-                ball.vel[2] *= 0.75;
+                ball.vel[2] *= 0.8;
             };
             ball.player = this;
             ball.bounceCount = 0;

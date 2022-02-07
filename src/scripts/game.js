@@ -36,7 +36,9 @@ export default class Game {
         this.clickHandler = this.clickHandler.bind(this);
         this.bindControls();
         this.gameView = new GameView(this);
+        // debugger
         this.resetPoint();
+        // debugger
     };
     
     startPoint() {

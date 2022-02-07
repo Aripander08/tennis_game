@@ -59,16 +59,10 @@ In addition, this project will include:
 
 ## Known bugs
 - button icons do not 'unfocus' after clicking
-- On occasional playtests, the computer returns the ball unpredictably (either straight up or straight down with too much height)
-- When ball hits canvas border, sometimes bounces back sometimes just stops. 
+- SFX button doesn't work
+- Game Restart just causes the sfx to layer on top of each other -- disabled for now
+- When ball hits canvas border, sometimes bounces back sometimes just stops and sometimes it rolls too far out
 - Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
 - Should refactor court class to DRY it up 
-- Ball has weird slow roll down the net when it collides with it
+- Missed toss counts as a lost point
 - For some reason, assigning the racket colors overrides the ball color, so racket color is turned off for now
-
-- Get a game that has most of its playability function, now it mostly needs scorekeeping and polish
-- The physics - (bounce was registering twice, sometimes ball went flying, soemtimes ball just died)
-- Get the canvas scoreboard in top left corner and a way to keep track of the score and some 'announcer' alerts after every point
-- Get that SFX button working
-- Give the swing function an animation that moves the racket
-- Are my classes too intertwined?

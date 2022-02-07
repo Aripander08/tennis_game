@@ -19,6 +19,12 @@ export default class HumanPlayer extends MovingObject {
         this.net = net;
         this.sfx = sfx;
         this.name = name;
+        this.racket = {
+            headPos: [this.pos[0], this.pos[1] + 20],
+            gripPos: [this.pos[0] + 20, this.pos[1] + 40],
+            radius: 10,
+            color: CONSTANTS.RACKET
+        };
     };
 
     toss(ball) {
