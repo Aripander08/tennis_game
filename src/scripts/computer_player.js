@@ -6,8 +6,8 @@ import HumanPlayer from "./human_player.js";
 // };
 
 export default class ComputerPlayer extends HumanPlayer {
-    constructor(pos, vel, color, height, net) {
-        super(pos, vel, color, height, net);
+    constructor(pos, vel, color, height, net, sfx) {
+        super(pos, vel, color, height, net, sfx);
     };
 
     findPath(ball) {
@@ -44,7 +44,7 @@ export default class ComputerPlayer extends HumanPlayer {
         if (ball.roundCollisionDetector(this) === this && ball.status !== "out") {
             ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             ball.vel[1] *= -(0.95);
-            ball.vel[2] += 1.7;
+            ball.vel[2] += 1.9;
             ball.player = this;
             ball.bounceCount = 0;
         }

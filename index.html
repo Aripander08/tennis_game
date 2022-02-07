@@ -5,25 +5,48 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href=
+            "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+            rel="stylesheet" />
         <link rel="stylesheet" href="./dist/main.css" />
         <script src="./dist/main.js"></script>
         <title>Project Name</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap" rel="stylesheet">
+        <link href=
+            "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap" 
+            rel="stylesheet">
 </head>
 <body>
     <h1>2D Tennis, a tennis game</h1>
     <section>
-        <div>
-            <button id="sfx-button">SFX</button>
-            <button id="restart-button">Restart</button>
+        <div class="info">
+            <button id="sound-button" class="ui circular icon button">
+                <i class="volume up icon"></i>
+            </button>
+            <button id="restart-button" class="ui circular icon button">
+                <i class="undo alternate icon"></i>
+            </button>
+            
+            <ul>
+                <li>Click to toss ball / to swing at ball</li>
+                <li>Use mouse to direct ball path</li>
+                <li>WASD to move</li>
+                <li>Good luck and have fun!</li>
+
+            </ul>
         </div>
         <canvas id="game-canvas"></canvas>
         <!-- <script type="application/javascript" src="./main.js"></script> -->
-        <div>
-            <button id="github-button">github</button>
-            <button id="linkedin-button">LinkedIn</button>
+        <div class="info">
+            <a id="github-link" class="ui circular linkedin icon button" 
+                href="https://github.com/YWBK/tennis_game">
+                <i class="github icon"></i>
+            </a>
+            <a id="linkedin-link" class="ui circular linkedin icon button" 
+                href="https://www.linkedin.com/in/bill-kim-88987a42/">
+                <i class="linkedin icon"></i>
+            </a>
         </div>
     </section>
 </body>

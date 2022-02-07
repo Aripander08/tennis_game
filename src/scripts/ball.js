@@ -2,7 +2,7 @@
 import MovingObject from "./moving_object.js";
 
 const CONSTANTS = {
-    GRAVITY: -0.04,
+    GRAVITY: -0.05,
     FARBOUNCE: 1.5,
     NEARBOUNCE: 1.5,
     BALLCOLOR: "#ccff00",
@@ -70,13 +70,13 @@ export default class Ball extends MovingObject {
     squareCollisionDetector(otherObject) {
         // if ball is on near half
         if (this.pos[1] >= otherObject.pos[1]) {
-            // debugger
             if (
                 otherObject.pos[0] <= this.pos[0] &&
                 otherObject.pos[0] + otherObject.width >= this.pos[0] &&
                 otherObject.pos[1] >= this.pos[1] - this.radius &&
                 this.height < otherObject.height) {
-                return otherObject;
+                    return otherObject;
+                    // this.status = "net";
             }
         } else {
             if (
@@ -84,14 +84,13 @@ export default class Ball extends MovingObject {
                 otherObject.pos[0] + otherObject.width >= this.pos[0] &&
                 otherObject.pos[1] <= this.pos[1] - this.radius && 
                 this.height < otherObject.height) {
-                return otherObject;
+                    return otherObject;
+                    // this.status = "net";
             }
         }
     };
 
     bounce() {
-        // console.log('bounce')
-        // if (this.bounceCount < 1) {
         if (this.bounceCount < 1) {
             // debugger
             this.bounceCount += 1;
@@ -117,7 +116,6 @@ export default class Ball extends MovingObject {
             this.vel[2] *= -(0.65);
         } else if (this.vel[1] < 0) { 
             // if ball is path is moving up
-            // this.vel[2] *= -(0.8);
             this.vel[2] *= -(0.5);
         } else {
             // debugger

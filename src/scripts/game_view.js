@@ -12,13 +12,17 @@ export default class GameView {
         game.player2.findPath(game.ball);
         game.player2.swing(game.ball);
         game.player1.reposition(game.keys);
+
+        game.pointOver();
     }
 
     animate() {
         // debugger
-        this.gameLoop(this.game);
-        // debugger
-        requestAnimationFrame(this.animate.bind(this));
+        if (this.game.rallyStarted) {
+            this.gameLoop(this.game);
+            // debugger
+            requestAnimationFrame(this.animate.bind(this));
+        }
     }
 
     draw(game, ctx) {

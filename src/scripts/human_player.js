@@ -60,7 +60,7 @@ export default class HumanPlayer extends MovingObject {
         const mouseX = e.clientX - canvas.x;
         const mouseY = e.clientY - canvas.y;
         const angle = Math.atan2(mouseY - ball.pos[1], mouseX - ball.pos[0])
-        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.2];
+        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.4];
 
         const ballHeight = ball.height;
         if (ball.status !== "out" && ballHeight <= this.height) {

@@ -20,55 +20,69 @@ export default class Game {
 
     constructor(ctx) {
         // debugger
+        this.sounds = [];
+        const hitAudio = new Audio('./src/assets/beep.ogg');
+        const bounceAudio = new Audio('./src/assets/plop.ogg');
+        this.sounds.push(hitAudio);
+        this.sounds.push(bounceAudio);
+
         this.ctx = ctx;
         this.objects = [];
         this.keydownHandler = this.keydownHandler.bind(this);
         this.keyupHandler = this.keyupHandler.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
         this.bindControls();
-        this.resetPoint();
         this.gameView = new GameView(this);
+        this.resetPoint();
     };
     
     startPoint() {
         // debugger
+        this.rallyStarted = true;
         this.ball.status = "serving";
         // this.animate();
         this.gameView.animate(this);
     }
 
     resetPoint() {
+        // debugger
+        this.soundOn = true;
+        this.rallyStarted = false;
         this.court = new Court(this.ctx);
         this.net = new Net(this.ctx);
         this.player1 = new HumanPlayer(
-            CONSTANTS.P1ADSTART, 
+            [392, 500], 
             [0,0], 
             CONSTANTS.P1COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
-            this.net
+            this.net,
+            this.sounds[0]
         );
         this.player2 = new ComputerPlayer(
-            CONSTANTS.P2ADSTART, 
+            [392, 40], 
             [0, 0], 
             CONSTANTS.P2COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
-            this.net
+            this.net,
+            this.sounds[0]
         );
         this.ball = new Ball(
-            CONSTANTS.BALLSTART,
-            CONSTANTS.BALLTOSSVEL, 
+            // CONSTANTS.BALLSTART,
+            [400, 520],
+            [0, 0, 0], 
             this.ctx.canvas.width * 0.00625,
-            this.ctx.canvas.width * CONSTANTS.BALLTOSSHT,
+            10,
             this.player1, 
             this.ctx.canvas
         );
-
+            // debugger
         this.objects.push(this.court);
         this.objects.push(this.net);
-        // if (this.ball.status === "resetting") this.animate();
         this.objects.push(this.player2);
         this.objects.push(this.ball);
         this.objects.push(this.player1);
+        this.gameView.draw(this, this.ctx);
+        // debugger
     } 
     
     bindControls() {
@@ -97,23 +111,31 @@ export default class Game {
     }
 
     clickHandler(e) {
-        if (this.ball.status === "resetting") {
-            this.startPoint();
-        } else if (this.ball.status === "serving") {
-            // debugger
-            this.player1.toss(this.ball);
-            // debugger
-        } else if (this.ball.roundCollisionDetector(this.player1) === this.player1) {
-            this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
-            // debugger
-        }
         // debugger
+        const canvas = this.ctx.canvas.getBoundingClientRect();
+        const mouseX = e.clientX - canvas.x;
+        const mouseY = e.clientY - canvas.y;
+        if (mouseX >= 0 && mouseX <= 800 && mouseY >= 0 && mouseY <= 600) {
+            // debugger
+            if (!this.rallyStarted) {
+                this.startPoint();
+                this.player1.toss(this.ball);
+            } else if (this.ball.roundCollisionDetector(this.player1) === this.player1) {
+                
+                this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
+                // debugger
+            }
+        }
     }
 
     pointOver() {
-        return this.ball.status === "point" || this.ball.status === "out";
+        if (this.ball.status === "point" || this.ball.status === "out") {
+            this.ball.status = "resetting";
+            // debugger
+            setTimeout(this.resetPoint.bind(this), 1000);
+            // debugger
+        }
     }
-
 
     newGame() {
         this.p1score = 0;

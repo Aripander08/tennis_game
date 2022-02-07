@@ -58,11 +58,10 @@ In addition, this project will include:
 
 
 ## Known bugs
-- double bounce still happens
-- Need the ball to reset once it is no longer "inPlay"
+- button icons do not 'unfocus' after clicking
+- On occasional playtests, the computer returns the ball unpredictably (either straight up or straight down with too much height)
 - When ball hits canvas border, sometimes bounces back sometimes just stops. 
 - Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
 - Should refactor court class to DRY it up 
-- A still ball on the ground has its shadow drawn above it
-- Ball cannot pass the net, but players still can
 - Ball has weird slow roll down the net when it collides with it
+- Sound works but sound toggle button has no real functionality yet
