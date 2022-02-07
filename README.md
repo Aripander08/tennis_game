@@ -64,4 +64,4 @@ In addition, this project will include:
 - Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
 - Should refactor court class to DRY it up 
 - Ball has weird slow roll down the net when it collides with it
-- Sound works but sound toggle button has no real functionality yet
+- Sounds commented out for now -- they were causing game to lag after a few resetPoints

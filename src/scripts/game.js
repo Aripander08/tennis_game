@@ -20,11 +20,11 @@ export default class Game {
 
     constructor(ctx) {
         // debugger
-        this.sounds = [];
-        const hitAudio = new Audio('./src/assets/beep.ogg');
-        const bounceAudio = new Audio('./src/assets/plop.ogg');
-        this.sounds.push(hitAudio);
-        this.sounds.push(bounceAudio);
+        // this.sounds = [];
+        // const hitAudio = new Audio('./src/assets/beep.ogg');
+        // const bounceAudio = new Audio('./src/assets/plop.ogg');
+        // this.sounds.push(hitAudio);
+        // this.sounds.push(bounceAudio);
 
         this.ctx = ctx;
         this.objects = [];
@@ -39,14 +39,14 @@ export default class Game {
     startPoint() {
         // debugger
         this.rallyStarted = true;
-        this.ball.status = "serving";
+        // this.ball.status = "serving";
         // this.animate();
         this.gameView.animate(this);
     }
 
     resetPoint() {
         // debugger
-        this.soundOn = true;
+        // this.soundOn = true;
         this.rallyStarted = false;
         this.court = new Court(this.ctx);
         this.net = new Net(this.ctx);
@@ -56,7 +56,7 @@ export default class Game {
             CONSTANTS.P1COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
             this.net,
-            this.sounds[0]
+            // this.sounds[0]
         );
         this.player2 = new ComputerPlayer(
             [392, 40], 
@@ -64,7 +64,7 @@ export default class Game {
             CONSTANTS.P2COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
             this.net,
-            this.sounds[0]
+            // this.sounds[0]
         );
         this.ball = new Ball(
             // CONSTANTS.BALLSTART,

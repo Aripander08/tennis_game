@@ -42,6 +42,7 @@ export default class ComputerPlayer extends HumanPlayer {
 
     swing(ball) {
         if (ball.roundCollisionDetector(this) === this && ball.status !== "out") {
+            // this.sfx.play();
             ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             ball.vel[1] *= -(0.95);
             ball.vel[2] += 1.9;

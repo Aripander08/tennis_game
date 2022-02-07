@@ -15,6 +15,7 @@ export default class HumanPlayer extends MovingObject {
         this.height = height;
         this.width = height / 3;
         this.net = net;
+        // this.sfx = sfx;
     };
 
     draw(ctx) {
@@ -63,8 +64,9 @@ export default class HumanPlayer extends MovingObject {
         const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.4];
 
         const ballHeight = ball.height;
-        if (ball.status !== "out" && ballHeight <= this.height) {
+        if ((ball.status === "tossing" || ball.status === "live") && ballHeight <= this.height) {
             // debugger
+            // this.sfx.play();
             ball.status = "live"
             ball.vel = newVel;
             ball.player = this;

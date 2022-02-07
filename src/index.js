@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const restartBtn = document.getElementById('restart-button');
     restartBtn.addEventListener('click', () => {
+        debugger
         new Game(ctx);
+        debugger
     });
 
     const sfxBtn = document.querySelector("#sound-button");
