@@ -1,4 +1,3 @@
-
 import MovingObject from "./moving_object.js";
 
 const CONSTANTS = {
@@ -9,7 +8,7 @@ const CONSTANTS = {
     SHADEDBALLCOLOR: "#83a300",
     SHADOWCOLOR: "rgba(23, 23, 23, 0.75)",
     NETCOLOR: "rgba(133, 133, 133, 0.73)"
-}
+};
 
 export default class Ball extends MovingObject {
     constructor(pos, vel, radius, height, player, canvas) {
@@ -51,14 +50,7 @@ export default class Ball extends MovingObject {
          } else {
             // regular ball
             this.drawCircle(ctx, CONSTANTS.BALLCOLOR, this);
-        }
-
-        // visual aid for ball collision
-        // const collisionDist = this.radius + this.player.height * (0.7);
-        // this.fillStyle = "rgba(43, 218, 66, 0.12)";
-        // ctx.beginPath();
-        // ctx.arc(this.pos[0], this.pos[1], collisionDist, 0, 2 * Math.PI);
-        // ctx.fill();
+        };
     };
 
     roundCollisionDetector(otherObject) {
@@ -72,12 +64,10 @@ export default class Ball extends MovingObject {
             return otherObject;
         } else {
             return '';
-        }
+        };
     };
 
-    netCollisionDetector(otherObject) {
-        // if ball is moving from near half
-        
+    netCollisionDetector(otherObject) { 
         if (this.pos[0] > otherObject.pos[0] &&
             this.pos[0] < (otherObject.pos[0] + otherObject.width)) {
                 if (this.vel[1] < 0 &&
@@ -97,30 +87,6 @@ export default class Ball extends MovingObject {
                     return otherObject;
                 };
         };
-        
-
-         
-        // if ball is coming from far half
-        // if (this.pos[1] >= otherObject.pos[1]) {
-        //     if (
-        //         otherObject.pos[0] <= this.pos[0] &&
-        //         otherObject.pos[0] + otherObject.width >= this.pos[0] &&
-        //         otherObject.pos[1] >= this.pos[1] - this.radius &&
-        //         this.height < otherObject.height) {
-        //             return otherObject;
-        //     }
-        // } else if (this.pos[1] <= (otherObject.pos[1] - this.radius) &&
-        //             this.vel[1] > 0) {
-        //     // debugger
-        //     if (
-        //         otherObject.pos[0] <= this.pos[0] &&
-        //         otherObject.pos[0] + otherObject.width >= this.pos[0] &&
-        //         otherObject.pos[1] <= (this.pos[1] + this.radius) &&
-        //         this.height < otherObject.height) {
-        //             debugger
-        //             return otherObject;
-        //     }
-        // }
     };
 
     bounce() {
@@ -130,9 +96,10 @@ export default class Ball extends MovingObject {
             } else {
                 this.status = "out";
                 console.log(this.status);
-            }
+            };
         } else if (this.bounceCount < 1 && this.status === "tossing" ) {
             this.status = "fault";
+            this.bounceCount += 2;
             console.log(this.status);
         } else if (this.bounceCount < 2) {
             this.bounceCount += 1;
@@ -140,8 +107,8 @@ export default class Ball extends MovingObject {
                 // if the second bounce comes on a live ball, this is a winner
                 this.status = "point";
                 console.log(this.status);
-            }
-        } 
+            };
+        } ;
 
         if (this.vel[1] > 0) {
             // if ball path is moving down
@@ -151,7 +118,7 @@ export default class Ball extends MovingObject {
             this.vel[2] *= -(0.5);
         } else {
             this.vel[2] *= -(0.7);
-        }
+        };
     };
 
     move() {
@@ -159,7 +126,7 @@ export default class Ball extends MovingObject {
             this.bounce()
         } else {
             this.vel[2] += CONSTANTS.GRAVITY;
-        }
+        };
 
         // bounce of canvas edges
         if (
@@ -172,7 +139,7 @@ export default class Ball extends MovingObject {
             (this.pos[1] - this.radius <= 0)) {
                 this.vel[0] *= (0.5);
                 this.vel[1] *= -(0.5);
-        }
+        };
 
         // apply new vel to ball pos
         this.pos[0] += this.vel[0];
@@ -180,6 +147,6 @@ export default class Ball extends MovingObject {
         this.height += this.vel[2];
         if (this.height < 0) {
             this.height = 0;
-        }
+        };
     };
-}
+};

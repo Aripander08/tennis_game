@@ -6,6 +6,8 @@ export default class Scorekeeper {
         this.sp = false;
         this.mp = false;
 
+        this.serve = "first";
+
         this.pointScore = {
             p1: 0,
             p2: 0
@@ -24,7 +26,7 @@ export default class Scorekeeper {
             } else {
                 this.pointScore.p2 += 1;
             };
-        } else if (ball.status === "out") {
+        } else if (ball.status === "out" || ball.status === "dF") {
             if (ball.player.name === "P2") {
                 this.pointScore.p1 += 1;
             } else {
@@ -91,7 +93,7 @@ export default class Scorekeeper {
         // theme 2
         ctx.fillStyle = "#115740";
         ctx.fillRect(0, 0, 125, 65);
-
+        
         // ctx.font = "20px IBM Plex Sans Thai Looped";
         // theme 1
         // ctx.fillStyle = "black";
@@ -105,5 +107,5 @@ export default class Scorekeeper {
         ctx.fillText(`| ${this.gameScore.p2}`, 55, 50);
         ctx.fillText(`| ${this.showPoints('p1')}`, 82, 25);
         ctx.fillText(`| ${this.showPoints('p2')}`, 82, 50);
-    }
+    };
 }

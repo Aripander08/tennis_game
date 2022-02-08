@@ -57,8 +57,6 @@ In addition, this project will include:
     - Depl0y to GitHub
 
 ## Short-Term To DO
-- Fix so that first missed toss is a fault and redo
-- Add arm/racket to comp
 - Add game win/loss function
 - Fix game logic for when first bounce happens on same side of court
 - Cpu needs some balancing (less raw speed and mor intelligent shot selection)

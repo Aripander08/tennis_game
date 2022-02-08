@@ -155,6 +155,15 @@ export default class Game {
 
     pointOver() {
         if (this.ball.status === "point" || this.ball.status === "out" || this.ball.status === "fault") {
+            console.log(this.scorekeeper.serve)
+            if (this.scorekeeper.serve === "second" && this.ball.status === "fault") {
+                this.ball.status = "dF";
+                console.log(this.scorekeeper.serve);
+            } else if (this.scorekeeper.serve === "first" && this.ball.status === "fault") {
+                this.scorekeeper.serve = "second";
+                console.log(this.scorekeeper.serve);
+            };
+
             this.scorekeeper.updatePointScore(this.ball);
             this.scorekeeper.updateGameScore();
             // debugger
