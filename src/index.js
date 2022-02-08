@@ -13,14 +13,10 @@ document.addEventListener("DOMContentLoaded", function() {
         canvas.style.cursor = "pointer";
     })
 
-    // const restartBtn = document.getElementById('restart-button');
-    // restartBtn.addEventListener('click', () => {
-    //     debugger
-    //     // ctx.clearRect(0, 0, ctx.width, ctx.height);
-    //     // let oldGame = this.
-    //     game = new Game(ctx);
-    //     // debugger
-    // });
+    const restartBtn = document.getElementById('restart-button');
+    restartBtn.addEventListener('click', () => {
+        history.go(0);
+    });
 
     const sfxBtn = document.querySelector("#sound-button");
     const sfxIcon = document.querySelector("#sound-button i");

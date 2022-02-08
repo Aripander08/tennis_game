@@ -144,7 +144,9 @@ export default class Game {
         const mouseY = e.clientY - canvas.y;
         if (mouseX >= 0 && mouseX <= 800 && mouseY >= 0 && mouseY <= 600) {
             // debugger
-            if (!this.gameOver) {
+            if (this.gameOver) { 
+                history.go(0);
+            } else {
                 if (!this.rallyStarted) {
                     this.startPoint();
                     this.player1.toss(this.ball);
@@ -183,14 +185,20 @@ export default class Game {
 
     win() {
         if (this.scorekeeper.gameScore.p1 === 6 &&
-            this.scorekeeper.gameScore.p2 < 5) {
+            this.scorekeeper.gameScore.p1 - this.scorekeeper.gameScore.p2 >= 2 ) {
                 // debugger
                 this.gameOver = true;
                 this.winner = this.player1;
         } else if (this.scorekeeper.gameScore.p2 === 6 &&
-            this.scorekeeper.gameScore.p1 < 5) {
+            this.scorekeeper.gameScore.p2 - this.scorekeeper.gameScore.p1 >= 2) {
                 this.gameOver = true;
                 this.winner = this.player2;
-        }
+        } else if (this.scorekeeper.gameScore.p1 === 7) {
+            this.gameOver = true;
+            this.winner = this.player1;
+        } else if (this.scorekeeper.gameScore.p2 === 7) {
+            this.gameOver = true;
+            this.winner = this.player1;
+        };
     };
 };

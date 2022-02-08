@@ -22,9 +22,11 @@ export default class GameView {
         if (this.game.gameOver) {
             if (this.game.winner.name === "P1") {
                 // debugger
+                this.drawPostGame('win');
                 console.log('you win');
             } else {
                 // debugger
+                this.drawPostGame('lose');
                 console.log('you lose');
             };
         };
@@ -38,4 +40,9 @@ export default class GameView {
     draw(game, ctx) {
         game.objects.forEach(obj => obj.draw(ctx))
     }
+
+    drawPostGame () {
+        this.game.scorekeeper.drawPostGame(this.game.ctx);        
+    }
+    
 }
