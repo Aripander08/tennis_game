@@ -1,8 +1,9 @@
 
 export default class Racket {
-    constructor (pivot, radius, color) {
+    constructor (pivot, radius, armColor, color) {
         this.pivot = pivot;
         this.radius = radius;
+        this.armColor = armColor;
         this.color = color;
         this.armLength = 20;
         this.armAngle = Math.PI * (7/4);
@@ -27,30 +28,34 @@ export default class Racket {
     };
 
     draw(ctx) {
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 4;
         // the arm
-        ctx.strokeStyle = "#9fded5";
+        ctx.strokeStyle = this.armColor;
         ctx.beginPath();
         ctx.moveTo(this.pivot[0], this.pivot[1]);
         ctx.lineTo(this.handPos[0], this.handPos[1]);
         ctx.stroke();
         ctx.beginPath();
+        ctx.lineWidth = 2.5;
         // the racket handle
-        ctx.strokeStyle = "red";
+        ctx.strokeStyle = this.color;
         ctx.moveTo(this.handPos[0], this.handPos[1]);
         ctx.lineTo(this.racketPos[0], this.racketPos[1]);
         ctx.stroke();
         //the racket head
+        ctx.lineWidth = 2.0;
         ctx.beginPath();
         ctx.arc(this.racketPos[0], this.racketPos[1], 7, 0, 2 * Math.PI);
         ctx.stroke();
     };
 
     swing() {
+        // debugger
         window.clearTimeout(timeout1);
         window.clearTimeout(timeout2);
         this.swingStatus.swinging = true;
         this.swingStatus.resting = false;
+        // debugger
         const timeout1 = setTimeout(() => {
             this.swingStatus.swinging = false;
             this.swingStatus.returning = true;

@@ -11,6 +11,7 @@ export default class GameView {
         game.net.stopBall(game.ball);
         game.player2.findPath(game.ball);
         game.player2.swing(game.ball);
+        game.p2racket.animateSwing();
         game.player1.reposition(game.keys);
         game.p1racket.animateSwing();
         game.pointOver();

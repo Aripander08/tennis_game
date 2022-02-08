@@ -10,14 +10,8 @@ const CONSTANTS = {
 };
 
 export default class ComputerPlayer extends HumanPlayer {
-    constructor(pos, vel, color, height, net, sfx, name) {
-        super(pos, vel, color, height, net, sfx, name);
-        this.racket = {
-            headPos: [this.pos[0], this.pos[1] + 20],
-            gripPos: [this.pos[0] + 20, this.pos[1] + 40],
-            radius: 10,
-            color: CONSTANTS.RACKET
-        };
+    constructor(pos, vel, color, height, net, sfx, name, racket) {
+        super(pos, vel, color, height, net, sfx, name, racket);
     };
 
     findPath(ball) {
@@ -53,6 +47,8 @@ export default class ComputerPlayer extends HumanPlayer {
     swing(ball) {
         if (ball.roundCollisionDetector(this) === this && 
             ball.status !== "out" && ball.player !== this) {
+            this.racket.swing();
+            this.racket.animateSwing();
             this.sfx.play();
             // ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             if (this.pos[0] > 600) {

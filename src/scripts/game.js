@@ -45,22 +45,23 @@ export default class Game {
     startPoint() {
         // debugger
         this.rallyStarted = true;
-        // this.ball.status = "serving";
-        // this.animate();
         this.gameView.animate(this);
     }
 
     resetPoint() {
-        // debugger
-        // this.soundOn = true;
-        // this.scorekeeper.
+
         this.rallyStarted = false;
         this.court = new Court(this.ctx);
         this.net = new Net(this.ctx);
         this.p1racket = new Racket(
             [392 + 16 * (4/5),
             500 + 48 * (2/5)],
-            10, "red"
+            10, CONSTANTS.P1COLOR, "red"
+        );
+        this.p2racket = new Racket(
+            [392 + 16 * (4/5),
+            40 + 48 * (2/5)],
+            10, CONSTANTS.P2COLOR, "silver"
         );
         this.player1 = new HumanPlayer(
             [392, 500], 
@@ -80,7 +81,8 @@ export default class Game {
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
             this.net,
             this.sounds[0],
-            "P2"
+            "P2",
+            this.p2racket
         );
         this.ball = new Ball(
             // CONSTANTS.BALLSTART,
@@ -95,6 +97,7 @@ export default class Game {
         this.objects.push(this.court);
         this.objects.push(this.net);
         this.objects.push(this.player2);
+        this.objects.push(this.p2racket);
         this.objects.push(this.ball);
         this.objects.push(this.p1racket);
         this.objects.push(this.player1);

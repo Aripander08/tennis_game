@@ -78,3 +78,12 @@ In addition, this project will include:
 - Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
 - Should refactor court class to DRY it up 
 - For some reason, assigning the racket colors overrides the ball color, so racket color is turned off for now
+
+- Added ScoreKeeper
+- Adding arm that rotates
+- Roadblocks:
+    - The way I coded the net collision detected made it so that the points would go up every animation frame until resetPoint
+    - The arm was tricky because I needed to track 3 moving vertices. Right now I have the, all move together b/c I feel I already went over budget on getting just the stationary arm
+    - Give my CPU player a moving arm as well
+    - Fix the important bugs that "break" the game flow
+    - If time permits, work on the numbers for better CPU and better swing mechanic/visual

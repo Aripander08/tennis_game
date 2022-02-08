@@ -24,69 +24,78 @@ export default class Net {
 
     draw(ctx) {
         // net
-        ctx.fillStyle = CONSTANTS.NET;
-        ctx.fillRect(
-            ctx.canvas.width * CONSTANTS.LEFTX, 
-            ctx.canvas.width * CONSTANTS.CORDY, 
-            this.width, 
-            this.height
+        this.drawNet(
+            ctx, CONSTANTS.NET, 
+            ctx.canvas.width * CONSTANTS.LEFTX,
+            ctx.canvas.width * CONSTANTS.CORDY,
+            this.width, this.height
         );
-        // net cord
-        ctx.fillStyle = CONSTANTS.CORD;
-        ctx.fillRect(
-            ctx.canvas.width * CONSTANTS.LEFTX, 
-            ctx.canvas.width * CONSTANTS.CORDY, 
-            this.width, 
-            ctx.canvas.width * CONSTANTS.CORDWIDTH
-        );
-        // net posts
-        ctx.lineWidth = ctx.canvas.width * CONSTANTS.POLEWIDTH;
-        ctx.strokeStyle = CONSTANTS.POST;
-        // left post
-        ctx.beginPath();
-        ctx.moveTo(
-            ctx.canvas.width * (CONSTANTS.LEFTX + CONSTANTS.CORDWIDTH), 
-            this.pos[1]
-        );
-        ctx.lineTo(
-            ctx.canvas.width * (CONSTANTS.LEFTX + CONSTANTS.CORDWIDTH), 
-            ctx.canvas.width * CONSTANTS.CORDY
-        );
-        ctx.stroke();
-        // right post
-        ctx.beginPath();
-        ctx.moveTo(
-            ctx.canvas.width * (CONSTANTS.RIGHTX - CONSTANTS.CORDWIDTH), 
-            this.pos[1]
-        );
-        ctx.lineTo(
-            ctx.canvas.width * (CONSTANTS.RIGHTX - CONSTANTS.CORDWIDTH), 
-            ctx.canvas.width * CONSTANTS.CORDY
-        );
-        ctx.stroke();
 
+        // net cord
+        this.drawNet(
+            ctx, CONSTANTS.CORD, 
+            ctx.canvas.width * CONSTANTS.LEFTX,
+            ctx.canvas.width * CONSTANTS.CORDY,
+            this.width, ctx.canvas.width * CONSTANTS.CORDWIDTH
+        );
+
+        // net posts
+        const lineWidth = ctx.canvas.width * CONSTANTS.POLEWIDTH;
+        // left post
+        this.drawPost(
+            ctx, lineWidth, CONSTANTS.POST, 
+            [ctx.canvas.width * 
+                (CONSTANTS.LEFTX + CONSTANTS.CORDWIDTH), 
+                this.pos[1]],
+            [ctx.canvas.width * 
+                (CONSTANTS.LEFTX + CONSTANTS.CORDWIDTH), 
+                ctx.canvas.width * CONSTANTS.CORDY]
+        );
+        // right post
+        this.drawPost(
+            ctx, lineWidth, CONSTANTS.POST, 
+            [ctx.canvas.width * 
+                (CONSTANTS.RIGHTX - CONSTANTS.CORDWIDTH), 
+                this.pos[1]],
+            [ctx.canvas.width * 
+                (CONSTANTS.RIGHTX - CONSTANTS.CORDWIDTH), 
+                ctx.canvas.width * CONSTANTS.CORDY]
+        );
         // net shadow
-        ctx.fillStyle = "rgba(23, 23, 23, 0.75)";
+        this.drawShadow(
+            ctx, CONSTANTS.SHADOW, 
+            [ctx.canvas.width * CONSTANTS.LEFTX, 
+            ctx.canvas.width * CONSTANTS.BASEY],
+            [ctx.canvas.width * CONSTANTS.RIGHTX, 
+            ctx.canvas.width * CONSTANTS.BASEY],
+            [ctx.canvas.width * (CONSTANTS.RIGHTX + CONSTANTS.CORDWIDTH / 2), 
+            ctx.canvas.width * CONSTANTS.BASEY + this.height * CONSTANTS.RIGHTX],
+            [ctx.canvas.width * (CONSTANTS.LEFTX - CONSTANTS.CORDWIDTH / 2), 
+            ctx.canvas.width * CONSTANTS.BASEY + this.height * CONSTANTS.RIGHTX]
+        );
+    };
+
+    drawNet(ctx, color, x, y, w, h) {
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, w, h);
+    };
+    drawPost(ctx, width, color, startPos, endPos) {
+        ctx.lineWidth = width;
+        ctx.strokeStyle = color;
         ctx.beginPath();
-        ctx.moveTo(
-            ctx.canvas.width * CONSTANTS.LEFTX, 
-            ctx.canvas.width * CONSTANTS.BASEY
-            
-        );
-        ctx.lineTo(
-            ctx.canvas.width * CONSTANTS.RIGHTX, 
-            ctx.canvas.width * CONSTANTS.BASEY
-        );
-        ctx.lineTo(
-            ctx.canvas.width * (CONSTANTS.RIGHTX + CONSTANTS.CORDWIDTH / 2), 
-            ctx.canvas.width * CONSTANTS.BASEY + this.height * CONSTANTS.RIGHTX
-        );
-        ctx.lineTo(
-            ctx.canvas.width * (CONSTANTS.LEFTX - CONSTANTS.CORDWIDTH / 2), 
-            ctx.canvas.width * CONSTANTS.BASEY + this.height * CONSTANTS.RIGHTX
-        );
+        ctx.moveTo(startPos[0], startPos[1]);
+        ctx.lineTo(endPos[0], endPos[1]);
+        ctx.stroke();
+    };
+    drawShadow(ctx, color, topLeft, topRight, botRight, botLeft) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(topLeft[0], topLeft[1]);
+        ctx.lineTo(topRight[0], topRight[1]);
+        ctx.lineTo(botRight[0], botRight[1]);
+        ctx.lineTo(botLeft[0], botLeft[1]);
         ctx.fill();
-    }
+    };
 
     stopBall(ball) {
         if (ball.netCollisionDetector(this) === this) {
