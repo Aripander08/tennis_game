@@ -12,7 +12,7 @@ export default class GameView {
         game.player2.findPath(game.ball);
         game.player2.swing(game.ball);
         game.player1.reposition(game.keys);
-
+        game.p1racket.animateSwing();
         game.pointOver();
     }
 

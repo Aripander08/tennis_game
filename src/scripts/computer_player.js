@@ -11,6 +11,12 @@ const CONSTANTS = {
 export default class ComputerPlayer extends HumanPlayer {
     constructor(pos, vel, color, height, net, sfx, name) {
         super(pos, vel, color, height, net, sfx, name);
+        this.racket = {
+            headPos: [this.pos[0], this.pos[1] + 20],
+            gripPos: [this.pos[0] + 20, this.pos[1] + 40],
+            radius: 10,
+            color: CONSTANTS.RACKET
+        };
     };
 
     findPath(ball) {
@@ -88,6 +94,6 @@ export default class ComputerPlayer extends HumanPlayer {
         this.drawHair(ctx);
         this.drawHead(ctx);
         this.drawShadow(ctx)
-        this.drawRacket(ctx);
+        // this.drawRacket(ctx);
     };
 };

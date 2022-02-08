@@ -90,7 +90,7 @@ export default class Scorekeeper {
         // ctx.fillStyle = "#F5F5F5";
         // theme 2
         ctx.fillStyle = "#115740";
-        ctx.fillRect(0, 0, 120, 65);
+        ctx.fillRect(0, 0, 125, 65);
 
         // ctx.font = "20px IBM Plex Sans Thai Looped";
         // theme 1
@@ -98,7 +98,12 @@ export default class Scorekeeper {
         // theme 2
         ctx.fillStyle = "#f5f5f5";
         ctx.font = "18px Merriweather Sans";
-        ctx.fillText(`P1:  ${this.gameScore.p1} | ${this.showPoints('p1')}*`, 10, 25);
-        ctx.fillText(`P2: ${this.gameScore.p2} | ${this.showPoints('p2')}`, 10, 50);
+        // ctx.fillText(`P1      | ${this.gameScore.p1} | ${this.showPoints('p1')}*`, 10, 25);
+        ctx.fillText(`P1`, 10, 25);
+        ctx.fillText(`CPU`, 10, 50);
+        ctx.fillText(`| ${this.gameScore.p1}`, 55, 25);
+        ctx.fillText(`| ${this.gameScore.p2}`, 55, 50);
+        ctx.fillText(`| ${this.showPoints('p1')}`, 82, 25);
+        ctx.fillText(`| ${this.showPoints('p2')}`, 82, 50);
     }
 }

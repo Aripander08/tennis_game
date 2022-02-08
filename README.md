@@ -58,6 +58,7 @@ In addition, this project will include:
 
 
 ## Known bugs
+- When first boucne is within same side of court it should register as out which it does not yet
 - button icons do not 'unfocus' after clicking
 - SFX button doesn't work
 - Game Restart just causes the sfx to layer on top of each other -- disabled for now

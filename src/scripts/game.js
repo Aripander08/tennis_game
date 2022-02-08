@@ -5,6 +5,7 @@ import ComputerPlayer from "./computer_player.js";
 import Net from "./net.js";
 import GameView from "./game_view.js";
 import Scorekeeper from "./scorekeeper.js";
+import Racket from "./racket.js";
 
 const CONSTANTS = {
     P1ADSTART: [392, 500],
@@ -65,6 +66,11 @@ export default class Game {
             this.sounds[0],
             "P1"
         );
+        this.p1racket = new Racket(
+            [this.player1.pos[0] + this.player1.width * (4/5),
+            this.player1.pos[1] + this.player1.height * (2/5)],
+            10, "red"
+        );
         this.player2 = new ComputerPlayer(
             [392, 40], 
             [0, 0], 
@@ -88,6 +94,7 @@ export default class Game {
         this.objects.push(this.net);
         this.objects.push(this.player2);
         this.objects.push(this.ball);
+        this.objects.push(this.p1racket);
         this.objects.push(this.player1);
         this.objects.push(this.scorekeeper);
         this.gameView.draw(this, this.ctx);
@@ -133,10 +140,10 @@ export default class Game {
             } else if (this.ball.roundCollisionDetector(this.player1) === this.player1) {
                 
                 this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
-                // debugger
-            }
-        }
-    }
+                this.p1racket.swing();
+            };
+        };
+    };
 
     pointOver() {
         if (this.ball.status === "point" || this.ball.status === "out" || this.ball.status === "fault") {
@@ -147,13 +154,6 @@ export default class Game {
             // debugger
             setTimeout(this.resetPoint.bind(this), 2000);
             // debugger
-        }
-    }
-
-    newGame() {
-        this.p1score = 0;
-        this.p2score = 0;
-        console.log(this.p1score);
-        console.log(this.p2score);
-    }
-}
+        };
+    };
+};
