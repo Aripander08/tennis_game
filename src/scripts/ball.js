@@ -91,15 +91,18 @@ export default class Ball extends MovingObject {
 
     bounce() {
         if (this.bounceCount < 1 && this.status !== "tossing") {
+            // debugger
             this.bounceCount += 1;
             // debugger
-            if ((this.pos[0] < 290 || this.pos[0] > 600) ||
+            if ((this.pos[0] < 200 || this.pos[0] > 600) ||
                 (this.pos[1] < 100 || this.pos[1] > 500)) {
+                    // debugger
                     this.status = "out";
                     console.log(this.status); 
             };
             if ((this.vel[1] < 0 && (this.pos[1] > 290) ||
                 (this.vel[1] > 0 && (this.pos[1] < 290)))) {
+                    // debugger
                     this.status = "out";
                     console.log(this.status);                
             };

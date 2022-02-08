@@ -38,14 +38,18 @@ export default class Game {
         this.bindControls();
         this.gameView = new GameView(this);
         // debugger
+        this.gameOver = false;
+        this.winner = null;
         this.resetPoint();
         // debugger
     };
     
     startPoint() {
         // debugger
-        this.rallyStarted = true;
-        this.gameView.animate(this);
+        if (!this.gameOver) {
+            this.rallyStarted = true;
+            this.gameView.animate(this);
+        };
     }
 
     resetPoint() {
@@ -105,6 +109,7 @@ export default class Game {
         this.gameView.draw(this, this.ctx);
 
         this.scorekeeper.isBreakPoint();
+        this.win();
     } 
     
     bindControls() {
@@ -139,16 +144,18 @@ export default class Game {
         const mouseY = e.clientY - canvas.y;
         if (mouseX >= 0 && mouseX <= 800 && mouseY >= 0 && mouseY <= 600) {
             // debugger
-            if (!this.rallyStarted) {
-                this.startPoint();
-                this.player1.toss(this.ball);
-            } else if (this.ball.roundCollisionDetector(this.player1) === this.player1) {
-            // } else if (this.ball.roundCollisionDetector(this.p1racket) === this.p1racket) {
-                // debugger
-                this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
-                this.p1racket.swing();
-            // } else {
-            //     this.p1racket.swing();
+            if (!this.gameOver) {
+                if (!this.rallyStarted) {
+                    this.startPoint();
+                    this.player1.toss(this.ball);
+                } else if (this.ball.roundCollisionDetector(this.player1) === this.player1) {
+                // } else if (this.ball.roundCollisionDetector(this.p1racket) === this.p1racket) {
+                    // debugger
+                    this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
+                    this.p1racket.swing();
+                // } else {
+                //     this.p1racket.swing();
+                };
             };
         };
     };
@@ -172,5 +179,18 @@ export default class Game {
             setTimeout(this.resetPoint.bind(this), 2000);
             // debugger
         };
+    };
+
+    win() {
+        if (this.scorekeeper.gameScore.p1 === 6 &&
+            this.scorekeeper.gameScore.p2 < 5) {
+                // debugger
+                this.gameOver = true;
+                this.winner = this.player1;
+        } else if (this.scorekeeper.gameScore.p2 === 6 &&
+            this.scorekeeper.gameScore.p1 < 5) {
+                this.gameOver = true;
+                this.winner = this.player2;
+        }
     };
 };

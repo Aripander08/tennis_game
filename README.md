@@ -58,7 +58,6 @@ In addition, this project will include:
 
 ## Short-Term To DO
 - Add game win/loss function
-- Fix game logic for when first bounce happens on same side of court
 - Cpu needs some balancing (less raw speed and mor intelligent shot selection)
 - Give SFX button real functionality
 - Style the button margins

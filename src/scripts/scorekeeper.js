@@ -10,11 +10,11 @@ export default class Scorekeeper {
 
         this.pointScore = {
             p1: 0,
-            p2: 0
+            p2: 3
         };
         this.gameScore = {
-            p1: 0,
-            p2: 0
+            p1: 4,
+            p2: 5
         };
     }
 
