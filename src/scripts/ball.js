@@ -62,12 +62,13 @@ export default class Ball extends MovingObject {
     };
 
     roundCollisionDetector(otherObject) {
-        const collisionDist = this.radius + otherObject.height * (0.8);
+        const collisionDist = this.radius + 40;
         const currentDist = Math.hypot(
-            this.pos[0] - (otherObject.pos[0] + otherObject.width / 2), 
-            this.pos[1] - (otherObject.pos[1] + otherObject.height)
+            this.pos[0] - (otherObject.pos[0]), 
+            this.pos[1] - (otherObject.pos[1])
         );
         if (currentDist < collisionDist) {
+            // debugger
             return otherObject;
         } else {
             return '';

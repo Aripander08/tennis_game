@@ -56,8 +56,20 @@ In addition, this project will include:
 - Thursday Morning
     - Depl0y to GitHub
 
+## Short-Term To DO
+- Fix so that first missed toss is a fault and redo
+- Add arm/racket to comp
+- Add game win/loss function
+- Fix game logic for when first bounce happens on same side of court
+- Cpu needs some balancing (less raw speed and mor intelligent shot selection)
+- Give SFX button real functionality
+- Style the button margins
 
 ## Known bugs
+- Missed toss counts as a lost point
+- Comp has no arm/ racket
+- Currently the set does not end when it should
+- Due to larger hitbox, p1 can now hit ball that is still on other side of net
 - When first boucne is within same side of court it should register as out which it does not yet
 - button icons do not 'unfocus' after clicking
 - SFX button doesn't work
@@ -65,5 +77,4 @@ In addition, this project will include:
 - When ball hits canvas border, sometimes bounces back sometimes just stops and sometimes it rolls too far out
 - Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
 - Should refactor court class to DRY it up 
-- Missed toss counts as a lost point
 - For some reason, assigning the racket colors overrides the ball color, so racket color is turned off for now

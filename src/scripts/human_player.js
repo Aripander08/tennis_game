@@ -2,9 +2,10 @@ import MovingObject from "./moving_object.js";
 import Racket from "./racket.js";
 
 const CONSTANTS = {
-    SKIN: "#D2B48C",
-    HAIR: "#574022",
-    SHOES: "#D3D3D3",
+    SKIN: "#d5c8b8",
+    HAIR: "#b2daed",
+    FEET: "#303032",
+    LEGS: "#70592d",
     SHADOW: "rgba(23, 23, 23, 0.75)",
     MOVESPEED: 1.75,
     
@@ -12,7 +13,7 @@ const CONSTANTS = {
 };
 
 export default class HumanPlayer extends MovingObject {
-    constructor(pos, vel, color, height, net, sfx, name) {
+    constructor(pos, vel, color, height, net, sfx, name, racket) {
         super(pos, vel);
         this.color = color;
         this.height = height;
@@ -20,13 +21,14 @@ export default class HumanPlayer extends MovingObject {
         this.net = net;
         this.sfx = sfx;
         this.name = name;
+        this.racket = racket;
         // this.racket = new Racket(this, [this.pos[0] + this.width / 2, this.pos[1] + this.height * (2/3)], 10, "red");
     };
 
     toss(ball) {
         ball.status = "tossing";
         console.log("tossing");
-        ball.vel = [0, 0, 4];
+        ball.vel = [0, 0, 2.0];
         // debugger
     }
 
@@ -39,7 +41,7 @@ export default class HumanPlayer extends MovingObject {
         const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.4];
         // const newVel = [0, -3, 1.5];
         const ballHeight = ball.height;
-        if ((ball.status === "tossing" || ball.status === "live") && ballHeight <= this.height) {
+        if ((ball.status === "tossing" || ball.status === "live") && ballHeight <= 50) {
             // debugger
             this.sfx.play();
             ball.status = "live"
@@ -52,24 +54,40 @@ export default class HumanPlayer extends MovingObject {
     reposition(keys) {
         if ((keys.w || keys.W) && 
             (this.pos[1] + this.height > this.net.pos[1])) {
+                // debugger
             this.pos[1] -= CONSTANTS.MOVESPEED; 
+            this.racket.pivot[1] -= CONSTANTS.MOVESPEED;
+            this.racket.handPos[1] -= CONSTANTS.MOVESPEED;
+            this.racket.racketPos[1] -= CONSTANTS.MOVESPEED;
+            // debugger
         }  
         if (keys.a || keys.A) {
             this.pos[0] -= CONSTANTS.MOVESPEED;
+            this.racket.pivot[0] -= CONSTANTS.MOVESPEED;
+            this.racket.handPos[0] -= CONSTANTS.MOVESPEED;
+            this.racket.racketPos[0] -= CONSTANTS.MOVESPEED;
         }
         if (keys.s || keys.S) {
             this.pos[1] += CONSTANTS.MOVESPEED;
+            this.racket.pivot[1] += CONSTANTS.MOVESPEED;
+            this.racket.handPos[1] += CONSTANTS.MOVESPEED;
+            this.racket.racketPos[1] += CONSTANTS.MOVESPEED;
         }
         if (keys.d || keys.D) {
             this.pos[0] += CONSTANTS.MOVESPEED;
+            this.racket.pivot[0] += CONSTANTS.MOVESPEED;
+            this.racket.handPos[0] += CONSTANTS.MOVESPEED;
+            this.racket.racketPos[0] += CONSTANTS.MOVESPEED;
         }
     };
 
     draw(ctx) {
         // this.drawRacket(ctx, CONSTANTS.RACKET);
         this.drawBody(ctx);
-        this.drawHead(ctx);
-        this.drawHair(ctx);
+        this.drawLegs(ctx, CONSTANTS.LEGS);
+        this.drawFeet(ctx, CONSTANTS.FEET);
+        this.drawHead(ctx, CONSTANTS.SKIN);
+        this.drawHair(ctx, CONSTANTS.HAIR);
         this.drawShadow(ctx);
         // this.racket.draw(ctx);
     };
@@ -80,17 +98,63 @@ export default class HumanPlayer extends MovingObject {
         ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height);
     };
     
-    drawHead(ctx) {
-        ctx.fillStyle = CONSTANTS.SKIN;
+    drawLegs(ctx, legs) {
+        ctx.fillStyle = legs;
+        ctx.beginPath();
+        ctx.fillRect(this.pos[0], this.pos[1] + 33, this.width, 15);
+    }
+
+    drawFeet(ctx, feet) {
+        ctx.fillStyle = feet;
+        ctx.beginPath();
+        ctx.fillRect(this.pos[0], this.pos[1] + 44, this.width, 4);
+    }
+    drawHead(ctx, skin) {
+        ctx.fillStyle = skin;
+        // ctx.fillRect(this.pos[0] - 2, this.pos[1] + 5, this.width + 4, this.height * (0.2));
         ctx.beginPath()
-        ctx.fillRect(this.pos[0], this.pos[1] + 5, this.width, this.height * (0.2));
+        ctx.arc(this.pos[0] + 8, this.pos[1] + 8, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        // eye whites
+        ctx.fillStyle = "white";
+        ctx.beginPath()
+        ctx.arc(this.pos[0] + 2, this.pos[1] + 7, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath()
+        ctx.arc(this.pos[0] + 14, this.pos[1] + 7, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 1;
+        // irises
+        ctx.beginPath()
+        ctx.moveTo(this.pos[0] + 2, this.pos[1] + 7);
+        ctx.lineTo(this.pos[0] + 2, this.pos[1] + 9);
+        ctx.stroke();
+        ctx.beginPath()
+        ctx.moveTo(this.pos[0] + 14, this.pos[1] + 7);
+        ctx.lineTo(this.pos[0] + 14, this.pos[1] + 9);
+        ctx.stroke();
+        // eyebrows
+        ctx.lineWidth = 0.5;
+        ctx.beginPath()
+        ctx.moveTo(this.pos[0] + 4, this.pos[1]);
+        ctx.lineTo(this.pos[0] - 2, this.pos[1] + 2);
+        ctx.stroke();
+        ctx.beginPath()
+        ctx.moveTo(this.pos[0] + 12, this.pos[1]);
+        ctx.lineTo(this.pos[0] + 18, this.pos[1] + 2);
+        ctx.stroke();
 
     };
 
-    drawHair(ctx) {
-        ctx.fillStyle = CONSTANTS.HAIR;
+    drawHair(ctx, hair) {
+        ctx.fillStyle = hair;
         ctx.beginPath()
-        ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height * (0.2));
+        // ctx.fillRect(this.pos[0] - 2, this.pos[1], this.width + 4, this.height * (0.2));
+        ctx.arc(this.pos[0] + 8, this.pos[1] + 4, 14, 0, Math.PI * 2);
+        ctx.fill();
     }
 
     drawShadow(ctx) {

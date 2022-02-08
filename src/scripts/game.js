@@ -9,9 +9,9 @@ import Racket from "./racket.js";
 
 const CONSTANTS = {
     P1ADSTART: [392, 500],
-    P1COLOR: "pink",
+    P1COLOR: "#9fded5",
     P2ADSTART: [392, 40],
-    P2COLOR: "gold",
+    P2COLOR: "#f7f07b",
     PLAYERHT: 0.06,
     BALLSTART: [400, 520],
     BALLTOSSHT: 0.0125,
@@ -57,19 +57,21 @@ export default class Game {
         this.rallyStarted = false;
         this.court = new Court(this.ctx);
         this.net = new Net(this.ctx);
+        this.p1racket = new Racket(
+            [392 + 16 * (4/5),
+            500 + 48 * (2/5)],
+            10, "red"
+        );
         this.player1 = new HumanPlayer(
             [392, 500], 
             [0,0], 
             CONSTANTS.P1COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
+            // this.ctx.canvas.width * CONSTANTS.PLAYERHT,
             this.net,
             this.sounds[0],
-            "P1"
-        );
-        this.p1racket = new Racket(
-            [this.player1.pos[0] + this.player1.width * (4/5),
-            this.player1.pos[1] + this.player1.height * (2/5)],
-            10, "red"
+            "P1",
+            this.p1racket
         );
         this.player2 = new ComputerPlayer(
             [392, 40], 
@@ -138,9 +140,12 @@ export default class Game {
                 this.startPoint();
                 this.player1.toss(this.ball);
             } else if (this.ball.roundCollisionDetector(this.player1) === this.player1) {
-                
+            // } else if (this.ball.roundCollisionDetector(this.p1racket) === this.p1racket) {
+                // debugger
                 this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
                 this.p1racket.swing();
+            // } else {
+            //     this.p1racket.swing();
             };
         };
     };

@@ -1,9 +1,10 @@
 import HumanPlayer from "./human_player.js";
 
 const CONSTANTS = {
-    SKIN: "#D2B48C",
-    HAIR: "#574022",
-    SHOES: "#D3D3D3",
+    SKIN: "#f8bd91",
+    HAIR: "#70592d",
+    LEGS: "#3a4767",
+    FEET: "#ededee",
     SHADOW: "rgba(23, 23, 23, 0.75)",
     RACKET: "black",
 };
@@ -91,8 +92,10 @@ export default class ComputerPlayer extends HumanPlayer {
 
     draw(ctx) {
         this.drawBody(ctx);
-        this.drawHair(ctx);
-        this.drawHead(ctx);
+        this.drawLegs(ctx, CONSTANTS.LEGS);
+        this.drawFeet(ctx, CONSTANTS.FEET);
+        this.drawHair(ctx, CONSTANTS.HAIR);
+        this.drawHead(ctx, CONSTANTS.SKIN);
         this.drawShadow(ctx)
         // this.drawRacket(ctx);
     };
