@@ -74,24 +74,24 @@ export default class ComputerPlayer extends HumanPlayer {
 
             ball.vel[1] *= -(0.95);
             // The vel that comp imparts on the ball should depend on the balls height and vel
-            // ball.vel[2] = 1;
-            if (ball.height < 20) {
-                ball.vel[2] += 1.1;
-            } else if (ball.height < 40) {
-                ball.vel[2] += 0.9;
-            } else {
-                ball.vel[2] += 0.7;
-            };
+            ball.vel[2] = 0.5;
+            // if (ball.height < 20) {
+            //     ball.vel[2] += 1.1;
+            // } else if (ball.height < 40) {
+            //     ball.vel[2] += 0.9;
+            // } else {
+            //     ball.vel[2] += 0.7;
+            // };
 
-            if (ball.vel[2] < 1) {
-                ball.vel[2] += 1.5;
-            } else if (ball.vel[2] < 3.0) {
-                ball.vel[2] += 1.0;
-            } else if (ball.vel[2] < 5) {
-                ball.vel[2] += 0.5;
-            } else {
-                ball.vel[2] *= 0.8;
-            };
+            // if (ball.vel[2] < 1) {
+            //     ball.vel[2] += 1.5;
+            // } else if (ball.vel[2] < 3.0) {
+            //     ball.vel[2] += 1.0;
+            // } else if (ball.vel[2] < 5) {
+            //     ball.vel[2] += 0.5;
+            // } else {
+            //     ball.vel[2] *= 0.8;
+            // };
             ball.player = this;
             ball.bounceCount = 0;
         };

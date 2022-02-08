@@ -32,6 +32,8 @@ export default class Scorekeeper {
             } else {
                 this.pointScore.p2 += 1;
             };
+            console.log(ball.status);
+            this.serve = "first";
         };
         console.log(this.pointScore);
     };
