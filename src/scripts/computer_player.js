@@ -37,18 +37,29 @@ export default class ComputerPlayer extends HumanPlayer {
 
         if (ball.player === this || ball.status !== "live") {
             this.vel = returnVel;
-            this.move();
+            if (this.pos[0] !== 392 || this.pos[1]!== 40) {
+                this.move();
+            };
         } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
             this.vel = newVel;
             this.move();
         };
     };
 
+    move() {
+
+        const Arr = [this.pos, this.racket.pivot, this.racket.handPos, this.racket.racketPos];
+        Arr.forEach(pos => {
+            pos[0] += this.vel[0];
+            pos[1] += this.vel[1];
+        });
+        // debugger
+    };
+
     swing(ball) {
         if (ball.roundCollisionDetector(this) === this && 
             ball.status !== "out" && ball.player !== this) {
             this.racket.swing();
-            this.racket.animateSwing();
             this.sfx.play();
             // ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             if (this.pos[0] > 600) {
