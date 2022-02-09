@@ -57,30 +57,21 @@ In addition, this project will include:
     - Depl0y to GitHub
 
 ## Short-Term To DO
-- Add game win/loss function
-- Cpu needs some balancing (less raw speed and mor intelligent shot selection)
 - Give SFX button real functionality
-- Style the button margins
+- Style the buttons margin or apadding
+- if time given hide the instructions list in a (i) button that when clicked has an animation for the info to slide out from
 
 ## Known bugs
-- Missed toss counts as a lost point
-- Comp has no arm/ racket
-- Currently the set does not end when it should
-- Due to larger hitbox, p1 can now hit ball that is still on other side of net
-- When first boucne is within same side of court it should register as out which it does not yet
+- Hitting the first serve out counts as out instead of as fault
 - button icons do not 'unfocus' after clicking
 - SFX button doesn't work
-- Game Restart just causes the sfx to layer on top of each other -- disabled for now
 - When ball hits canvas border, sometimes bounces back sometimes just stops and sometimes it rolls too far out
 - Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
 - Should refactor court class to DRY it up 
-- For some reason, assigning the racket colors overrides the ball color, so racket color is turned off for now
 
-- Added ScoreKeeper
-- Adding arm that rotates
-- Roadblocks:
-    - The way I coded the net collision detected made it so that the points would go up every animation frame until resetPoint
-    - The arm was tricky because I needed to track 3 moving vertices. Right now I have the, all move together b/c I feel I already went over budget on getting just the stationary arm
-    - Give my CPU player a moving arm as well
-    - Fix the important bugs that "break" the game flow
-    - If time permits, work on the numbers for better CPU and better swing mechanic/visual
+
+## What I did on Tuesday
+- Added game logic
+- Added cpu serve and serve rotation
+- Added a restart button
+- Added a post-game stat screen with click to restart functionality
