@@ -18,7 +18,6 @@ export default class Ball extends MovingObject {
         this.height = height;
         this.canvas = canvas;
         this.bounceCount = 0;
-        // this.status = "resetting"
     };
     
     status = {
@@ -27,7 +26,8 @@ export default class Ball extends MovingObject {
         "fault": false,
         "live": false,
         "out": false,
-        "point": false
+        "point": false,
+        "serve": false,
     };
 
     drawCircle(ctx, color, circle) {
@@ -68,7 +68,6 @@ export default class Ball extends MovingObject {
             this.pos[1] - (otherObject.pos[1])
         );
         if (currentDist < collisionDist) {
-            // debugger
             return otherObject;
         } else {
             return '';
@@ -98,48 +97,47 @@ export default class Ball extends MovingObject {
     };
 
     bounce() {
-        // debugger
-        // if (this.bounceCount < 1 && this.status !== "tossing") {
         if (this.bounceCount < 1 && !this.status.tossing) {
-            // debugger
             this.bounceCount += 1;
-            // debugger
+            
             if ((this.pos[0] < 200 || this.pos[0] > 600) ||
                 (this.pos[1] < 100 || this.pos[1] > 500)) {
-                    // debugger
-                    this.status.live = false;
-                    this.status.out = true;
-                    // debugger
-                    // this.status = "out";
+                    if (this.status.serve) {
+                        this.status.serve = false;
+                        this.status.fault = true;
+                    } else {
+                        this.status.live = false;
+                        this.status.out = true;
+                    };
                     console.log(this.status); 
-                };
-                if ((this.vel[1] < 0 && (this.pos[1] > 290) ||
-                (this.vel[1] > 0 && (this.pos[1] < 290)))) {
-                    // debugger
+            } else if ((this.vel[1] < 0 && (this.pos[1] > 290) ||
+            (this.vel[1] > 0 && (this.pos[1] < 290)))) {
+                if (this.status.serve) {
+                    this.status.serve = false;
+                    this.status.fault = true;
+                } else {
                     this.status.live = false;
                     this.status.out = true;
-                    // this.status = "out";
-                    console.log(this.status);                
+                };
+                console.log(this.status);                
+            } else {
+                this.status.serve = false;
+                this.status.live = true;
             };
-
-        // } else if (this.bounceCount < 1 && this.status === "tossing" ) {
         } else if (this.bounceCount < 1 && this.status.tossing ) {
             this.status.tossing = false;
             this.status.fault = true;
-            // this.status = "fault";
             this.bounceCount += 2;
             console.log(this.status);
         } else if (this.bounceCount < 2) {
             this.bounceCount += 1;
-            // if (this.status === "live") {
             if (this.status.live) {
                 // if the second bounce comes on a live ball, this is a winner
                 this.status.live = false;
                 this.status.point = true;
-                // this.status = "point";
                 console.log(this.status);
             };
-        } ;
+        };
 
         if (this.vel[1] > 0) {
             // if ball path is moving down
@@ -159,7 +157,7 @@ export default class Ball extends MovingObject {
             this.vel[2] += CONSTANTS.GRAVITY;
         };
 
-        // bounce of canvas edges
+        // canvas edges
         if (
             (this.pos[0] + this.radius) >= (this.canvas.width) ||
             (this.pos[0] - this.radius <= 0)) {

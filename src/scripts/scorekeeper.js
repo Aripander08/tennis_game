@@ -5,15 +5,12 @@ export default class Scorekeeper {
         this.bp = true;
         this.sp = false;
         this.mp = false;
-
         this.serve = {
             first: true,
             second: false,
             double: false
         };
-
         this.serveArr = [1,2];
-
         this.pointScore = {
             p1: 0,
             p2: 0
@@ -22,7 +19,6 @@ export default class Scorekeeper {
             p1: 6,
             p2: 5
         };
-
         this.totalWinners = {
             p1: 0,
             p2: 0
@@ -34,15 +30,14 @@ export default class Scorekeeper {
         this.totalDFs = {
             p1: 0,
             p2: 0,
-        }
+        };
         this.totalBPs = {
             p1: 0,
             p2: 0,
             p1Won: 0,
             p2Won: 0
         };
-
-    }
+    };
         
     rotate(arr, t = 1) {
         let pivot = t % arr.length;
@@ -50,8 +45,6 @@ export default class Scorekeeper {
     };
 
     updatePointScore(ball) {
-        // debugger
-        // if (ball.status === "point") {
         if (ball.status.point) {
             if (ball.pos[1] < 290) {
                 this.pointScore.p1 += 1;
@@ -60,28 +53,23 @@ export default class Scorekeeper {
                 this.pointScore.p2 += 1;
                 this.totalWinners.p2 += 1;
             };
-        // } else if (ball.status === "out" || this.serve "dF") {
         } else if (ball.status.out || this.serve.double) {
             if (ball.player.name === "P2") {
                 this.serve.double = false;
                 this.serve.first = true;
                 this.pointScore.p1 += 1;
-                // ball.status === "out" ? this.totalUEs.p2 += 1 : this.totalDFs.p2 += 1;
                 ball.status.out ? this.totalUEs.p2 += 1 : this.totalDFs.p2 += 1;
             } else {
+                this.serve.double = false;
+                this.serve.first = true;
                 this.pointScore.p2 += 1;
-                // ball.status === "out" ? this.totalUEs.p1 += 1 : this.totalDFs.p1 += 1;
                 ball.status.out ? this.totalUEs.p1 += 1 : this.totalDFs.p1 += 1;
             };
             console.log(ball.status);
-            // this.serve = "first";
             this.serve.first;
         };
-        // debugger
         if (this.tb) {  
-            // debugger
             this.serveArr = this.rotate(this.serveArr, 1);
-            // debugger
         };
 
         console.log(this.pointScore);
@@ -104,16 +92,12 @@ export default class Scorekeeper {
             this.pointScore.p2 = 0;
             console.log(this.gameScore);
             this.serveArr = this.rotate(this.serveArr, 1);
-            // debugger
             if (this.bp) this.totalBPs.p2Won += 1;
         };
-        // debugger
         if (this.gameScore.p1 === 6 && this.gameScore.p2 === 6) {
             this.tb = true;
             if (this.serveArr.length < 3) this.serveArr = [1,2,2,1];
-            // debugger
         };
-        // debugger
     };
 
     isBreakPoint() { // this will just be used for announcer purposes down the line
@@ -153,19 +137,11 @@ export default class Scorekeeper {
     };
 
     draw(ctx) {
-        // theme 1
-        // ctx.fillStyle = "#F5F5F5";
-        // theme 2
         ctx.fillStyle = "#115740";
         ctx.fillRect(0, 0, 125, 65);
         
-        // ctx.font = "20px IBM Plex Sans Thai Looped";
-        // theme 1
-        // ctx.fillStyle = "black";
-        // theme 2
         ctx.fillStyle = "#f5f5f5";
         ctx.font = "18px Merriweather Sans";
-        // ctx.fillText(`P1      | ${this.gameScore.p1} | ${this.showPoints('p1')}*`, 10, 25);
         ctx.fillText(`P1`, 10, 25);
         ctx.fillText(`CPU`, 10, 50);
         ctx.fillText(`| ${this.gameScore.p1}`, 55, 25);
@@ -196,7 +172,6 @@ export default class Scorekeeper {
         ctx.fillText(`${this.totalWinners.p1}`, 225, 240);
         ctx.fillText(`${this.totalUEs.p1}`, 225, 280);
         // ctx.fillText(`${this.totalBPs.p1Won} / ${this.totalBPs.p1}`, 225, 320);
-
         //p2 stats
         ctx.fillText(`${this.totalWinners.p2}`, 520, 240);
         ctx.fillText(`${this.totalUEs.p2}`, 520, 280);

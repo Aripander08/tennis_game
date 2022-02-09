@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function() {
         setTimeout(() => modalInstructions.classList.remove("active"), 100);
     });
 
-
     const game = new Game(ctx);
     canvas.addEventListener('mouseenter', () => {
         canvas.style.cursor = "pointer";
@@ -26,6 +25,10 @@ document.addEventListener("DOMContentLoaded", function() {
     restartBtn.addEventListener('click', () => {
         history.go(0);
     });
+    restartBtn.addEventListener('mouseenter', () => {
+        restartBtn.style.cursor = "pointer";
+    });
+
 
     const sfxBtn = document.querySelector("#sound-button");
     const sfxIcon = document.querySelector("#sound-button i");
@@ -36,11 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
             sfxIcon.className = "fas fa-volume-up";
         };
     });
-
-    // const instrBtn = document.querySelector("#instructions-button");
-    // instrBtn.addEventListener('click', () => {
-    //     instrBtn.parentElement.childNodes[3].style.display = "flex";
-    //     instrBtn.parentElement.childNodes[3].style.flexDirection = "column";
-    //     // debugger
-    // });
-})
+    sfxBtn.addEventListener('mouseenter', () => {
+        sfxBtn.style.cursor = "pointer";
+    });
+});

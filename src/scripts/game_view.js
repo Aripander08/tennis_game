@@ -4,7 +4,6 @@ export default class GameView {
     };
 
     gameLoop(game) {
-        // debugger
         game.ctx.clearRect(0, 0, 800, 600);
         this.draw(game, game.ctx);
         game.ball.move();
@@ -15,34 +14,29 @@ export default class GameView {
         game.player1.reposition(game.keys);
         game.p1racket.animateSwing();
         game.pointOver();
-    }
+    };
 
     animate() {
-        // debugger
         if (this.game.gameOver) {
             if (this.game.winner.name === "P1") {
-                // debugger
                 this.drawPostGame('win');
                 console.log('you win');
             } else {
-                // debugger
                 this.drawPostGame('lose');
                 console.log('you lose');
             };
         };
         if (this.game.rallyStarted) {
             this.gameLoop(this.game);
-            // debugger
             requestAnimationFrame(this.animate.bind(this));
         };
     };
 
     draw(game, ctx) {
         game.objects.forEach(obj => obj.draw(ctx))
-    }
+    };
 
     drawPostGame () {
         this.game.scorekeeper.drawPostGame(this.game.ctx);        
-    }
-    
-}
+    };
+};

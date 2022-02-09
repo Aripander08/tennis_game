@@ -25,7 +25,6 @@ export default class ComputerPlayer extends HumanPlayer {
             Math.sin(angle) * (0.2)
         ];
 
-        // path to reset position should prevent computer from endlessly moving forward
         const returnAngle = Math.atan2(
             40 - this.pos[1], // FOR ATAN THIS IS THE Y
             392 - this.pos[0] // THIS IS THE X
@@ -35,14 +34,12 @@ export default class ComputerPlayer extends HumanPlayer {
             Math.sin(returnAngle) * (0.4)
         ];
 
-        // if (ball.player === this || ball.status !== "live") {
         if (ball.player === this || ball.status.tossing || ball.status.resetting) {
             this.vel = returnVel;
             if (this.pos[0] !== 392 || this.pos[1]!== 40) {
                 this.move();
             };
         } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
-            // debugger
             this.vel = newVel;
             this.move();
         };
@@ -58,61 +55,60 @@ export default class ComputerPlayer extends HumanPlayer {
 
     swing(ball) {
         if (ball.roundCollisionDetector(this) === this && 
-            // ball.status !== "out" && ball.player !== this) {
             (!ball.status.out && ball.player !== this) ||
             (ball.status.tossing && ball.player === this)) {
-            this.racket.swing();
-            // this.sfx.play();
-            const sfxIcon = document.querySelector("#sound-button i");
-            if (sfxIcon.className === "fas fa-volume-up") this.sfx.play();
-            // ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
-            let randX = Math.floor(Math.random * 2);
-            let crossX = Math.random() * 1;
-            // debugger
-            if (this.pos[0] > 600 || this.pos < 200) {
-                ball.vel[0] *= -(crossX);
-                ball.vel[1] -= 0.6;
-                ball.vel[2] += 1.5;
-            // } else if (this.pos[0] > 200) {
-            } else {
-                if (randX === 1) {
-                    ball.vel[0] *= 0;
-                } else {
+                this.racket.swing();
+
+                const sfxIcon = document.querySelector("#sound-button i");
+                if (sfxIcon.className === "fas fa-volume-up") this.sfx.play();
+                
+                let randX = Math.floor(Math.random * 2);
+                let crossX = Math.random() * 1;
+                if (this.pos[0] > 600 || this.pos < 200) {
                     ball.vel[0] *= -(crossX);
-                    ball.vel[1] -= 0.5;
-                } 
-            };
+                    ball.vel[1] -= 0.6;
+                    ball.vel[2] += 1.5;
+                } else {
+                    if (randX === 1) {
+                        ball.vel[0] *= 0;
+                    } else {
+                        ball.vel[0] *= -(crossX);
+                        ball.vel[1] -= 0.5;
+                    };
+                };
 
-            if (ball.status.tossing) {
-                ball.vel[1] = 3.3;
-                ball.vel[2] -= 1.5;
-            }
-            else {
-                ball.vel[1] *= -(0.95);
-            }
-            // The vel that comp imparts on the ball should depend on the balls height and vel
-            // ball.vel[2] = 0.5;
-            if (ball.height < 20) {
-                ball.vel[2] += 1.1;
-            } else if (ball.height < 40) {
-                ball.vel[2] += 0.9;
-            } else {
-                ball.vel[2] += 0.7;
-            };
+                if (ball.status.tossing) {
+                    ball.vel[1] = 3.3;
+                    ball.vel[2] -= 1.5;
+                } else {
+                    ball.vel[1] *= -(0.95);
+                };
+                // Change to vel based on height of ball
+                if (ball.height < 20) {
+                    ball.vel[2] += 1.1;
+                } else if (ball.height < 40) {
+                    ball.vel[2] += 0.9;
+                } else {
+                    ball.vel[2] += 0.7;
+                };
+                // Change to vel based on vel of ball
+                if (ball.vel[2] < 1) {
+                    ball.vel[2] += 1.5;
+                } else if (ball.vel[2] < 3.0) {
+                    ball.vel[2] += 1.0;
+                } else if (ball.vel[2] < 5) {
+                    ball.vel[2] += 0.5;
+                } else {
+                    ball.vel[2] *= 0.8;
+                };
 
-            if (ball.vel[2] < 1) {
-                ball.vel[2] += 1.5;
-            } else if (ball.vel[2] < 3.0) {
-                ball.vel[2] += 1.0;
-            } else if (ball.vel[2] < 5) {
-                ball.vel[2] += 0.5;
-            } else {
-                ball.vel[2] *= 0.8;
-            };
-            ball.status.tossing = false;
-            ball.status.live = true;
-            ball.player = this;
-            ball.bounceCount = 0;
+                if (ball.status.tossing) {
+                    ball.status.tossing = false;
+                    ball.status.serve = true;
+                };
+                // ball.status.live = true;
+                ball.player = this;
+                ball.bounceCount = 0;
         };
     };
 
