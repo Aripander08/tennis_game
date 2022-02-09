@@ -47,6 +47,11 @@ export default class Racket {
         ctx.beginPath();
         ctx.arc(this.racketPos[0], this.racketPos[1], 7, 0, 2 * Math.PI);
         ctx.stroke();
+        ctx.fillStyle = "#39FF14";
+        // ctx.fillStyle = "#000000";
+        ctx.beginPath();
+        ctx.arc(this.racketPos[0], this.racketPos[1], 6, 0, 2 * Math.PI);
+        ctx.fill();
     };
 
     swing() {

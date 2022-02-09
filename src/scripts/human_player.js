@@ -26,8 +26,10 @@ export default class HumanPlayer extends MovingObject {
     };
 
     toss(ball) {
-        ball.status = "tossing";
-        console.log("tossing");
+        ball.status.resetting = false;
+        ball.status.tossing = true;
+        // ball.status = "tossing";
+        console.log(ball.status);
         ball.vel = [0, 0, 2.0];
         // debugger
     }
@@ -41,10 +43,13 @@ export default class HumanPlayer extends MovingObject {
         const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.4];
         // const newVel = [0, -3, 1.5];
         const ballHeight = ball.height;
-        if ((ball.status === "tossing" || ball.status === "live") && ballHeight <= 50) {
+        // if ((ball.status === "tossing" || ball.status === "live") && ballHeight <= 50) {
+        if ((ball.status.tossing || ball.status.live) && ballHeight <= 50) {
             // debugger
             this.sfx.play();
-            ball.status = "live"
+            // ball.status = "live"
+            ball.status.tossing = false;
+            ball.status.live = true;
             ball.vel = newVel;
             ball.player = this;
             ball.bounceCount = 0;
@@ -52,6 +57,7 @@ export default class HumanPlayer extends MovingObject {
     };
     
     reposition(keys) {
+        // debugger
         if ((keys.w || keys.W) && 
             (this.pos[1] + this.height > this.net.pos[1])) {
                 // debugger

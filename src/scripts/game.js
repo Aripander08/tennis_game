@@ -15,7 +15,9 @@ const CONSTANTS = {
     PLAYERHT: 0.06,
     BALLSTART: [400, 520],
     BALLTOSSHT: 0.0125,
-    BALLTOSSVEL: [0, 0, 0]
+    BALLTOSSVEL: [0, 0, 0],
+    RACKET1COL: "#454545",
+    RACKET2COL: "#454545"
 }
 
 export default class Game {
@@ -40,10 +42,11 @@ export default class Game {
         // debugger
         this.gameOver = false;
         this.winner = null;
+
         this.resetPoint();
-        // debugger
+
     };
-    
+
     startPoint() {
         // debugger
         if (!this.gameOver) {
@@ -60,12 +63,14 @@ export default class Game {
         this.p1racket = new Racket(
             [392 + 16 * (4/5),
             500 + 48 * (2/5)],
-            10, CONSTANTS.P1COLOR, "red"
+            10, CONSTANTS.P1COLOR,
+            CONSTANTS.RACKET1COL
         );
         this.p2racket = new Racket(
             [392 + 16 * (4/5),
             40 + 48 * (2/5)],
-            10, CONSTANTS.P2COLOR, "silver"
+            10, CONSTANTS.P2COLOR,
+            CONSTANTS.RACKET2COL
         );
         this.player1 = new HumanPlayer(
             [392, 500], 
@@ -88,16 +93,17 @@ export default class Game {
             "P2",
             this.p2racket
         );
+        // debugger
         this.ball = new Ball(
             // CONSTANTS.BALLSTART,
-            [400, 520],
+            this.scorekeeper.serveArr[0] === 1 ? [400, 520] : [400, 108],
             [0, 0, 0], 
             this.ctx.canvas.width * 0.00625,
             10,
-            this.player1, 
+            this.scorekeeper.serveArr[0] === 1 ? this.player1 : this.player2, 
             this.ctx.canvas
         );
-
+            // debugger
         this.objects.push(this.court);
         this.objects.push(this.net);
         this.objects.push(this.player2);
@@ -131,6 +137,7 @@ export default class Game {
     }
 
     keydownHandler(e) {
+        // debugger
         this.keys[e.key] = true;
     }
     keyupHandler(e) {
@@ -163,23 +170,32 @@ export default class Game {
     };
 
     pointOver() {
-        if (this.ball.status === "point" || this.ball.status === "out" || this.ball.status === "fault") {
+        if (this.ball.status.point || this.ball.status.out || this.ball.status.fault) {
+        // if (this.ball.status === "point" || this.ball.status === "out" || this.ball.status === "fault") {
             // console.log(this.scorekeeper.serve)
-            if (this.scorekeeper.serve === "second" && this.ball.status === "fault") {
-                this.ball.status = "dF";
+            if (this.scorekeeper.serve.second && this.ball.status.fault) {
+            // if (this.scorekeeper.serve === "second" && this.ball.status === "fault") {
+                this.scorekeeper.serve.second = false;
+                this.scorekeeper.serve.double = true;
+                // this.ball.status = "dF";
                 // console.log(this.scorekeeper.serve);
-            } else if (this.scorekeeper.serve === "first" && this.ball.status === "fault") {
-                this.scorekeeper.serve = "second";
+            } else if (this.scorekeeper.serve.first && this.ball.status.fault) {
+            // } else if (this.scorekeeper.serve === "first" && this.ball.status === "fault") {
+                this.scorekeeper.serve.first = false;
+                this.scorekeeper.serve.second = true;
+                // this.scorekeeper.serve = "second";
                 // console.log(this.scorekeeper.serve);
             };
 
             this.scorekeeper.updatePointScore(this.ball);
             this.scorekeeper.updateGameScore();
-            // debugger
-            this.ball.status = "resetting";
-            // debugger
+            // this.ball.status = "resetting";
+            this.ball.status.point = false;
+            this.ball.status.out = false;
+            this.ball.status.fault = false;
+            this.ball.status.resetting = true;
+            // this.ball.status = "resetting";
             setTimeout(this.resetPoint.bind(this), 2000);
-            // debugger
         };
     };
 
