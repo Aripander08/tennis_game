@@ -62,7 +62,9 @@ export default class ComputerPlayer extends HumanPlayer {
             (!ball.status.out && ball.player !== this) ||
             (ball.status.tossing && ball.player === this)) {
             this.racket.swing();
-            this.sfx.play();
+            // this.sfx.play();
+            const sfxIcon = document.querySelector("#sound-button i");
+            if (sfxIcon.className === "fas fa-volume-up") this.sfx.play();
             // ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             let randX = Math.floor(Math.random * 2);
             let crossX = Math.random() * 1;
