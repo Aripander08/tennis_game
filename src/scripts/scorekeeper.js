@@ -19,11 +19,15 @@ export default class Scorekeeper {
             p2: 0
         };
         this.gameScore = {
-            p1: 0,
-            p2: 0
+            p1: 6,
+            p2: 5
         };
 
         this.totalWinners = {
+            p1: 0,
+            p2: 0
+        };
+        this.totalUEs = {
             p1: 0,
             p2: 0
         };
@@ -31,10 +35,6 @@ export default class Scorekeeper {
             p1: 0,
             p2: 0,
         }
-        this.totalUEs = {
-            p1: 0,
-            p2: 0
-        };
         this.totalBPs = {
             p1: 0,
             p2: 0,
@@ -201,5 +201,5 @@ export default class Scorekeeper {
         ctx.fillText(`${this.totalWinners.p2}`, 520, 240);
         ctx.fillText(`${this.totalUEs.p2}`, 520, 280);
         // ctx.fillText(`${this.totalBPs.p2Won} / ${this.totalBPs.p2}`, 520, 320);
-    }
-}
+    };
+};

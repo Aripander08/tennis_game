@@ -49,13 +49,11 @@ export default class ComputerPlayer extends HumanPlayer {
     };
 
     move() {
-
         const Arr = [this.pos, this.racket.pivot, this.racket.handPos, this.racket.racketPos];
         Arr.forEach(pos => {
             pos[0] += this.vel[0];
             pos[1] += this.vel[1];
         });
-        // debugger
     };
 
     swing(ball) {
@@ -69,21 +67,18 @@ export default class ComputerPlayer extends HumanPlayer {
             let randX = Math.floor(Math.random * 2);
             let crossX = Math.random() * 1;
             // debugger
-            if (this.pos[0] > 600) {
-                // ball.vel[0] *= -0.6;
-                randX === 1 ? ball.vel[0] *= 0 : ball.vel[0] *= -(crossX);
+            if (this.pos[0] > 600 || this.pos < 200) {
+                ball.vel[0] *= -(crossX);
+                ball.vel[1] -= 0.6;
                 ball.vel[2] += 1.5;
-            // }  else if (this.pos[0] > 400) {
-                // ball.vel[0] *= 0;
-                // ball.vel[0] *= -(crossX);
-            } else if (this.pos[0] > 200) {
-                // ball.vel[0] *= 0;
-                randX === 1 ? ball.vel[0] *= 0 : ball.vel[0] *= -(crossX);
+            // } else if (this.pos[0] > 200) {
             } else {
-                // ball.vel[0] *= -0.6;
-                // ball.vel[0] *= -crossX;
-                randX === 1 ? ball.vel[0] *= 0 : ball.vel[0] *= -(crossX);
-                ball.vel[2] += 2;
+                if (randX === 1) {
+                    ball.vel[0] *= 0;
+                } else {
+                    ball.vel[0] *= -(crossX);
+                    ball.vel[1] -= 0.5;
+                } 
             };
 
             if (ball.status.tossing) {
@@ -126,6 +121,5 @@ export default class ComputerPlayer extends HumanPlayer {
         this.drawHair(ctx, CONSTANTS.HAIR);
         this.drawHead(ctx, CONSTANTS.SKIN);
         this.drawShadow(ctx)
-        // this.drawRacket(ctx);
     };
 };

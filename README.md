@@ -56,7 +56,17 @@ In addition, this project will include:
 - Thursday Morning
     - Depl0y to GitHub
 
-## Short-Term To DO
+## What I did on Tuesday
+- Added game logic
+- Added cpu serve and serve rotation
+- Added a restart button
+- Added a post-game stat screen with click to restart functionality
+
+## Roadblocks
+- Implementing CPU serve and rotating serve order
+- styling the html surrounding the canvas
+
+## To Do Today
 - Give SFX button real functionality
 - Style the buttons margin or apadding
 - if time given hide the instructions list in a (i) button that when clicked has an animation for the info to slide out from
@@ -70,8 +80,3 @@ In addition, this project will include:
 - Should refactor court class to DRY it up 
 
 
-## What I did on Tuesday
-- Added game logic
-- Added cpu serve and serve rotation
-- Added a restart button
-- Added a post-game stat screen with click to restart functionality

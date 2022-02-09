@@ -5,52 +5,64 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script src="https://kit.fontawesome.com/f73350b7d2.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./dist/main.css" />
         <script src="./dist/main.js"></script>
         <title>Project Name</title>
 </head>
 <body>
-    <h2>2D Tennis, a tennis game</h2>
-    <section>
-        <div class="info">
-            <button id="sound-button" class="ui circular icon button">
-                <i class="volume up icon"></i>
-            </button>
-            <button id="restart-button" class="ui circular icon button">
-                <i class="undo alternate icon"></i>
-            </button>
-            
-            <ul>
-                <li>Click to toss ball / to swing at ball</li>
-                <li>Use mouse to direct ball path</li>
-                <li>WASD to move</li>
-                <li>Good luck and have fun!</li>
-
-            </ul>
+    <div class="modal-title active">
+        <div class="modal-content ">
+            <h2>2D Tennis, a tennis game</h2>
+            <h4>by Bill Kim</h4>
+            <p>click to continue</p>
         </div>
-        <canvas id="game-canvas"></canvas>
-        <!-- <script type="application/javascript" src="./main.js"></script> -->
-        <div class="info">
-            <a id="github-link" class="ui circular linkedin icon button" 
-                href="https://github.com/YWBK/tennis_game">
-                <i class="github icon"></i>
-            </a>
-            <a id="linkedin-link" class="ui circular linkedin icon button" 
-                href="https://www.linkedin.com/in/bill-kim-88987a42/">
-                <i class="linkedin icon"></i>
-            </a>
+    </div>
+    <div class="modal-instructions">
+        <div class="modal-content ">
+            <p>Click to toss ball / to swing at ball.</p>
+            <p>Use cursor location to direct ball path.</p>
+            <p>Press WASD to move.</p>
+            <p>Good luck and have fun!</p>
         </div>
+    </div>
+    <section class="game">
+        <section class="game-peripheral">
+            <div class="info">
+                <button id="sound-button" class="ui circular icon button">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button id="restart-button" class="">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <!-- <div class="instructions">
+                    <button id="instructions-button">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </button>
+                    <ul>
+                        <li>Click to toss/swing</li>
+                        <li>Cursor to aim</li>
+                        <li>WASD to move</li>
+                    </ul>
+                </div> -->
+            </div>
+        </section>
+        <section class="game-screen">
+            <canvas id="game-canvas"></canvas>
+        </section>
+        <section class="nav-links">
+            <div class="info">
+                <a id="github-link" class="ui circular linkedin icon button" 
+                    href="https://github.com/YWBK/tennis_game">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a id="linkedin-link" class="" 
+                    href="https://www.linkedin.com/in/bill-kim-88987a42/">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </section>
     </section>
 </body>
 
 </html>
-
-<!-- list of icons to use for buttons
-https://fontawesome.com/v5.15/icons/crosshairs?style=solid
-https://fontawesome.com/v5.15/icons/github?style=brands
-https://fontawesome.com/v5.15/icons/linkedin?style=brands
-https://fontawesome.com/v5.15/icons/linkedin-in?style=brands
-https://fontawesome.com/v5.15/icons/volume-mute?style=solid
-https://fontawesome.com/v5.15/icons/volume-up?style=solid
-
- -->

@@ -159,21 +159,25 @@ export default class Game {
         const canvas = this.ctx.canvas.getBoundingClientRect();
         const mouseX = e.clientX - canvas.x;
         const mouseY = e.clientY - canvas.y;
-        if (mouseX >= 0 && mouseX <= 800 && mouseY >= 0 && mouseY <= 600) {
+        if (document.querySelector(".active")) {
             // debugger
-            if (this.gameOver) { 
-                history.go(0);
-            } else {
-                if (!this.rallyStarted) {
-                    this.startPoint();
-                    this.player1.toss(this.ball);
-                } else if (this.ball.roundCollisionDetector(this.player1) === this.player1) {
-                // } else if (this.ball.roundCollisionDetector(this.p1racket) === this.p1racket) {
-                    // debugger
-                    this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
-                    this.p1racket.swing();
-                // } else {
-                //     this.p1racket.swing();
+        } else {
+            if (mouseX >= 0 && mouseX <= 800 && mouseY >= 0 && mouseY <= 600) {
+                // debugger
+                if (this.gameOver) { 
+                    history.go(0);
+                } else {
+                    if (!this.rallyStarted) {
+                        this.startPoint();
+                        this.player1.toss(this.ball);
+                    } else if (this.ball.roundCollisionDetector(this.player1) === this.player1) {
+                    // } else if (this.ball.roundCollisionDetector(this.p1racket) === this.p1racket) {
+                        // debugger
+                        this.player1.swing(e, this.ctx.canvas.getBoundingClientRect(), this.ball);
+                        this.p1racket.swing();
+                    // } else {
+                    //     this.p1racket.swing();
+                    };
                 };
             };
         };

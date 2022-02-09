@@ -46,7 +46,9 @@ export default class HumanPlayer extends MovingObject {
         // if ((ball.status === "tossing" || ball.status === "live") && ballHeight <= 50) {
         if ((ball.status.tossing || ball.status.live) && ballHeight <= 50) {
             // debugger
-            this.sfx.play();
+            // debugger
+            const sfxIcon = document.querySelector("#sound-button i");
+            if (sfxIcon.className === "fas fa-volume-up") this.sfx.play();
             // ball.status = "live"
             ball.status.tossing = false;
             ball.status.live = true;
