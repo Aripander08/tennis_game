@@ -66,21 +66,29 @@ export default class ComputerPlayer extends HumanPlayer {
             this.racket.swing();
             this.sfx.play();
             // ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
+            let randX = Math.floor(Math.random * 2);
+            let crossX = Math.random() * 1;
+            // debugger
             if (this.pos[0] > 600) {
-                ball.vel[0] *= -0.6;
-                ball.vel[2] += 2;
-            } else if (this.pos[0] > 400) {
-                ball.vel[0] *= 0;
+                // ball.vel[0] *= -0.6;
+                randX === 1 ? ball.vel[0] *= 0 : ball.vel[0] *= -(crossX);
+                ball.vel[2] += 1.5;
+            // }  else if (this.pos[0] > 400) {
+                // ball.vel[0] *= 0;
+                // ball.vel[0] *= -(crossX);
             } else if (this.pos[0] > 200) {
-                ball.vel[0] *= 0;
+                // ball.vel[0] *= 0;
+                randX === 1 ? ball.vel[0] *= 0 : ball.vel[0] *= -(crossX);
             } else {
-                ball.vel[0] *= -0.6;
+                // ball.vel[0] *= -0.6;
+                // ball.vel[0] *= -crossX;
+                randX === 1 ? ball.vel[0] *= 0 : ball.vel[0] *= -(crossX);
                 ball.vel[2] += 2;
             };
 
             if (ball.status.tossing) {
                 ball.vel[1] = 3.3;
-                ball.vel[2] -= 1.9;
+                ball.vel[2] -= 1.5;
             }
             else {
                 ball.vel[1] *= -(0.95);
