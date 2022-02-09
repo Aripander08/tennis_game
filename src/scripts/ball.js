@@ -100,7 +100,7 @@ export default class Ball extends MovingObject {
     bounce() {
         // debugger
         // if (this.bounceCount < 1 && this.status !== "tossing") {
-        if (this.bounceCount < 1 && !status.tossing) {
+        if (this.bounceCount < 1 && !this.status.tossing) {
             // debugger
             this.bounceCount += 1;
             // debugger
@@ -109,6 +109,7 @@ export default class Ball extends MovingObject {
                     // debugger
                     this.status.live = false;
                     this.status.out = true;
+                    // debugger
                     // this.status = "out";
                     console.log(this.status); 
                 };

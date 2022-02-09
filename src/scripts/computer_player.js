@@ -35,12 +35,14 @@ export default class ComputerPlayer extends HumanPlayer {
             Math.sin(returnAngle) * (0.4)
         ];
 
-        if (ball.player === this || ball.status !== "live") {
+        // if (ball.player === this || ball.status !== "live") {
+        if (ball.player === this || ball.status.tossing || ball.status.resetting) {
             this.vel = returnVel;
             if (this.pos[0] !== 392 || this.pos[1]!== 40) {
                 this.move();
             };
         } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
+            // debugger
             this.vel = newVel;
             this.move();
         };
@@ -58,21 +60,31 @@ export default class ComputerPlayer extends HumanPlayer {
 
     swing(ball) {
         if (ball.roundCollisionDetector(this) === this && 
-            ball.status !== "out" && ball.player !== this) {
+            // ball.status !== "out" && ball.player !== this) {
+            (!ball.status.out && ball.player !== this) ||
+            (ball.status.tossing && ball.player === this)) {
             this.racket.swing();
             this.sfx.play();
             // ball.vel[0] *= (0); // CURRENT COMPUTER ALWAYS SENDS BALL STRAIGHT BACK
             if (this.pos[0] > 600) {
-                ball.vel[0] *= -1;
+                ball.vel[0] *= -0.6;
+                ball.vel[2] += 2;
             } else if (this.pos[0] > 400) {
                 ball.vel[0] *= 0;
             } else if (this.pos[0] > 200) {
                 ball.vel[0] *= 0;
             } else {
-                ball.vel[0] *= -1;
+                ball.vel[0] *= -0.6;
+                ball.vel[2] += 2;
             };
 
-            ball.vel[1] *= -(0.95);
+            if (ball.status.tossing) {
+                ball.vel[1] = 3.3;
+                ball.vel[2] -= 1.9;
+            }
+            else {
+                ball.vel[1] *= -(0.95);
+            }
             // The vel that comp imparts on the ball should depend on the balls height and vel
             // ball.vel[2] = 0.5;
             if (ball.height < 20) {
@@ -92,6 +104,8 @@ export default class ComputerPlayer extends HumanPlayer {
             } else {
                 ball.vel[2] *= 0.8;
             };
+            ball.status.tossing = false;
+            ball.status.live = true;
             ball.player = this;
             ball.bounceCount = 0;
         };

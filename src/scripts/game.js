@@ -96,9 +96,10 @@ export default class Game {
         // debugger
         this.ball = new Ball(
             // CONSTANTS.BALLSTART,
-            this.scorekeeper.serveArr[0] === 1 ? [400, 520] : [400, 108],
+            this.scorekeeper.serveArr[0] === 1 ? [400, 520] : [400, 98],
             [0, 0, 0], 
             this.ctx.canvas.width * 0.00625,
+            // this.scorekeeper.serveArr[0] === 1 ? 10 : 50,
             10,
             this.scorekeeper.serveArr[0] === 1 ? this.player1 : this.player2, 
             this.ctx.canvas
@@ -114,8 +115,17 @@ export default class Game {
         this.objects.push(this.scorekeeper);
         this.gameView.draw(this, this.ctx);
 
-        this.scorekeeper.isBreakPoint();
+        if (!this.scorekeeper.tb) this.scorekeeper.isBreakPoint();
         this.win();
+
+        // debugger
+        if (this.scorekeeper.serveArr[0] === 2 && !this.gameOver) {
+            // debugger
+            this.rallyStarted = true;
+            // debugger
+            this.player2.toss(this.ball);
+            // debugger
+        }
     } 
     
     bindControls() {
@@ -213,8 +223,10 @@ export default class Game {
             this.gameOver = true;
             this.winner = this.player1;
         } else if (this.scorekeeper.gameScore.p2 === 7) {
+            // debugger
             this.gameOver = true;
-            this.winner = this.player1;
+            this.winner = this.player2;
+            // debugger
         };
     };
 };

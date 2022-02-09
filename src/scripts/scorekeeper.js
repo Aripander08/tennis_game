@@ -11,6 +11,7 @@ export default class Scorekeeper {
             second: false,
             double: false
         };
+
         this.serveArr = [1,2];
 
         this.pointScore = {
@@ -76,6 +77,13 @@ export default class Scorekeeper {
             // this.serve = "first";
             this.serve.first;
         };
+        // debugger
+        if (this.tb) {  
+            // debugger
+            this.serveArr = this.rotate(this.serveArr, 1);
+            // debugger
+        };
+
         console.log(this.pointScore);
     };
 
@@ -100,7 +108,11 @@ export default class Scorekeeper {
             if (this.bp) this.totalBPs.p2Won += 1;
         };
         // debugger
-        if (this.gameScore.p1 === 6 && this.gameScore.p2 === 6) this.tb = true;
+        if (this.gameScore.p1 === 6 && this.gameScore.p2 === 6) {
+            this.tb = true;
+            if (this.serveArr.length < 3) this.serveArr = [1,2,2,1];
+            // debugger
+        };
         // debugger
     };
 
@@ -138,9 +150,6 @@ export default class Scorekeeper {
                 return "AD";
             };
         };
-        
-
-
     };
 
     draw(ctx) {
@@ -181,16 +190,16 @@ export default class Scorekeeper {
         ctx.font = "16px Merriweather Sans";
         ctx.fillText(`Winners `, 363, 240);
         ctx.fillText(`Unforced Errors`, 340, 280);
-        ctx.fillText(`Break Points Won`, 332, 320);
+        // ctx.fillText(`Break Points Won`, 332, 320);
         ctx.fillText(`Click anywhere to play again`, 285, 400);
         // p1 stats
         ctx.fillText(`${this.totalWinners.p1}`, 225, 240);
         ctx.fillText(`${this.totalUEs.p1}`, 225, 280);
-        ctx.fillText(`${this.totalBPs.p1Won} / ${this.totalBPs.p1}`, 225, 320);
+        // ctx.fillText(`${this.totalBPs.p1Won} / ${this.totalBPs.p1}`, 225, 320);
 
         //p2 stats
         ctx.fillText(`${this.totalWinners.p2}`, 520, 240);
         ctx.fillText(`${this.totalUEs.p2}`, 520, 280);
-        ctx.fillText(`${this.totalBPs.p2Won} / ${this.totalBPs.p2}`, 520, 320);
+        // ctx.fillText(`${this.totalBPs.p2Won} / ${this.totalBPs.p2}`, 520, 320);
     }
 }
