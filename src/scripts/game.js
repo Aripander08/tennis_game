@@ -22,11 +22,15 @@ const CONSTANTS = {
 
 export default class Game {
     constructor(ctx) {
-        this.sounds = [];
         const hitAudio = new Audio('./src/assets/beep.ogg');
         const bounceAudio = new Audio('./src/assets/plop.ogg');
+        const applause = new Audio('./src/assets/applause.wav')
+        const smallApplause = new Audio('./src/assets/small_applause.ogg')
+        this.sounds = [];
         this.sounds.push(hitAudio);
         this.sounds.push(bounceAudio);
+        this.sounds.push(applause);
+        this.sounds.push(smallApplause);
         
         this.ctx = ctx;
         this.objects = [];
@@ -171,14 +175,19 @@ export default class Game {
                 this.scorekeeper.serve.first = false;
                 this.scorekeeper.serve.second = true;
             };
-
+            // if (this.ball.status.point || this.ball.status.out) {
+            //     const sfxIcon = document.querySelector("#sound-button i");
+            //     if (sfxIcon.className === "fas fa-volume-up") this.sounds[3].play();  
+                // this.sounds[2].play();
+            // } else if (this.ball.status.out) {
+            // };
             this.scorekeeper.updatePointScore(this.ball);
             this.scorekeeper.updateGameScore();
             this.ball.status.point = false;
             this.ball.status.out = false;
             this.ball.status.fault = false;
             this.ball.status.resetting = true;
-            setTimeout(this.resetPoint.bind(this), 2000);
+            setTimeout(this.resetPoint.bind(this), 3000);
         };
     };
 
