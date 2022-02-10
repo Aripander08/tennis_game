@@ -10,8 +10,6 @@ export default class Racket {
         this.handPos = [
             this.pivot[0] + Math.cos(this.armAngle) * this.armLength,
             this.pivot[1] - Math.sin(this.armAngle) * this.armLength
-            // this.pivot[0] + Math.cos(armAngle) * this.armLength,
-            // this.pivot[1] - Math.sin(armAngle) * this.armLength
         ];
         this.racketAngle = Math.PI * (2);
         this.racketPos = [
@@ -55,12 +53,10 @@ export default class Racket {
     };
 
     swing() {
-        // debugger
         window.clearTimeout(timeout1);
         window.clearTimeout(timeout2);
         this.swingStatus.swinging = true;
         this.swingStatus.resting = false;
-        // debugger
         const timeout1 = setTimeout(() => {
             this.swingStatus.swinging = false;
             this.swingStatus.returning = true;
@@ -114,6 +110,5 @@ export default class Racket {
                 this.pivot[1] - Math.sin(this.racketAngle) * this.armLength
             ];
         };
-
     };
 };

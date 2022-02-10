@@ -20,10 +20,8 @@ export default class GameView {
         if (this.game.gameOver) {
             if (this.game.winner.name === "P1") {
                 this.drawPostGame('win');
-                console.log('you win');
             } else {
                 this.drawPostGame('lose');
-                console.log('you lose');
             };
         };
         if (this.game.rallyStarted) {

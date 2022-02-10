@@ -14,12 +14,11 @@ export default class Ball extends MovingObject {
     constructor(pos, vel, radius, height, player, canvas, game) {
         super(pos, vel);
         this.radius = radius;
-        this.player = player; // only starts at '' but does not stay this way
+        this.player = player;
         this.height = height;
         this.canvas = canvas;
         this.game = game;
         this.bounceCount = 0;
-        
     };
     
     status = {
@@ -84,23 +83,18 @@ export default class Ball extends MovingObject {
                     this.pos[1] >= otherObject.pos[1] &&
                     (this.pos[1] - this.radius) <= otherObject.pos[1] &&
                     this.height <= otherObject.height) {
-                    console.log('net');
-                    // debugger
                     return otherObject;
                 };
                 if (this.vel[1] > 0 &&
                     this.pos[1] < otherObject.pos[1] &&
                     (this.pos[1] + this.radius) > otherObject.pos[1] &&
                     this.height <= otherObject.height) {
-                    console.log('net');
-                    // debugger
                     return otherObject;
                 };
         };
     };
 
     bounce() {
-        // debugger
         if (this.bounceCount < 1 && !this.status.tossing) {
             this.bounceCount += 1;
             if (this.status.serve) {
@@ -168,8 +162,6 @@ export default class Ball extends MovingObject {
         } else {
             this.vel[2] *= -(0.7);
         };
-
-        // console.log(this.status);
     };
 
     move() {
@@ -178,7 +170,6 @@ export default class Ball extends MovingObject {
         } else {
             this.vel[2] += CONSTANTS.GRAVITY;
         };
-
         // canvas edges
         if (
             (this.pos[0] + this.radius) >= (this.canvas.width) ||
@@ -191,7 +182,6 @@ export default class Ball extends MovingObject {
                 this.vel[0] *= (0.5);
                 this.vel[1] *= -(0.5);
         };
-
         // apply new vel to ball pos
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];

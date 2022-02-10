@@ -158,7 +158,6 @@ export default class Game {
     };
 
     clickHandler(e) {
-        // debugger
         const canvas = this.ctx.canvas.getBoundingClientRect();
         const mouseX = e.clientX - canvas.x;
         const mouseY = e.clientY - canvas.y;
@@ -182,22 +181,13 @@ export default class Game {
 
     pointOver() {
         if (this.ball.status.point || this.ball.status.out || this.ball.status.fault) {
-            // debugger
             if (this.scorekeeper.serve.second && this.ball.status.fault) {
-                // debugger
                 this.scorekeeper.serve.second = false;
                 this.scorekeeper.serve.double = true;
             } else if (this.scorekeeper.serve.first && this.ball.status.fault) {
-                // debugger
                 this.scorekeeper.serve.first = false;
                 this.scorekeeper.serve.second = true;
             };
-            // if (this.ball.status.point || this.ball.status.out) {
-            //     const sfxIcon = document.querySelector("#sound-button i");
-            //     if (sfxIcon.className === "fas fa-volume-up") this.sounds[3].play();  
-                // this.sounds[2].play();
-            // } else if (this.ball.status.out) {
-            // };
             this.scorekeeper.updatePointScore(this.ball);
             this.scorekeeper.updateGameScore();
             this.ball.status.point = false;

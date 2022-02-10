@@ -25,7 +25,6 @@ export default class HumanPlayer extends MovingObject {
     toss(ball) {
         ball.status.resetting = false;
         ball.status.tossing = true;
-        console.log(ball.status);
         ball.vel = [0, 0, 2.0];
     };
 

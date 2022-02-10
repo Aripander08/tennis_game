@@ -64,7 +64,6 @@ export default class Scorekeeper {
                 this.serve.first = true;
             };
         } else if (ball.status.out || this.serve.double) {
-            // debugger
             if (ball.player.name === "P2") {
                 this.serve.double = false;
                 this.serve.second = false;
@@ -72,19 +71,13 @@ export default class Scorekeeper {
                 this.pointScore.p1 += 1;
                 ball.status.out ? this.totalUEs.p2 += 1 : this.totalDFs.p2 += 1;
             } else {
-                // debugger
                 this.serve.double = false;
                 this.serve.second = false;
                 this.serve.first = true;
                 this.pointScore.p2 += 1;
                 ball.status.out ? this.totalUEs.p1 += 1 : this.totalDFs.p1 += 1;
             };
-            console.log(ball.status);
-            // this.serve.first;
-            // debugger
         };
-        
-        console.log(this.pointScore);
     };
 
     updateGameScore() {
@@ -94,7 +87,6 @@ export default class Scorekeeper {
             this.gameScore.p1 += 1;
             this.pointScore.p1 = 0;
             this.pointScore.p2 = 0;
-            console.log(this.GameScore);
             this.serveArr = this.rotate(this.serveArr, 1);
 
             if (this.bp) this.totalBPs.p1Won += 1;
@@ -102,7 +94,6 @@ export default class Scorekeeper {
             this.gameScore.p2 += 1;
             this.pointScore.p1 = 0;
             this.pointScore.p2 = 0;
-            console.log(this.gameScore);
             this.serveArr = this.rotate(this.serveArr, 1);
             if (this.bp) this.totalBPs.p2Won += 1;
         };
@@ -112,7 +103,7 @@ export default class Scorekeeper {
         };
     };
 
-    isBreakPoint() { // this will just be used for announcer purposes down the line
+    isBreakPoint() {
         let target = 3;
         if (this.tb) target = 6;
         if (this.pointScore.p1 >= target && 
@@ -120,13 +111,11 @@ export default class Scorekeeper {
             this.game.ball.player.name === "P2") {
                 this.bp = true;
                 this.totalBPs.p1 += 1;
-                console.log("breakpoint");
         } else if (this.pointScore.p2 >= target && 
             (this.pointScore.p2 - this.pointScore.p1) > 0 &&
             this.game.ball.player.name === "P1") {
                 this.bp = true;
                 this.totalBPs.p2 += 1;
-                console.log("breakpoint");
         } else {
             this.bp = false;
         };
