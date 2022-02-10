@@ -19,7 +19,7 @@
 
 ### In-house physics
 
-2D Tennis achieves the perception of 3D through the use of shadows. By giving the ball object a height, a velocity applied to the height, and a constant gravity applied against the velocity, two images can be drawn from the one ball object. This makes it appear the ball bounces across the court. For purposes of game balance and feel, the ball has different bounce values based on its Y velocity. 
+2D Tennis achieves the perception of 3D through the use of shadows. By giving the ball object a height, a velocity applied to the height, and a constant gravity applied against the velocity, two images can be drawn from the one ball object: a shadow rendered at the ball object's actual position and a ball rendered at the object's position offset by its height. This makes it appear the ball bounces across the court. For purposes of game balance and feel, the ball has different bounce values based on its Y velocity. 
 
 ```
 const CONSTANTS = {
