@@ -53,20 +53,28 @@ export default class Scorekeeper {
             if (ball.pos[1] < 290) {
                 this.pointScore.p1 += 1;
                 this.totalWinners.p1 += 1;
+                this.serve.double = false;
+                this.serve.second = false;
+                this.serve.first = true;
             } else {
                 this.pointScore.p2 += 1;
                 this.totalWinners.p2 += 1;
+                this.serve.double = false;
+                this.serve.second = false;
+                this.serve.first = true;
             };
         } else if (ball.status.out || this.serve.double) {
             // debugger
             if (ball.player.name === "P2") {
                 this.serve.double = false;
+                this.serve.second = false;
                 this.serve.first = true;
                 this.pointScore.p1 += 1;
                 ball.status.out ? this.totalUEs.p2 += 1 : this.totalDFs.p2 += 1;
             } else {
                 // debugger
                 this.serve.double = false;
+                this.serve.second = false;
                 this.serve.first = true;
                 this.pointScore.p2 += 1;
                 ball.status.out ? this.totalUEs.p1 += 1 : this.totalDFs.p1 += 1;

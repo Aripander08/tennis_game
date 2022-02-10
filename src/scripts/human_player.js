@@ -7,7 +7,7 @@ const CONSTANTS = {
     FEET: "#303032",
     LEGS: "#70592d",
     SHADOW: "rgba(23, 23, 23, 0.75)",
-    MOVESPEED: 1.75,
+    MOVESPEED: 1.95,
 };
 
 export default class HumanPlayer extends MovingObject {
@@ -33,7 +33,10 @@ export default class HumanPlayer extends MovingObject {
         const mouseX = e.clientX - canvas.x;
         const mouseY = e.clientY - canvas.y;
         const angle = Math.atan2(mouseY - ball.pos[1], mouseX - ball.pos[0])
-        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3.1, 2.4];
+        let newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3.5, 2.4];
+        if (ball.status.tossing) {
+            newVel = [Math.cos(angle) * 4, Math.sin(angle) * 4, 1.7];
+        }
         const ballHeight = ball.height;
         if ((ball.status.tossing || ball.status.live) && ballHeight <= 50) {
             const sfxIcon = document.querySelector("#sound-button i");

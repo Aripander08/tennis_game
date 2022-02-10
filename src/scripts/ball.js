@@ -11,13 +11,15 @@ const CONSTANTS = {
 };
 
 export default class Ball extends MovingObject {
-    constructor(pos, vel, radius, height, player, canvas) {
+    constructor(pos, vel, radius, height, player, canvas, game) {
         super(pos, vel);
         this.radius = radius;
         this.player = player; // only starts at '' but does not stay this way
         this.height = height;
         this.canvas = canvas;
+        this.game = game;
         this.bounceCount = 0;
+        
     };
     
     status = {
@@ -101,48 +103,88 @@ export default class Ball extends MovingObject {
         // debugger
         if (this.bounceCount < 1 && !this.status.tossing) {
             this.bounceCount += 1;
-            
-            if ((this.pos[0] < 200 || this.pos[0] > 600) ||
-                (this.pos[1] < 100 || this.pos[1] > 500)) {
-                    if (this.status.serve) {
-                        this.status.serve = false;
-                        this.status.fault = true;
+            if (this.status.serve) {
+                // double fault logic handler -- only handles human double fault as CPU never double faults in current version
+                if (this.player.name === "P1") {
+                    if (this.game.deuceSide) {
+                        if (this.pos[0] > 200 && this.pos[0] < 400 &&
+                        this.pos[1] > 199.8 && this.pos[1] < 290) {
+                            this.status.serve = false;
+                            this.status.live = true;
+                        } else if (this.status.net) {
+                            this.bounceCount += 2;
+                            this.status.fault = true;
+                            this.status.serve = false;
+                            this.status.net = false
+                        } else {
+                            this.status.fault = true;
+                            this.status.serve = false;
+                        };
                     } else {
-                        this.status.live = false;
-                        this.status.out = true;
+                        if (this.pos[0] > 400 && this.pos[0] < 600 &&
+                        this.pos[1] > 199.8 && this.pos[1] < 290) {
+                            this.status.serve = false;
+                            this.status.live = true;
+                        } else if (this.status.net) {
+                            this.bounceCount += 2;
+                            this.status.fault = true;
+                            this.status.serve = false;
+                            this.status.net = false
+                        } else {
+                            this.status.fault = true;
+                            this.status.serve = false;
+                        };
                     };
-                    console.log(this.status); 
-            } else if ((this.vel[1] < 0 && (this.pos[1] > 290) ||
-            (this.vel[1] > 0 && (this.pos[1] < 290)))) {
-                if (this.status.serve) {
+                } else {
                     this.status.serve = false;
-                    this.status.fault = true;
-                } else if (!this.status.fault) {
-                    this.status.live = false;
-                    this.status.out = true;
-                };
-                console.log(this.status);                
-            } else if (this.status.serve && this.status.net) {
-                this.bounceCount += 22;
-                this.status.fault = true;
-                this.status.serve = false;
-                this.status.net = false;
+                    this.status.live = true;
+                }
+            } else if(this.pos[0] > 200 && this.pos[0] < 600 && this.pos[1] > 100 && this.pos[1] < 500) {
+
             } else {
-                this.status.serve = false;
-                this.status.live = true;
-            };
+                this.status.live = false;
+                this.status.out = true;
+            }
+        //     if ((this.pos[0] < 200 || this.pos[0] > 600) ||
+        //         (this.pos[1] < 100 || this.pos[1] > 500)) {
+        //             if (this.status.serve) {
+        //                 this.status.serve = false;
+        //                 this.status.fault = true;
+        //             } else {
+        //                 this.status.live = false;
+        //                 this.status.out = true;
+        //             };
+        //     } else if (this.vel[1] < 0 && (this.pos[1] > 290)) {
+        //         if (this.status.serve && this.vel[1] < 0 && 
+        //             (this.pos[1] < 199.9 )) {
+        //             debugger
+        //                     this.status.serve = false;
+        //                     this.status.fault = true;
+        //         }
+
+        //         } else if (!this.status.fault) {
+        //             this.status.live = false;
+        //             this.status.out = true;
+        //         };
+        //     } else if (this.status.serve && this.status.net) {
+        //         this.bounceCount += 22;
+        //         this.status.fault = true;
+        //         this.status.serve = false;
+        //         this.status.net = false;
+        //     } else {
+        //         this.status.serve = false;
+        //         this.status.live = true;
+        //     };
         } else if (this.bounceCount < 1 && this.status.tossing ) {
             this.status.tossing = false;
             this.status.fault = true;
             this.bounceCount += 2;
-            console.log(this.status);
         } else if (this.bounceCount < 2) {
             this.bounceCount += 1;
             if (this.status.live) {
                 // if the second bounce comes on a live ball, this is a winner
                 this.status.live = false;
                 this.status.point = true;
-                console.log(this.status);
             };
         };
 
@@ -155,6 +197,8 @@ export default class Ball extends MovingObject {
         } else {
             this.vel[2] *= -(0.7);
         };
+
+        // console.log(this.status);
     };
 
     move() {

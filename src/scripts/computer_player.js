@@ -57,33 +57,40 @@ export default class ComputerPlayer extends HumanPlayer {
 
     swing(ball) {
         if (ball.roundCollisionDetector(this) === this && 
-            (!ball.status.out && ball.player !== this) ||
-            (ball.status.tossing && ball.player === this)) {
+        (!ball.status.out && ball.player !== this) ||
+        (ball.status.tossing && ball.player === this)) {
                 this.racket.swing();
 
                 const sfxIcon = document.querySelector("#sound-button i");
                 if (sfxIcon.className === "fas fa-volume-up") this.sfx.play();
                 if (!ball.status.tossing) {
-                    if (ball.bounceCount < 1) {
-                        // debugger
-                        // ball.vel[1] *= ;
-                        if (ball.vel[2] > 0 ) debugger
-                        // debugger
-                    }
-
-                    let randX = Math.floor(Math.random() * 2);
-                    let crossX = Math.random() * 1;
+                    let randX = Math.floor(Math.random() * 20);
+                    let crossX = Math.random() * (1 - 0.25) + 0.25;
                     if ((this.pos[0] + this.width/2) > 600 || (this.pos[0] + this.width/2) < 200) {
                         ball.vel[0] *= -(crossX);
-                        ball.vel[1] -= 0.6;
-                        ball.vel[2] += 1.5;
+                        ball.vel[1] -= 0.5;
+                        ball.vel[2] += 3;
                     } else {
-                        if (randX === 1) {
+                        if (randX < 1) {
                             ball.vel[0] *= 0;
-                            // ball.vel[2] -= 0.5;
+                            ball.vel[1] -= 1.5;
+                            ball.vel[2] += 3.0;
+                        } else if (randX < 7) {
+                            ball.vel[0] *= 0;
+                            ball.vel[1] -= 0.5;
+                            ball.vel[2] -= 100.0;
+                        } else if (randX < 16) {
+                            ball.vel[0] *= -(crossX);
+                            if ((this.pos[0] + this.width / 2) < 400) {
+                                ball.vel[0] += crossX;
+                            } else if ((this.pos[0] + this.width / 2) >= 400) {
+                                ball.vel[0] -= crossX;
+                            };
+                            ball.vel[1] -= 0.7;
                         } else {
                             ball.vel[0] *= -(crossX);
-                            ball.vel[1] += 0.5;
+                            ball.vel[1] -= 2.0;
+                            ball.vel[2] -= 100;
                         };
                     };
     
@@ -91,11 +98,10 @@ export default class ComputerPlayer extends HumanPlayer {
                         ball.vel[1] = 3.3;
                         ball.vel[2] -= 1.5;
                     } else {
-                        ball.vel[1] *= -(1.0); // computer applies consistent drive on ball
+                        ball.vel[1] *= -(0.9); // computer applies consistent drive on ball
                         ball.vel[2] = 2; // computer applies consistent up on ball
                     };
                     // Change to vel based on height of ball
-                    
                 } else if (ball.status.tossing) {
                     let serveX = this.pos[0] < 300 ? 2 : -2;
                     ball.vel[0] += serveX;

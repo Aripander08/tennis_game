@@ -50,14 +50,14 @@ export default class Court {
             midY: this.canvas.height * CONSTANTS.SERVEMIDY,
             rightX: this.canvas.width * CONSTANTS.SERVENEARRIGHTX, 
             nearY: this.canvas.height * CONSTANTS.SERVENEARY
-        }
+        };
         this.nearAd = {
             midX: this.canvas.width * CONSTANTS.SERVEMIDX,
             midY: this.canvas.height * CONSTANTS.SERVEMIDY,
             leftX: this.canvas.width * CONSTANTS.SERVENEARLEFTX, 
             nearY: this.canvas.height * CONSTANTS.SERVENEARY
-        }
-    }
+        };
+    };
 
     draw(ctx) {
         // outer court

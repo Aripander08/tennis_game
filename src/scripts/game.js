@@ -109,7 +109,8 @@ export default class Game {
             this.ctx.canvas.width * 0.00625,
             10,
             this.scorekeeper.serveArr[0] === 1 ? this.player1 : this.player2, 
-            this.ctx.canvas
+            this.ctx.canvas,
+            this
         );
 
         this.objects.push(this.court);
