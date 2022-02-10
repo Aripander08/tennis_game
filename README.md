@@ -108,7 +108,7 @@ findPath(ball) {
     };
 };
 ```
-The Computer swing will always impart the save velocity on the ball when serving or swinging wide out from the court. For every other swing, it will randomly choose a shot.
+The Computer swing will always impart the same velocity on the ball when serving or swinging wide out from the court. For every other swing, it will randomly choose a shot.
 
 - 5% chance to hit a fast shot down the line
 - 30% chance to hit a normal shot down the line
