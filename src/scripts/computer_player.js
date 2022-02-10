@@ -90,7 +90,7 @@ export default class ComputerPlayer extends HumanPlayer {
                         } else {
                             ball.vel[0] *= -(crossX);
                             ball.vel[1] -= 2.0;
-                            ball.vel[2] -= 100;
+                            ball.vel[2] += 100;
                         };
                     };
     
