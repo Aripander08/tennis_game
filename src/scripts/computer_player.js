@@ -39,8 +39,6 @@ export default class ComputerPlayer extends HumanPlayer {
             if (this.pos[0] !== 392 || this.pos[1]!== 40) {
                 this.move();
             };
-        } else if (ball.status.tossing) {
-            // this.
         } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
             this.vel = newVel;
             this.move();

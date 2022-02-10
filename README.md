@@ -1,82 +1,97 @@
 ## Background
 
-"2D Tennis, a tennis game" is a simple top-down tennis video game that follows the same scoring as tennis. [Refer to the USTA for more information on scoring rules.](https://www.usta.com/en/home/improve/tips-and-instruction/national/tennis-scoring-rules.html) In "2D Tennis", players only need to win 1 set of singles to win the match. 
+"2D Tennis, a tennis game" is a single-player top-down tennis video game. [Refer to the USTA for more information on scoring rules.](https://www.usta.com/en/home/improve/tips-and-instruction/national/tennis-scoring-rules.html) In "2D Tennis", players only need to win 1 set of singles to win the match and the human player always remains on the near side of the court.
 
-## Functionality & MVPs
+## Start serving it up by smashing [here!]()
 
-In "2D Tennis, a tennis game", users will be able to:
+## Technologies Used
 
-- Move around the court using WASD
-- Swing at the ball using Click
-- Aim the swing using your cursor positio.
+- Canvas API is used for drawing the tennis court and all the objects of the game
+- Web Audio API is used to play sound effects
+- Javascript/HTML/CSS
+- Vanilla DOM Manipulation
+- Webpack
+- Github Pages
+- Free video game sound effects from [OpenGameArt](https://opengameart.org/)
+- Icons from [Font Awesome](https://fontawesome.com/)
 
-In addition, this project will include:
+## Features
 
-- A sound effects toggle button
-- Post-game stats showing player's 'winners' and 'unforced errors'.
-- A README
+### In-house physics
 
-## Wireframes
+2D Tennis achieves the perception of 3D through the use of shadows. By giving the ball object a height, a velocity applied to the height, and a constant gravity applied against the velocity, two images can be drawn from the one ball object. This makes it appear the ball bounces across the court.
 
-![wireframe](./wireframe.png)
+```
+const CONSTANTS = {
+    GRAVITY: -0.05
+};
 
-- Once loaded, canvas will display the start menu that includes controls
-- Sfx toggle allows user to toggle sound effects
-- Buttons that are Links the the project github repo and my linkedin are to the right.
+class Ball extends MovingObject {
+    constructor(pos, vel, radius, height) {
+        super(pos, vel);
+        this.radius = radius;
+        this.height = height;
+    };
 
-## Technologies, Libraries, APIs
+    move() {
+        if (this.height < 1) {
+            this.bounce();
+        } else {
+            this.vel[2] += CONSTANTS.GRAVITY;
+        ;}
 
-- The Canvas API is used for drawing the tennis court, the net, the ball, and the players
-- POSSIBILITY The Gamepad API is used to handle user input
+        this.pos[0] += this.vel[0];
+        this.pos[1] += this.vel[1];
+        this.height += this.vel[2];
+        if (this.height < 0) {
+            this.height = 0;
+        }
+    };
 
-## Implementation Timeline
+    bounce() {
+        if (this.vel[1] > 0) {
+            this.vel[2] *= -(0.65);
+        } else if (this.vel[1] < 0) {
+            this.vel[2] *= -(0.5);
+        } else {
+            this.vel[2] *= -(0.7);
+        };
+    };
+}
+```
 
-- Friday Afternoon:  
-    - Project setup:
-    - Create MovingObject (excluding height)
-    - Create Ball
-    - Create HumanPlayer (any collision with the ball will count as a swing for now)
-    - Make sure the velocities of the Ball and HumanPlayer are 'playable'
-- Weekend
-    - Create ComputerPlayer that will determine the shortest path to intercept with the moving Ball's path and move accordingly
-    - Implement height to Ball and Player
-    - Create Court that detects collision with Ball if Ball height is 0. Based on location in court where Ball height is 0, Court will determine if Ball is in or out
-    - Create Net that detects collision with Ball if Ball height is less than Net height when crossing over the Net's position
-- Monday
+### Computer Opponent
 
-    - Continue working on the Ball's height and collision detection
-- Tuesday
-    - Add swing function to HumanPlayer.
-    - Allow ComputerPlayer to use SwingFunction if in position
-    - Create Game that handles score keeping
-- Wednesday
+The Computer will either find a path to the oncoming ball or return to its neutral position after hitting the ball. The necessary velocities are calculated using Math.atan2, Math.cos, and Math.sin.
 
-    - Update Player from being a rectangle to a drawing with animations for moving and swinging
-    - Add start menu, instructions, sound toggle to Game
-- Thursday Morning
-    - Depl0y to GitHub
+```
+findPath(ball) {
+    const angle = Math.atan2(
+        ball.pos[1] - this.pos[1], 
+        ball.pos[0] - this.pos[0]
+    );
+    const newVel = [
+        Math.cos(angle) * (5.4), 
+        Math.sin(angle) * (0.2)
+    ];
 
-## What I did on Tuesday
-- Added game logic
-- Added cpu serve and serve rotation
-- Added a restart button
-- Added a post-game stat screen with click to restart functionality
+    const returnAngle = Math.atan2(
+        40 - this.pos[1], // FOR ATAN THIS IS THE Y
+        392 - this.pos[0] // THIS IS THE X
+    );
+    const returnVel = [
+        Math.cos(returnAngle) * (0.6), 
+        Math.sin(returnAngle) * (0.4)
+    ];
 
-## Roadblocks
-- Implementing CPU serve and rotating serve order
-- styling the html surrounding the canvas
-
-## To Do Today
-- Give SFX button real functionality
-- Style the buttons margin or apadding
-- if time given hide the instructions list in a (i) button that when clicked has an animation for the info to slide out from
-
-## Known bugs
-- Hitting the first serve out counts as out instead of as fault
-- button icons do not 'unfocus' after clicking
-- SFX button doesn't work
-- When ball hits canvas border, sometimes bounces back sometimes just stops and sometimes it rolls too far out
-- Should probably refactor the actual function of bouncing the ball into the court class out of the ball class
-- Should refactor court class to DRY it up 
-
-
+    if (ball.player === this || ball.status.tossing || ball.status.resetting) {
+        this.vel = returnVel;
+        if (this.pos[0] !== 392 || this.pos[1]!== 40) {
+            this.move();
+        };
+    } else if ((this.pos[1] + this.height) < this.net.pos[1]) {
+        this.vel = newVel;
+        this.move();
+    };
+};
+```

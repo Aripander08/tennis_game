@@ -144,37 +144,8 @@ export default class Ball extends MovingObject {
             } else {
                 this.status.live = false;
                 this.status.out = true;
-            }
-        //     if ((this.pos[0] < 200 || this.pos[0] > 600) ||
-        //         (this.pos[1] < 100 || this.pos[1] > 500)) {
-        //             if (this.status.serve) {
-        //                 this.status.serve = false;
-        //                 this.status.fault = true;
-        //             } else {
-        //                 this.status.live = false;
-        //                 this.status.out = true;
-        //             };
-        //     } else if (this.vel[1] < 0 && (this.pos[1] > 290)) {
-        //         if (this.status.serve && this.vel[1] < 0 && 
-        //             (this.pos[1] < 199.9 )) {
-        //             debugger
-        //                     this.status.serve = false;
-        //                     this.status.fault = true;
-        //         }
+            };
 
-        //         } else if (!this.status.fault) {
-        //             this.status.live = false;
-        //             this.status.out = true;
-        //         };
-        //     } else if (this.status.serve && this.status.net) {
-        //         this.bounceCount += 22;
-        //         this.status.fault = true;
-        //         this.status.serve = false;
-        //         this.status.net = false;
-        //     } else {
-        //         this.status.serve = false;
-        //         this.status.live = true;
-        //     };
         } else if (this.bounceCount < 1 && this.status.tossing ) {
             this.status.tossing = false;
             this.status.fault = true;
