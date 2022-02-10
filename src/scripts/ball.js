@@ -28,6 +28,7 @@ export default class Ball extends MovingObject {
         "out": false,
         "point": false,
         "serve": false,
+        "net:": false
     };
 
     drawCircle(ctx, color, circle) {
@@ -97,6 +98,7 @@ export default class Ball extends MovingObject {
     };
 
     bounce() {
+        // debugger
         if (this.bounceCount < 1 && !this.status.tossing) {
             this.bounceCount += 1;
             
@@ -115,11 +117,16 @@ export default class Ball extends MovingObject {
                 if (this.status.serve) {
                     this.status.serve = false;
                     this.status.fault = true;
-                } else {
+                } else if (!this.status.fault) {
                     this.status.live = false;
                     this.status.out = true;
                 };
                 console.log(this.status);                
+            } else if (this.status.serve && this.status.net) {
+                this.bounceCount += 22;
+                this.status.fault = true;
+                this.status.serve = false;
+                this.status.net = false;
             } else {
                 this.status.serve = false;
                 this.status.live = true;

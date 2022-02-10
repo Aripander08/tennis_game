@@ -33,7 +33,7 @@ export default class HumanPlayer extends MovingObject {
         const mouseX = e.clientX - canvas.x;
         const mouseY = e.clientY - canvas.y;
         const angle = Math.atan2(mouseY - ball.pos[1], mouseX - ball.pos[0])
-        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3, 2.4];
+        const newVel = [Math.cos(angle) * 3, Math.sin(angle) * 3.1, 2.4];
         const ballHeight = ball.height;
         if ((ball.status.tossing || ball.status.live) && ballHeight <= 50) {
             const sfxIcon = document.querySelector("#sound-button i");

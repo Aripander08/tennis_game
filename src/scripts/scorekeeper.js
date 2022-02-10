@@ -16,8 +16,8 @@ export default class Scorekeeper {
             p2: 0
         };
         this.gameScore = {
-            p1: 6,
-            p2: 5
+            p1: 0,
+            p2: 0
         };
         this.totalWinners = {
             p1: 0,
@@ -45,6 +45,10 @@ export default class Scorekeeper {
     };
 
     updatePointScore(ball) {
+        if (this.tb && (ball.status.point || ball.status.out || this.serve.double)) {  
+            this.serveArr = this.rotate(this.serveArr, 1);
+        };
+
         if (ball.status.point) {
             if (ball.pos[1] < 290) {
                 this.pointScore.p1 += 1;
@@ -54,24 +58,24 @@ export default class Scorekeeper {
                 this.totalWinners.p2 += 1;
             };
         } else if (ball.status.out || this.serve.double) {
+            // debugger
             if (ball.player.name === "P2") {
                 this.serve.double = false;
                 this.serve.first = true;
                 this.pointScore.p1 += 1;
                 ball.status.out ? this.totalUEs.p2 += 1 : this.totalDFs.p2 += 1;
             } else {
+                // debugger
                 this.serve.double = false;
                 this.serve.first = true;
                 this.pointScore.p2 += 1;
                 ball.status.out ? this.totalUEs.p1 += 1 : this.totalDFs.p1 += 1;
             };
             console.log(ball.status);
-            this.serve.first;
+            // this.serve.first;
+            // debugger
         };
-        if (this.tb) {  
-            this.serveArr = this.rotate(this.serveArr, 1);
-        };
-
+        
         console.log(this.pointScore);
     };
 

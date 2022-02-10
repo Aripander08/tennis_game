@@ -1,3 +1,5 @@
+import Ball from "./ball";
+
 const CONSTANTS = {
     CORD: "#D9D9D9",
     POST: "#262626",
@@ -102,6 +104,14 @@ export default class Net {
             // if (ball.status !== "resetting") {
             //     console.log(ball.status);
             // }
+        
+            // debugger
+            ball.status.net = true;
+            // if (ball.status.serve) {
+            //     ball.status.serve = false;
+            //     ball.status.fault = true;
+            // };
+
             ball.vel[0] = 0;
             ball.vel[1] = 0;
             ball.vel[2] *= (0.5);

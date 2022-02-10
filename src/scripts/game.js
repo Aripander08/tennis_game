@@ -43,7 +43,7 @@ export default class Game {
         this.gameView = new GameView(this);
         this.gameOver = false;
         this.winner = null;
-
+        this.deuceSide = true;
         this.resetPoint();
     };
 
@@ -55,23 +55,33 @@ export default class Game {
     };
 
     resetPoint() {
+        let ballStart = [400, 520];
+
+        if ((this.scorekeeper.pointScore.p1 + 
+            this.scorekeeper.pointScore.p2) % 2 === 0) {
+                this.deuceSide = true;
+        } else {
+            this.deuceSide = false;
+        };
+
         this.rallyStarted = false;
         this.court = new Court(this.ctx);
         this.net = new Net(this.ctx);
         this.p1racket = new Racket(
-            [392 + 16 * (4/5),
+            [(this.deuceSide ? 492 : 292) + 16 * (4/5),
             500 + 48 * (2/5)],
             10, CONSTANTS.P1COLOR,
             CONSTANTS.RACKET1COL
         );
         this.p2racket = new Racket(
-            [392 + 16 * (4/5),
+            [(this.deuceSide ? 292 : 492) + 16 * (4/5),
             40 + 48 * (2/5)],
             10, CONSTANTS.P2COLOR,
             CONSTANTS.RACKET2COL
         );
         this.player1 = new HumanPlayer(
-            [392, 500], 
+            // [392, 500], 
+            this.deuceSide ? [492, 500] : [292, 500],
             [0,0], 
             CONSTANTS.P1COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
@@ -81,7 +91,8 @@ export default class Game {
             this.p1racket
         );
         this.player2 = new ComputerPlayer(
-            [392, 40], 
+            // [392, 40], 
+            this.deuceSide ? [292, 40] : [492, 40], 
             [0, 0], 
             CONSTANTS.P2COLOR, 
             this.ctx.canvas.width * CONSTANTS.PLAYERHT,
@@ -91,7 +102,9 @@ export default class Game {
             this.p2racket
         );
         this.ball = new Ball(
-            this.scorekeeper.serveArr[0] === 1 ? [400, 520] : [400, 98],
+            this.scorekeeper.serveArr[0] === 1 ? 
+                [this.deuceSide ? 500 : 300, 520] : 
+                [this.deuceSide ? 300 : 500, 98],
             [0, 0, 0], 
             this.ctx.canvas.width * 0.00625,
             10,
@@ -168,10 +181,13 @@ export default class Game {
 
     pointOver() {
         if (this.ball.status.point || this.ball.status.out || this.ball.status.fault) {
+            // debugger
             if (this.scorekeeper.serve.second && this.ball.status.fault) {
+                // debugger
                 this.scorekeeper.serve.second = false;
                 this.scorekeeper.serve.double = true;
             } else if (this.scorekeeper.serve.first && this.ball.status.fault) {
+                // debugger
                 this.scorekeeper.serve.first = false;
                 this.scorekeeper.serve.second = true;
             };
@@ -187,7 +203,7 @@ export default class Game {
             this.ball.status.out = false;
             this.ball.status.fault = false;
             this.ball.status.resetting = true;
-            setTimeout(this.resetPoint.bind(this), 3000);
+            setTimeout(this.resetPoint.bind(this), 1500);
         };
     };
 
