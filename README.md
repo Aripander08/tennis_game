@@ -108,3 +108,35 @@ findPath(ball) {
     };
 };
 ```
+The Computer swing will always impart the save velocity on the ball when serving or swinging wide out from the court. For every other swing, it will randomly choose a shot.
+
+- 5% chance to hit a fast shot down the line
+- 30% chance to hit a normal shot down the line
+- 45% chance to hit a cross court shot with a randomized angle
+- 20% chance to hit an unforced error
+
+```
+let randX = Math.floor(Math.random() * 20);
+let crossX = Math.random() * (1 - 0.25) + 0.25;
+if(randX < 1) {
+    ball.vel[0] *= 0;
+    ball.vel[1] -= 1.5;
+    ball.vel[2] += 3.0;
+} else if (randX < 7) {
+    ball.vel[0] *= 0;
+    ball.vel[1] -= 0.5;
+    ball.vel[2] -= 100.0;
+} else if (randX < 16) {
+    ball.vel[0] *= -(crossX);
+    if ((this.pos[0] + this.width / 2) < 400) {
+        ball.vel[0] += crossX;
+    } else if ((this.pos[0] + this.width / 2) >= 400) {
+        ball.vel[0] -= crossX;
+    };
+    ball.vel[1] -= 0.7;
+} else {
+    ball.vel[0] *= -(crossX);
+    ball.vel[1] -= 2.0;
+    ball.vel[2] += 100;
+};
+```
