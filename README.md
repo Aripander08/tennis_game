@@ -47,7 +47,7 @@ class Ball extends MovingObject {
         this.height += this.vel[2];
         if (this.height < 0) {
             this.height = 0;
-        }
+        };
     };
 
     bounce() {
@@ -59,7 +59,18 @@ class Ball extends MovingObject {
             this.vel[2] *= -(0.7);
         };
     };
-}
+};
+```
+
+```
+Net.prototype.stopBall(ball) {
+        if (ball.netCollisionDetector(this) === this) {
+        ball.status.net = true;
+        ball.vel[0] = 0;
+        ball.vel[1] = 0;
+        ball.vel[2] *= (0.5);
+    };
+};
 ```
 
 ### Computer Opponent
