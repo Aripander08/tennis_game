@@ -76,8 +76,8 @@ findPath(ball) {
     ];
 
     const returnAngle = Math.atan2(
-        40 - this.pos[1], // FOR ATAN THIS IS THE Y
-        392 - this.pos[0] // THIS IS THE X
+        40 - this.pos[1],
+        392 - this.pos[0]
     );
     const returnVel = [
         Math.cos(returnAngle) * (0.6), 
