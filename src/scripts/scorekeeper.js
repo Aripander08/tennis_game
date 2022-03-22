@@ -13,11 +13,11 @@ export default class Scorekeeper {
         this.serveArr = [1,2];
         this.pointScore = {
             p1: 0,
-            p2: 0
+            p2: 3
         };
         this.gameScore = {
-            p1: 0,
-            p2: 0
+            p1: 6,
+            p2: 5
         };
         this.totalWinners = {
             p1: 0,
