@@ -115,7 +115,7 @@ The Computer swing will always impart the same velocity on the ball when serving
 - 45% chance to hit a cross court shot with a randomized angle
 - 20% chance to hit an unforced error
 
-```
+```js
 let randX = Math.floor(Math.random() * 20);
 let crossX = Math.random() * (1 - 0.25) + 0.25;
 if(randX < 1) {
