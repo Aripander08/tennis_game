@@ -23,7 +23,7 @@
 
 This height value is used to determine whether a ball bounces in or out of bounds, collides with the net, or is too high for a player to hit. 
 
-```
+```js
 const CONSTANTS = {
     GRAVITY: -0.05
 };
@@ -62,7 +62,7 @@ class Ball extends MovingObject {
 };
 ```
 
-```
+```js
 Net.prototype.stopBall(ball) {
         if (ball.netCollisionDetector(this) === this) {
         ball.status.net = true;
@@ -77,7 +77,7 @@ Net.prototype.stopBall(ball) {
 
 The Computer will either find a path to the oncoming ball or return to its neutral position after hitting the ball. The necessary velocities are calculated using Math.atan2, Math.cos, and Math.sin.
 
-```
+```js
 findPath(ball) {
     const angle = Math.atan2(
         ball.pos[1] - this.pos[1], 
