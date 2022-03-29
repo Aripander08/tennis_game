@@ -79,6 +79,7 @@ export default class Net {
 
     drawNet(ctx, color, x, y, w, h) {
         ctx.fillStyle = color;
+        ctx.beginPath();
         ctx.fillRect(x, y, w, h);
     };
     drawPost(ctx, width, color, startPos, endPos) {

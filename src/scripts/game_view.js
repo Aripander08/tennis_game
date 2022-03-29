@@ -24,7 +24,9 @@ export default class GameView {
                 this.drawPostGame('lose');
             };
         };
-        if (this.game.rallyStarted) {
+        if (this.game.rallyStarted && !this.game.paused) {
+            // debugger
+
             this.gameLoop(this.game);
             requestAnimationFrame(this.animate.bind(this));
         };
