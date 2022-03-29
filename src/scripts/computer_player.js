@@ -21,7 +21,7 @@ export default class ComputerPlayer extends HumanPlayer {
             ball.pos[0] - this.pos[0]
         );
         const newVel = [
-            Math.cos(angle) * (5.4), 
+            Math.cos(angle) * (5.1), 
             Math.sin(angle) * (0.2)
         ];
 
@@ -73,19 +73,20 @@ export default class ComputerPlayer extends HumanPlayer {
                             ball.vel[0] *= 0;
                             ball.vel[1] -= 1.5;
                             ball.vel[2] += 3.0;
-                        } else if (randX < 7) {
+                        } else if (randX < 6) {
                             ball.vel[0] *= 0;
-                            ball.vel[1] -= 0.5;
+                            ball.vel[1] -= 0.4;
                             ball.vel[2] -= 100.0;
-                        } else if (randX < 16) {
+                        } else if (randX < 12) {
                             ball.vel[0] *= -(crossX);
                             if ((this.pos[0] + this.width / 2) < 400) {
                                 ball.vel[0] += crossX;
                             } else if ((this.pos[0] + this.width / 2) >= 400) {
                                 ball.vel[0] -= crossX;
                             };
-                            ball.vel[1] -= 0.7;
+                            ball.vel[1] -= 0.6;
                         } else {
+                            // computer makes error
                             ball.vel[0] *= -(crossX);
                             ball.vel[1] -= 2.0;
                             ball.vel[2] += 100;
