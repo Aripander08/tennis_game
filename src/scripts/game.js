@@ -44,6 +44,7 @@ export default class Game {
         this.gameOver = false;
         this.winner = null;
         this.deuceSide = true;
+        this.paused = false;
         this.resetPoint();
     };
 
@@ -53,6 +54,16 @@ export default class Game {
             this.gameView.animate(this);
         };
     };
+
+    togglePause() {
+        // debugger
+        if (this.paused) {
+            this.paused = false;
+            this.gameView.animate(this);
+        } else {
+            this.paused = true;
+        }
+    }
 
     resetPoint() {
         let ballStart = [400, 520];
@@ -65,6 +76,7 @@ export default class Game {
         };
 
         this.rallyStarted = false;
+        // this.paused = false;
         this.court = new Court(this.ctx);
         this.net = new Net(this.ctx);
         this.p1racket = new Racket(

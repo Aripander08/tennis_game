@@ -62,9 +62,11 @@ export default class Court {
     draw(ctx) {
         // outer court
         ctx.fillStyle = CONSTANTS.GREEN;
+        ctx.beginPath();
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         // outer court shadow
         ctx.fillStyle = CONSTANTS.SHADOW;
+        ctx.beginPath();
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height / 20);
         // inner court & court lines
         ctx.fillStyle = CONSTANTS.BLUE;

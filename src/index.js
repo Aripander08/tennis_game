@@ -25,10 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
     restartBtn.addEventListener('click', () => {
         history.go(0);
     });
-    restartBtn.addEventListener('mouseenter', () => {
-        restartBtn.style.cursor = "pointer";
-    });
-
 
     const sfxBtn = document.querySelector("#sound-button");
     const sfxIcon = document.querySelector("#sound-button i");
@@ -39,7 +35,22 @@ document.addEventListener("DOMContentLoaded", function() {
             sfxIcon.className = "fas fa-volume-up";
         };
     });
-    sfxBtn.addEventListener('mouseenter', () => {
-        sfxBtn.style.cursor = "pointer";
+    
+    const instrBtn = document.getElementById('instructions-button');
+    const infoModal = document.querySelector('.modal-info')
+    instrBtn.addEventListener('click', () => {
+        // debugger
+        game.togglePause();
+        infoModal.className = infoModal.className === "modal-info active" 
+            ? "modal-info" 
+            : "modal-info active";
+    });
+
+    infoModal.addEventListener('click', e => {
+        e.stopPropagation();
+        game.togglePause();
+        infoModal.className = infoModal.className === "modal-info active" 
+            ? "modal-info" 
+            : "modal-info active";
     });
 });
