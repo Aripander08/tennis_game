@@ -211,18 +211,18 @@ export default class Game {
     };
 
     win() {
-        if (this.scorekeeper.gameScore.p1 === 6 &&
+        if (this.scorekeeper.gameScore.p1 === 16 &&
             this.scorekeeper.gameScore.p1 - this.scorekeeper.gameScore.p2 >= 2 ) {
                 this.gameOver = true;
                 this.winner = this.player1;
-        } else if (this.scorekeeper.gameScore.p2 === 6 &&
+        } else if (this.scorekeeper.gameScore.p2 === 16 &&
             this.scorekeeper.gameScore.p2 - this.scorekeeper.gameScore.p1 >= 2) {
                 this.gameOver = true;
                 this.winner = this.player2;
-        } else if (this.scorekeeper.gameScore.p1 === 7) {
+        } else if (this.scorekeeper.gameScore.p1 === 17) {
             this.gameOver = true;
             this.winner = this.player1;
-        } else if (this.scorekeeper.gameScore.p2 === 7) {
+        } else if (this.scorekeeper.gameScore.p2 === 17) {
             this.gameOver = true;
             this.winner = this.player2;
         };
